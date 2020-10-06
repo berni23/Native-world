@@ -1,58 +1,56 @@
 function getUsers() {
 
-    var users = JSON.parse(localStorage.getItem('users'));
+    var localUsers = eval(JSON.parse(localStorage.getItem('users')));
+    if (localUsers) return localUsers;
 
-    if (users) return users;
+    localUsers = new users();
+    localStorage.getItem(JSON.stringify(localUsers));
 
-    else return {};
+    return localUsers;
 
 }
 
 
-function getUser(userName) {
-    return getUsers()[userName];
-}
+class users {
+    constructor() {
+        /* this.getUser = getUser();
+         this.setUser = setUser();
+         this.userExist = userExist();
+         */
 
-function setUser(username, password) {
+    }
 
-    var users = getUsers();
-    if (users[username]) return false;
+    //public methods
 
-    else {
+    // getter
+    getUser(userName) {
+        return this[userName]
+    }
 
-        users[username] = newUser;
-        localStorage.setItem(JSON.stringify(users));
+    //setter
+    setUser(userName, password) {
+        if (this.userExist(userName)) return false; // user exists
+        this[userName] = new user(userName, password);
+
+    }
+
+    userExist(userName) {
+        return this[userName] == true;
     }
 
 
 }
 
+class user {
+    constructor(userName, password) {
+        this.userName = userName;
+        this.password = password;
+        this.languages = {};
+        this.lastActive = "";
 
-
-// create user
-
-
-function createUser(userName, password) {
-
-    // methods
-
-    var user = {
-        name: userName,
-        password: password,
-        languages: {
-
-        },
-        lastActive
     }
+    createLanguage(language) {
+        this.languages[language] = {};
 
-
-    return user;
-
-    //setUser(user);
-
-}
-
-createUser.prototype.createLanguage = function (language) {
-    this.languages[language] = {};
-
+    }
 }

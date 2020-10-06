@@ -5,15 +5,21 @@ $(document).ready(function () {
     var inputName = $("#user-name");
     var inputPassword = $("#password-input");
 
+
+    var users = getUsers();
+
     loginBtn.click(login);
     registerBtn.click(register);
 
     function login() {
         var userName = inputName.val();
         var password = inputPassword.val();
-        var user = getUser(userName);
 
-        if (user && user.password === password) {
+        var user = users[userName];
+
+        console.log(users);
+
+        if (user && user.password == password) {
 
             // login successful
 
@@ -37,12 +43,16 @@ $(document).ready(function () {
         var userName = inputName.val();
         var password = inputPassword.val();
 
-        if (getUser()) {
+        if (users.userExist(userName)) {
 
             // user already exists
         } else {
 
-            createUser(userName, password)
+
+            users.setUser(userName, password);
+
+
+            console.log(users);
 
             console.log('registered');
         }
