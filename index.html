@@ -4,20 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/styles.css" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="/script.js" defer></script>
-    <title>Document</title>
+
+
+    <script src="main.js" defer></script>
+    <script src="user.js" defer></script>
+
+    <title>Native world</title>
 </head>
 
 <body>
 
-    <div class="container">
+    <div class="container login-page">
         <div class="row">
             <div class="col-lg-3 col-md-2"></div>
             <div class="col-lg-8 col-md-8 login-box">
@@ -28,35 +33,36 @@
                 <div class="col-lg-12 login-title">
                     ADMIN PANEL
                 </div>
-
                 <div class="col-lg-12 login-form">
                     <div class="col-lg-12 login-form">
-                        <form>
-                            <div class="form-group">
-                                <label class="form-control-label">USERNAME</label>
-                                <input type="text" class="form-control">
+                        <!-- <form>-->
+                        <div class="form-group">
+                            <label class="form-control-label" required>USERNAME</label>
+                            <input id="user-name" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" required>PASSWORD</label>
+                            <input id="password-input" type="password" class="form-control" i>
+                        </div>
+                        <div class="col-lg-12 loginbttm">
+                            <div class="col-lg-6 login-btm login-text">
+                                <!-- Error Message -->
                             </div>
-                            <div class="form-group">
-                                <label class="form-control-label">PASSWORD</label>
-                                <input type="password" class="form-control" i>
+                            <div class="col-lg-6 login-btm login-button">
+                                <button id="login-btn" type="submit" class="btn btn-outline-primary"
+                                    required>LOGIN</button>
+                                <button id="register-btn" type="submit" class="btn btn-outline-primary" required>Create
+                                    account</button>
                             </div>
-
-                            <div class="col-lg-12 loginbttm">
-                                <div class="col-lg-6 login-btm login-text">
-                                    <!-- Error Message -->
-                                </div>
-                                <div class="col-lg-6 login-btm login-button">
-                                    <button type="submit" class="btn btn-outline-primary">LOGIN</button>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
+                        <!-- </form>-->
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-2"></div>
             </div>
         </div>
+    </div>
 
-
-</body>
-
-</html>
+    <div class="container user-profile"></div>
+    <div class="dashboard"></div>
+    <div </body> </html>
