@@ -27,8 +27,6 @@ function setUser(username, password) {
 
 }
 
-
-
 // create user
 
 
@@ -39,9 +37,7 @@ function createUser(userName, password) {
     var user = {
         name: userName,
         password: password,
-        languages: {
-
-        },
+        languages: {},
         lastActive
     }
 
