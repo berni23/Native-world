@@ -45,7 +45,6 @@
                         <input id="user-name" type="text" class="form-control">
                         <label>PASSWORD</label>
                         <input id="password-input" type="password" class="form-control" i>
-
                         <div class="col-lg-12 loginbttm">
                             <div class="col-lg-6 login-btm login-text">
                                 <!-- Error Message -->
@@ -72,13 +71,13 @@ class="btn btn-outline-primary">LOGIN</a>
         <div class="profileInfo-wrapper">
             <img src="/assets/add-user.png" class="userIcon" />
             <div class="profileInfo">
-                <h5>User name</h4>
-                    <h6>Last active: --/--/----</h3>
-                        <select data-placeholder="Choose a Language...">
-                            <option value="Catalan">Catalan</option>
-                            <option value="Dutch">Dutch</option>
-                            <option value="English">English</option>
-                        </select>
+                <h5 class="username-profile"> User name</h5>
+                <h6>Last active: --/--/----</h6>
+                <select data-placeholder="Choose a Language...">
+                    <option value="Catalan">Catalan</option>
+                    <option value="Dutch">Dutch</option>
+                    <option value="English">English</option>
+                </select>
             </div>
         </div>
 
@@ -87,9 +86,26 @@ class="btn btn-outline-primary">LOGIN</a>
                 <img class="flag" src="https://www.countryflags.io/fr/shiny/64.png">
                 <span class="language-label">French</span>
             </div>
-            <div class=" container row profile-languages">
+            <div class=" container row profile-languages new-language">
                 <img class="flag" src="assets/new_language.svg">
                 <span class="language-label">Click to add a new languae</span>
+            </div>
+            <div class="modal">
+                <div class="modal-content">
+                    <span class="close-button" id="close-modal">&times;</span>
+                    <h1 class="modal-title">New language</h1>
+                    <input list="data-languages" id="select-task-color" placeholder="select a task color">
+                    <datalist id="data-languages">
+                        <option value="fr">french</option>
+                    </datalist>
+                    </li>
+                    </ul>
+                    </form>
+                    <div class="createCancel-wrapper">
+                        <button class="button-form" id="create-language">Create</button>
+                        <button class="button-form" id="cancel-language">Cancel</button>
+                    </div>
+                </div>
             </div>
 </body>
 
