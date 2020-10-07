@@ -187,8 +187,6 @@ input:focus {
     display: flex;
     float: left;
     position: relative;
-    width: 80%;
-    height: 80%;
     margin: 10% 0 0 10%;
 
 }
@@ -234,15 +232,12 @@ input:focus {
     text-align: center;
     height: 5rem;
     display: flex;
+    margin-bottom: 5%;
     margin-left: 50px;
-    background-color: white;
     transition: 0.3s linear all;
 }
 
-.profileInfo-wrapper {
 
-    height: 95%;
-}
 
 .languages-wrapper {
 
@@ -251,6 +246,7 @@ input:focus {
     height: 100%;
     margin-top: 230px;
     margin-left: 50px;
+
 }
 
 .profile-languages:hover {
