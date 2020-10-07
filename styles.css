@@ -1,3 +1,7 @@
+/*---------------------------------
+Tag styles
+----------------------------------*/
+
 html {
     height: 100%;
     width: 100%;
@@ -5,16 +9,45 @@ html {
 
 body {
     font-family: 'Montserrat', Arial !important;
-    height: 100%;
+    /* height: 100%;*/
     width: 100%;
-    background: rgb(26, 18, 161);
     background: linear-gradient(180deg, rgba(26, 18, 161, 1) 5%, rgba(7, 22, 66, 1) 78%);
     background-repeat: no-repeat;
+}
+
+ul {
+    margin: auto;
+    padding: 10px;
+}
+
+li {
+    height: 35px;
 }
 
 header {
     background-color: white;
 }
+
+input {
+    background-color: #0DB8DE;
+    border-top: 0;
+    border-radius: 0;
+    outline: 1px solid #0DB8DE;
+    font-weight: bold;
+    outline: 0;
+    margin-bottom: 20px;
+    padding-left: 0;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0;
+}
+
+/*---------------------------------
+Class styles
+----------------------------------*/
+
 
 .login-page {
     transition: opacity 1s ease-in;
@@ -51,25 +84,10 @@ header {
     text-align: left;
 }
 
-input {
-    background-color: #0DB8DE;
-    border-top: 0px;
-    border-radius: 0px;
-    outline: 1px solid #0DB8DE;
-    font-weight: bold;
-    outline: 0;
-    margin-bottom: 20px;
-    padding-left: 0px;
-}
-
-input:focus {
-    outline: none;
-    box-shadow: 0 0 0;
-}
 
 .form-group {
     margin-bottom: 40px;
-    outline: 0px;
+    outline: 0;
 }
 
 
@@ -84,14 +102,12 @@ input:focus {
     box-shadow: none;
     border-bottom: 2px solid #0DB8DE;
     outline: 0;
-
 }
-
 
 .btn-outline-primary {
     border-color: #0DB8DE;
     color: #0DB8DE;
-    border-radius: 0px;
+    border-radius: 0;
     font-weight: bold;
     letter-spacing: 1px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -99,7 +115,7 @@ input:focus {
 
 .btn-outline-primary:hover {
     background-color: #0DB8DE;
-    right: 0px;
+    right: 0;
 }
 
 .login-btm {
@@ -131,11 +147,10 @@ input:focus {
 
 
 .fa-globe {
-
     color: black;
 }
 
-
+/* window for displaying messages*/
 .info-window {
     position: fixed;
     top: 50px;
@@ -151,7 +166,6 @@ input:focus {
     transition: visibility 0s linear 0.25s, opacity 0.25s linear 0s, transform 0.25s;
 }
 
-
 .show-info {
     opacity: 1;
     visibility: visible;
@@ -161,7 +175,7 @@ input:focus {
     z-index: 2;
 }
 
-/* form error */
+/* validation*/
 .error-input {
     color: red;
     border: 2px solid red;
@@ -182,22 +196,60 @@ input:focus {
     margin: auto;
 }
 
-/* index2.html*/
+/* user profile frame*/
+
+.buttonBack {
+
+    position: absolute;
+    border-radius: 5%;
+    background-color: white;
+}
+
+.buttonBack .iconify {
+
+    width: 48px;
+    height: 48px;
+    color: #0DB8DE;
+}
 
 .userProfile {
     display: flex;
-    background-color: white;
-    margin: 30% auto;
+    float: left;
+    position: relative;
+    margin: 10% 0 0 10%;
 
+}
+
+.profileInfo {
+
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profileInfo,
+.profile-languages {
+
+    padding: 50px;
+    background-color: white;
+    border-radius: 5%;
+}
+
+
+.flag {
+
+    position: relative;
+    bottom: 2em;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
 }
 
 .userIcon {
-    width: 5rem;
-    height: 5rem;
+    width: 10rem;
+    height: 10rem;
     margin: 2rem;
-
 }
-
 
 .chooseLanguage {
     width: 5rem;
@@ -206,9 +258,313 @@ input:focus {
     background-color: #0DB8DE;
 }
 
+.profile-languages {
+    text-align: center;
+    height: 5rem;
+    display: flex;
+    margin-bottom: 5%;
+    margin-left: 50px;
+    transition: 0.3s linear all;
+}
+
+.languages-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    margin-top: 230px;
+    margin-left: 50px;
+
+}
+
+.profile-languages:hover {
+    box-shadow: 3px 3px 5px 6px white;
+    transition: 0.5s linear;
+}
 
 
-/*Utilities*/
+.language-label {
+    font-weight: bold;
+    font-size: 30px;
+    margin: auto;
+    margin-top: -25px;
+
+}
+
+
+.icon-new-language {
+    width: 64px;
+    height: 64px;
+}
+
+.add-icon {
+    width: 2rem;
+    height: 2rem;
+
+}
+
+
+#modal-lan * {
+
+    margin-bottom: 20px;
+}
+
+/*select {
+    margin: 30px 0;
+    background: white;
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+
+}
+*/
+
+
+
+/*--------------------------------------
+DASHBOARD
+-----------------------------------------*/
+.dashboard {
+    margin-top: 30px;
+    padding: 15px;
+}
+
+.navbar {
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 5px;
+    margin: auto;
+}
+
+.nav-links {
+    padding: 0;
+    margin: auto;
+}
+
+.nav-links li {
+    list-style-type: none;
+    display: inline;
+    padding: 0 60px;
+    cursor: pointer;
+    font-size: 32px;
+}
+
+.search-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.search-bar {
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.cards-container {
+    display: flex;
+    background-color: white;
+    height: 15rem;
+    margin: 59px auto;
+    border-radius: 5px;
+    width: 75%;
+    box-shadow: 2px 2px 57px 5px rgb(0 0 0);
+}
+
+.box1,
+.box2,
+.box3 {
+    background-color: #d6e0f0;
+    height: 5rem;
+    margin: auto;
+    padding: 15px;
+    text-align: center;
+    color: black;
+    font-size: 22px;
+    text-decoration: underline;
+    border-radius: 5px;
+}
+
+.add-button {
+    text-align: center;
+    color: white;
+}
+
+.search {
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+
+
+/* MODAL */
+.modal,
+.modal-box {
+    z-index: 900;
+}
+
+.modal-sandbox {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: transparent;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.8);
+    overflow: auto;
+}
+
+.modal-box {
+    position: relative;
+    width: 80%;
+    max-width: 920px;
+    margin: 100px auto;
+    animation-name: modalbox;
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0, 0, 0.3, 1.6);
+
+}
+
+.modal-header {
+    padding: 20px 40px;
+    overflow: auto;
+    background: #d6e0f0;
+    color: black;
+    display: block;
+}
+
+.modal-body {
+    background: #ECEFF1;
+    padding: 60px 40px;
+}
+
+/* Close Button */
+.close-modal {
+    text-align: right;
+    cursor: pointer;
+}
+
+
+/* Aditional Styles */
+
+#search-word {
+    width: 3rem;
+    height: 2.3rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+/*.modal-trigger {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    transition: ease 0.2s;
+}
+
+
+.modal-trigger:hover {
+    padding: 20px 60px;
+}
+*/
+
+.form-group input {
+    height: 60px;
+    width: 60%;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+/*Form Area*/
+#addWord label {
+    width: 35%;
+    height: 70px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.192) 4.1px 4.1px 4.1px 0;
+
+    background-color: #edc988;
+    text-align: justify;
+    padding: 15px;
+
+}
+
+#addWord li {
+    list-style-type: none;
+    text-align: center;
+    padding: 25px;
+}
+
+.completed {
+    text-align: center;
+    margin: 50px;
+
+}
+
+
+#addWord .btn {
+    margin-left: 20px;
+    display: table-row-group;
+    float: right;
+    width: 18%;
+    height: 30px;
+    margin-left: 30px;
+}
+
+#addButton {
+    height: 1.5rem;
+    font-family: "Dosis", sans-serif;
+    width: auto;
+    height: auto;
+
+}
+
+#clearButton {
+    height: 1.5rem;
+    font-family: "Dosis", sans-serif;
+    width: auto;
+    height: auto;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.add-word-to-group {
+    background-color: white;
+    display: flex;
+    margin: 25px auto;
+    padding: 10px;
+    text-align-last: center;
+    width: 10rem;
+    border: none;
+    border-radius: 5px;
+}
+
+#addWord {
+    text-align: center;
+}
+
+.add-group-container {
+    text-align: center;
+}
+
+
+
+/*---------------------------
+Utilities
+---------------------------*/
 
 
 .invisible {
@@ -220,25 +576,28 @@ input:focus {
     display: none;
 }
 
-.add-icon {
-    width: 2rem;
-    height: 2rem;
 
+/* Animation */
+@-webkit-keyframes modalbox {
+    0% {
+        top: -250px;
+        opacity: 0;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
 }
 
+@keyframes modalbox {
+    0% {
+        top: -250px;
+        opacity: 0;
+    }
 
-select {
-    margin: auto;
-    background: white;
-    border: 1px solid darkgrey;
-    border-radius: 5px;
-    margin: 30px 0;
-
-}
-
-#add-language {
-    margin: 55px auto;
-    background: white;
-    border: 1px solid darkgrey;
-    border-radius: 5px;
+    100% {
+        top: 0;
+        opacity: 1;
+    }
 }

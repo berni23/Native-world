@@ -4,25 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--Axiox-->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <!--<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>-->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!--encrypt password-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
-    <!--Bootrstap-->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
-    <!--Style-->
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--Mian scripts-->
-    <script src="main.js" defer></script>
-    <script src="user.js" defer></script>
-
-    <title>Native world</title>
+    <<<<<<< HEAD <!--Axiox-->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <!--<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>-->
+        =======
+        <!--Jquery-->
+        >>>>>>> merged3
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!--encrypt password-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+        <!--axios-->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <!--Bootrstap-->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
+            id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <!--montserrat font-->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+        <!--icons-->
+        <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!--Style-->
+        <link rel="stylesheet" href="styles.css">
+        <!--Main scripts-->
+        <script src="main.js" defer></script>
+        <script src="user.js" defer></script>
+        <title>Native world</title>
 </head>
 
 <body>
@@ -39,44 +47,68 @@
                 </div>
                 <div class="col-lg-12 login-form">
                     <div class="col-lg-12 login-form">
-                        <!-- <form>-->
-                        <label>USERNAME</label>
-                        <input id="user-name" type="text" class="form-control">
-                        <label>PASSWORD</label>
-                        <input id="password-input" type="password" class="form-control" i>
-                        <div class="col-lg-12 loginbttm">
-                            <div class="col-lg-6 login-btm login-text">
-                                <!-- Error Message -->
+                        <<<<<<< HEAD <!-- <form>-->
+                            =======
+                            >>>>>>> merged3
+                            <label>USERNAME</label>
+                            <input id="user-name" type="text" class="form-control">
+                            <label>PASSWORD</label>
+                            <input id="password-input" type="password" class="form-control" i>
+                            <div class="col-lg-12 loginbttm">
+                                <div class="col-lg-6 login-btm login-text">
+                                    <!-- Error Message -->
+                                </div>
+                                <div class="col-lg-6 login-btm login-button">
+                                    <button id="login-btn" type="submit" class="btn btn-outline-primary">login</button>
+                                    <button id="register-btn" type="submit" class="btn btn-outline-primary">Create
+                                        account</button>
+                                </div>
                             </div>
-                            <div class="col-lg-6 login-btm login-button">
-                                <button id="login-btn" type="submit" class="btn btn-outline-primary">login</button>
-                                <button id="register-btn" type="submit" class="btn btn-outline-primary">Create
-                                    account</button>
-
-
-                                <!--  <a href="index2.html" id="login-btn" type="submit"
-class="btn btn-outline-primary">LOGIN</a>
-<button id="register-btn" type="submit" class="btn btn-outline-primary"required>Createaccount</button>
--->
-                            </div>
-                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-2"></div>
             </div>
         </div>
     </div>
-    <div class="container userProfile col-lg-6">
-        <img src="/assets/user-icon.png" class="userIcon" />
-        <div class="profileInfo" id="">
-            <h4>User name</h4>
-            <h6>Last active: --/--/----</h6>
-            <select data-placeholder="Choose a Language...">
-                <option value="Catalan">Catalan</option>
-                <option value="Dutch">Dutch</option>
-                <option value="English">English</option>
-            </select><br>
-            <button id="add-language" onclick="selectLanguage()">Add language</button>
+    <div class="userProfile">
+
+        <button class="buttonBack"><span class="iconify" data-icon="dashicons:arrow-left-alt"
+                data-inline="false"></span></button>
+        <div class="profileInfo-wrapper">
+            <img src="/assets/add-user.png" class="userIcon" />
+            <div class="profileInfo">
+                <h5 class="username-profile"> User name</h5>
+                <h6>Last active: <span class="last-active"></span></h6>
+            </div>
+        </div>
+        <div class="languages-wrapper container col-lg-10">
+            <div class=" container row profile-languages">
+                <img class="flag" src="https://www.countryflags.io/fr/shiny/64.png">
+                <span class="language-label">French</span>
+            </div>
+            <div class="container row profile-languages new-language modal-trigger" data-modal="modal-lan">
+                <img class="flag" src="assets/new_language.svg">
+                <span class="language-label">Click to add a new languae</span>
+            </div>
+        </div>
+        <div class="modal" id="modal-lan">
+            <div class="modal-sandbox"></div>
+            <div class="modal-box">
+                <div class="modal-header">
+                    <div class="close-modal">&#10006;</div>
+                    <div class="add-group-container">
+                        <h2 class="modal-title">New Language</h2>
+                        <select class="select-language" data-placeholder="Choose a Language...">
+                            <option value="Catalan">Catalan</option>
+                            <option value="Dutch">Dutch</option>
+                            <option value="English">English</option>
+                        </select>
+                    </div>
+                    <div class="buttons">
+                        <button class="btn btn-primary"> Add language</button>
+                        <button class="btn btn-danger">Cancel</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

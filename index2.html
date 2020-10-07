@@ -4,27 +4,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--jQuery-->
-    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+    <!--Jquery-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--encrypt password-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <!--axios-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!--Bootrstap-->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <!--montserrat font-->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!--icons-->
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--Style-->
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--Mian scripts-->
+    <!--Main scripts-->
     <script src="main.js" defer></script>
     <script src="user.js" defer></script>
-
     <title>Native world</title>
 </head>
 
 <body>
-    <header class="container col-lg-7"></header> <!-- fondo blanco, bottones de nav como quieras-->
-    <div class="container dashboard col-lg-12">
+    <div class="dashboard col-lg-12">
+        <div class="navbar col-lg-12">
+            <ul class="nav-links">
+                <li><a href="#" target="_blank" id="dashboard"></a>Dashboard</li>
+                <li><a href="#" target="_blank" id="user-profile"></a>Userprofile</li>
+                <li><a href="#" target="_blank" id="test"></a>Test</li>
+                <li><a href="#" target="_blank" id="statics"></a>Statistics</li>
+            </ul>
+        </div>
+
+        <div class="search-container">
+            <form>
+                <input class="search-bar" type="text" placeholder="Search.." name="search">
+                <button id="search-word" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+
+        <div class="cards-container col-lg-12">
+            <div class="box1 col-md-3">
+                <p>Computer Science</p>
+            </div>
+            <div class="box2 col-md-3">
+                <p>Serie</p>
+            </div>
+            <div class="box3 col-md-3">
+                <p>Others</p>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="add-button">
+        <a href="#" class="modal-trigger" data-modal="modal-name">add group</a>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal-name">
+        <div class="modal-sandbox"></div>
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="close-modal">&#10006;</div>
+
+
+                <div class="add-group-container">
+                    <p class="modal-title">Name of new group</p>
+                    <input type="text" class="add-word-to-group" id="itemInput">
+                </div>
+                <div class="buttons">
+                    <button id="addButton" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                    <button id="clearButton" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                </div>
+                <ul id="addWord"></ul>
+            </div>
+
+        </div>
     </div>
 </body>
 
