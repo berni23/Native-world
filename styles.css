@@ -12,7 +12,9 @@ body {
     background-repeat: no-repeat;
 }
 
-
+header {
+    background-color: white;
+}
 
 .login-page {
     transition: opacity 1s ease-in;
@@ -124,6 +126,7 @@ input:focus {
 
 .loginbttm {
     padding: 0px;
+    margin-top: 20px;
 }
 
 
@@ -158,7 +161,6 @@ input:focus {
     z-index: 2;
 }
 
-
 /* form error */
 .error-input {
     color: red;
@@ -170,9 +172,10 @@ input:focus {
     font-size: 15px;
     background: #F9DDDD;
     color: #D48582;
-    position: absolute;
+    /* position: absolute;*/
     border-radius: 3px;
     vertical-align: baseline;
+
 }
 
 .error-msg p {

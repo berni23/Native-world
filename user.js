@@ -14,19 +14,19 @@ function reviveUsersObject(oldUsers) {
         reviveUser(oldUsers.userList[user]);
     });
     return oldUsers;
-
 }
 
 function reviveUser(deadUser) {
     var newUser = new user('', '');
-    deadUser.addLanguage = newUser.addLanguage
+    deadUser.addLanguage = newUser.addLanguage;
+    deadUser.checkPassword = newUser.checkPassword;
     return deadUser;
 }
 class users {
     constructor() {
         this.userList = {};
         this.getUser = function (userName) {
-            return this[userList][userName]
+            return this.userList[userName]
         };
         this.setUser = function (userName, password) {
             if (this.userExist(userName)) return false; // user exists
@@ -51,6 +51,9 @@ class user {
             this.languages[language] = {
                 example1: {}
             };
+        }
+        this.checkPassword = function (password) {
+            return this.password == password // true if equal, else false
         }
     }
 }

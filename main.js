@@ -2,34 +2,42 @@ $(document).ready(function () {
 
 
     var loginPage = $(".login-page");
+
+    var userProfile = $(".userProfile");
     loginPage.removeClass('invisible');
     var loginBtn = $("#login-btn");
     var registerBtn = $("#register-btn");
     var inputName = $("#user-name");
     var inputPassword = $("#password-input");
     var infoWindow = $(".info-window");
+
     var users = getUsers();
+    var currentUser;
     loginBtn.click(login);
     registerBtn.click(register);
 
-    message('Hola');
-
     function login() {
-        var userName = inputName.val();
-        var password = inputPassword.val();
-        var user = users[userName];
-        if (user && user.password == password) {
 
-            // login successful
+        if (validateRegister("#user-name", "#password-input")) {
 
-            message('login successful!');
-            // 1- hide login, show profile
+            var userName = inputName.val();
+            var password = inputPassword.val();
+            var user = users.getUser(userName);
 
+            if (user && user.checkPassword(password)) {
+
+                currentUser = user;
+                message('login successful!');
+                loginPage.addClass('hidden');
+
+                // populate user profile
+                userProfile.removeClass('hidden');
+            }
             //
         } else {
 
+            message('login failed, please check your username and password');
             // message login failed, try again or register
-
         }
     }
 
@@ -40,9 +48,14 @@ $(document).ready(function () {
             message('user already exists')
             // user already exists
         } else if (validateRegister("#user-name", "#password-input")) {
-
             users.setUser(userName, password);
+            currentUser = users.getUser(userName);
             users.save();
+            message('register successful!');
+            loginPage.addClass('hidden');
+
+            // populate user profile
+            userProfile.removeClass('hidden');
         }
     }
 
@@ -55,9 +68,7 @@ $(document).ready(function () {
         var errName = "username should contain more than three characters";
         var passwordRgx = /(?=.*\d)(?=.*[A-Z]).{6,}/;
         var errPassword = "password must contain an uppercase, a number, and 6 characters minimum"
-        return validate(inputName, nameRgx, errName) * validate(inputPassword, passwordRgx, errPassword)
-
-
+        return validate(inputName, nameRgx, errName) && validate(inputPassword, passwordRgx, errPassword);
     }
 
     function message(msg) {
