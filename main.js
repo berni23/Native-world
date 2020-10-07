@@ -2,7 +2,6 @@ $(document).ready(function () {
 
 
     var loginPage = $(".login-page");
-
     loginPage.removeClass('invisible');
     var loginBtn = $("#login-btn");
     var registerBtn = $("#register-btn");
@@ -10,20 +9,20 @@ $(document).ready(function () {
     var inputPassword = $("#password-input");
     var infoWindow = $(".info-window");
     var users = getUsers();
-
     loginBtn.click(login);
     registerBtn.click(register);
+
+    message('Hola');
 
     function login() {
         var userName = inputName.val();
         var password = inputPassword.val();
         var user = users[userName];
-
         if (user && user.password == password) {
 
             // login successful
 
-            message('login successful!')
+            message('login successful!');
             // 1- hide login, show profile
 
             //
@@ -38,14 +37,11 @@ $(document).ready(function () {
         var userName = inputName.val();
         var password = inputPassword.val();
         if (users.userExist(userName)) {
-
             message('user already exists')
             // user already exists
         } else if (validateRegister("#user-name", "#password-input")) {
 
             users.setUser(userName, password);
-
-            console.log(users);
             users.save();
         }
     }
