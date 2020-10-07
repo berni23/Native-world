@@ -184,7 +184,7 @@ input:focus {
 .userProfile {
     display: flex;
     background-color: white;
-    margin: 5% auto;
+    margin: 30% auto;
 
 }
 
@@ -196,7 +196,7 @@ input:focus {
 }
 
 .profileInfo {
-    margin: 0px 40px;
+    margin: 30.0px 40px;
 }
 
 .chooseLanguage {
@@ -205,6 +205,7 @@ input:focus {
     margin: auto;
     background-color: #0DB8DE;
 }
+
 
 
 /*Utilities*/
@@ -217,4 +218,26 @@ input:focus {
 
 .hidden {
     display: none;
+}
+
+.add-icon {
+    width: 2rem;
+    height: 2rem;
+
+}
+
+
+select {
+    margin: auto;
+    background: white;
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+    margin: 30px 0;
+
+} 
+#add-language {
+    margin: 55px auto;
+    background: white;
+    border: 1px solid darkgrey;
+    border-radius: 5px;
 }
