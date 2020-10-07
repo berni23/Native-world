@@ -1,21 +1,21 @@
 $(document).ready(function () {
     var loginPage = $(".login-page");
     var userProfile = $(".userProfile");
-    loginPage.removeClass('invisible');
+    /* loginPage.removeClass('invisible');*/
     var inputName = $("#user-name");
     var inputPassword = $("#password-input");
     var infoWindow = $(".info-window");
+    var languageList = $(".select-language");
     var users = getUsers();
     var lanObj;
     var currentUser;
+
     $(document).click(function (event) {
         if (event.target.id == "login-btn") login();
         else if (event.target.id == "register-btn") register();
-        else if ($(event.target).hasClass('new-language')) NewLanguage();
+        else if ($(event.target).hasClass('btn-add-language')) newLanguage();
     })
-
-
-
+    $('.buttonBack').click(backToLogin);
     /* Modals */
     $(".modal-trigger").click(function (e) {
         e.preventDefault();
@@ -23,16 +23,13 @@ $(document).ready(function () {
         $("#" + dataModal).css({
             "display": "block"
         });
-        // $("body").css({"overflow-y": "hidden"}); //Prevent double scrollbar.
     });
 
     $(".close-modal, .modal-sandbox").click(function () {
         $(".modal").css({
             "display": "none"
         });
-        // $("body").css({"overflow-y": "auto"}); //Prevent double scrollbar.
     });
-
 
     /* get  languages object*/
     function login() {
@@ -42,8 +39,8 @@ $(document).ready(function () {
             var newUser = users.getUser(userName);
             if (newUser && newUser.checkPassword(password)) {
                 message('login successful!');
-                loginPage.addClass('hidden');
-                // populate user profile
+                goToLogin();
+                populateUserProfile();
                 userProfile.removeClass('hidden');
             } else message('login failed, please check your username and password');
         }
@@ -58,38 +55,46 @@ $(document).ready(function () {
             currentUser = users.getUser(userName);
             users.save();
             message('register successful!');
-            loginPage.addClass('hidden');
+            goToProfile();
             populateUserProfile();
-            userProfile.removeClass('hidden');
+
         }
     }
-
-
     var ENDPOINT_FLAGS = "https://www.countryflags.io/";
     var languagesWrapper = $('.languages-wrapper')
 
     function populateUserProfile() {
         $(".username-profile").text(currentUser.userName);
         $(".lastActive-profile").text(currentUser.lastActive);
-
         Object.keys(currentUser.languages).forEach(function (language) {
             var lanContainer = $('<div class="container row profile-languages">' + getImageFlag(language['code']) + '<span class = "language-label">' + language['name'] + '</span></div>');
             languagesWrapper.append(lanContainer);
         })
     }
-
-
     /* API*/
 
     var ENDPOINT_LANGUAGE_CODES = 'https://gist.githubusercontent.com/piraveen/fafd0d984b2236e809d03a0e306c8a4d/raw/4258894f85de7752b78537a4aa66e027090c27ad/'
 
+
+    optionLanguages();
+
     function optionLanguages() {
-        axios.get(ENDPOINT_LANGUAGE_CODES).then(function (data) {
+        return axios.get(ENDPOINT_LANGUAGE_CODES).then(function (data) {
             lanObj = data.data;
+            Object.keys(lanObj).forEach(function (code) {
+                var lanOption = $('<option value = "' + code + '">' + lanObj[code]['name'] + '</option>')
+                languageList.append(lanOption);
+            })
         })
     }
 
-    optionLanguages();
+    function newLanguage() {
+        var language = $(".select-language :selected");
+        currentUser.addLanguage(language.val(), language.text());
+
+    }
+
+
     /* UTILS*/
 
     function validateRegister(inputName, inputPassword) {
@@ -125,19 +130,32 @@ $(document).ready(function () {
         for (div of errorInput) div.classList.remove("error-input");
     }
 
-
-
     function getImageFlag(code) {
         return '<img class = "flag"src = ' + ENDPOINT_FLAGS + code + '/shiny/64.png> ';
     }
 
+    function backToLogin() {
+        userProfile.addClass('hidden');
+        loginPage.removeClass('hidden');
+        setTimeout(function () {
+            loginPage.removeClass('invisible')
+        }, 500)
+    }
 
+    function goToProfile() {
+        loginPage.addClass('hidden');
+        userProfile.removeClass('hidden');
+        setTimeout(function () {
+            userProfile.removeClass('invisible')
+        }, 1000)
+
+    }
 
     /* ===============js for index2.html ???? ===============*/
 
 
 
-    /* Add words  */
+    /* Add words 
     var addButton = document.getElementById('addButton');
     var addInput = document.getElementById('itemInput');
     var listArray = [];
@@ -227,5 +245,7 @@ $(document).ready(function () {
     //add an event binder to the button
     addButton.addEventListener('click', addToList);
     clearButton.addEventListener('click', clearList);
+
+     */
 
 });
