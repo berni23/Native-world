@@ -1,11 +1,9 @@
 html {
-
     height: 100%;
     width: 100%;
 }
 
 body {
-    /*background: #222D32 !important;*/
     font-family: 'Montserrat', Arial !important;
     height: 100%;
     width: 100%;
@@ -17,14 +15,11 @@ body {
 
 
 .login-page {
-
     transition: opacity 1s ease-in;
 }
 
 .login-box {
     margin-top: 40%;
-
-    /*background: #1A2226;*/
     background: white;
     text-align: center;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -65,7 +60,6 @@ input {
     padding-left: 0px;
 }
 
-
 input:focus {
     outline: none;
     box-shadow: 0 0 0;
@@ -78,7 +72,6 @@ input:focus {
 
 
 .form-control {
-
     border: none !important;
     border-bottom: 2px solid #0DB8DE !important;
 }
@@ -89,7 +82,6 @@ input:focus {
     box-shadow: none;
     border-bottom: 2px solid #0DB8DE;
     outline: 0;
-    /* background-color: #1A2226*/
 
 }
 
@@ -97,8 +89,6 @@ input:focus {
 .btn-outline-primary {
     border-color: #0DB8DE;
     color: #0DB8DE;
-    /*  color: white !important;
-    border-color: white !important;*/
     border-radius: 0px;
     font-weight: bold;
     letter-spacing: 1px;
@@ -188,7 +178,6 @@ input:focus {
 .error-msg p {
     margin: auto;
 }
-
 
 /* index2.html*/
 
