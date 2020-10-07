@@ -1,3 +1,7 @@
+/*---------------------------------
+Tag styles
+----------------------------------*/
+
 html {
     height: 100%;
     width: 100%;
@@ -39,6 +43,11 @@ input:focus {
     outline: none;
     box-shadow: 0 0 0;
 }
+
+/*---------------------------------
+Class styles
+----------------------------------*/
+
 
 .login-page {
     transition: opacity 1s ease-in;
@@ -93,9 +102,7 @@ input:focus {
     box-shadow: none;
     border-bottom: 2px solid #0DB8DE;
     outline: 0;
-
 }
-
 
 .btn-outline-primary {
     border-color: #0DB8DE;
@@ -140,11 +147,10 @@ input:focus {
 
 
 .fa-globe {
-
     color: black;
 }
 
-
+/* window for displaying messages*/
 .info-window {
     position: fixed;
     top: 50px;
@@ -160,7 +166,6 @@ input:focus {
     transition: visibility 0s linear 0.25s, opacity 0.25s linear 0s, transform 0.25s;
 }
 
-
 .show-info {
     opacity: 1;
     visibility: visible;
@@ -170,7 +175,7 @@ input:focus {
     z-index: 2;
 }
 
-/* form error */
+/* validation*/
 .error-input {
     color: red;
     border: 2px solid red;
@@ -191,7 +196,21 @@ input:focus {
     margin: auto;
 }
 
-/* index2.html*/
+/* user profile frame*/
+
+.buttonBack {
+
+    position: absolute;
+    border-radius: 5%;
+    background-color: white;
+}
+
+.buttonBack .iconify {
+
+    width: 48px;
+    height: 48px;
+    color: #0DB8DE;
+}
 
 .userProfile {
     display: flex;
@@ -277,18 +296,6 @@ input:focus {
     height: 64px;
 }
 
-/*Utilities*/
-
-
-.invisible {
-    opacity: 0;
-}
-
-
-.hidden {
-    display: none;
-}
-
 .add-icon {
     width: 2rem;
     height: 2rem;
@@ -296,23 +303,25 @@ input:focus {
 }
 
 
-select {
+#modal-lan * {
+
+    margin-bottom: 20px;
+}
+
+/*select {
     margin: 30px 0;
     background: white;
     border: 1px solid darkgrey;
     border-radius: 5px;
 
 }
-
-#add-language {
-    margin: 55px auto;
-    background: white;
-    border: 1px solid darkgrey;
-    border-radius: 5px;
-}
+*/
 
 
-/* html2*/
+
+/*--------------------------------------
+DASHBOARD
+-----------------------------------------*/
 .dashboard {
     margin-top: 30px;
     padding: 15px;
@@ -356,8 +365,6 @@ select {
     margin: 59px auto;
     border-radius: 5px;
     width: 75%;
-    -webkit-box-shadow: 2px 2px 57px 5px rgb(0 0 0);
-    -moz-box-shadow: 2px 2px 57px 5px rgba(4, 2, 66, 1);
     box-shadow: 2px 2px 57px 5px rgb(0 0 0);
 }
 
@@ -387,7 +394,8 @@ select {
 }
 
 
-/*=========================*/
+
+/* MODAL */
 .modal,
 .modal-box {
     z-index: 900;
@@ -409,7 +417,6 @@ select {
     height: 100%;
     left: 0;
     top: 0;
-    background: rgb(0, 0, 0);
     background: rgba(0, 0, 0, 0.8);
     overflow: auto;
 }
@@ -427,7 +434,6 @@ select {
 
 .modal-header {
     padding: 20px 40px;
-    height: 35rem;
     overflow: auto;
     background: #d6e0f0;
     color: black;
@@ -445,30 +451,6 @@ select {
     cursor: pointer;
 }
 
-/* Animation */
-@-webkit-keyframes modalbox {
-    0% {
-        top: -250px;
-        opacity: 0;
-    }
-
-    100% {
-        top: 0;
-        opacity: 1;
-    }
-}
-
-@keyframes modalbox {
-    0% {
-        top: -250px;
-        opacity: 0;
-    }
-
-    100% {
-        top: 0;
-        opacity: 1;
-    }
-}
 
 /* Aditional Styles */
 
@@ -481,7 +463,7 @@ select {
     outline: none;
 }
 
-.modal-trigger {
+/*.modal-trigger {
     position: absolute;
     top: 70%;
     left: 50%;
@@ -496,6 +478,7 @@ select {
 .modal-trigger:hover {
     padding: 20px 60px;
 }
+*/
 
 .form-group input {
     height: 60px;
@@ -575,4 +558,46 @@ select {
 
 .add-group-container {
     text-align: center;
+}
+
+
+
+/*---------------------------
+Utilities
+---------------------------*/
+
+
+.invisible {
+    opacity: 0;
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+/* Animation */
+@-webkit-keyframes modalbox {
+    0% {
+        top: -250px;
+        opacity: 0;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes modalbox {
+    0% {
+        top: -250px;
+        opacity: 0;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
 }
