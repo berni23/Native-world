@@ -15,7 +15,7 @@ body {
 }
 
 .login-box {
-    margin-top: 40%;
+    margin-top: 15%;
 
     /*background: #1A2226;*/
     background: white;
@@ -29,7 +29,7 @@ body {
     font-size: 80px;
     line-height: 100px;
     background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
-    -webkit-background-clip: text;
+    
     -webkit-text-fill-color: transparent;
 }
 
@@ -148,3 +148,27 @@ label {
 
     color: black;
 }
+
+/*============ index.html2 =============*/
+.userProfile {
+    display: flex;
+    background-color: white;
+    margin: 5% auto;
+   
+}
+.userIcon {
+    width: 5rem;
+    height: 5rem;
+    margin: 2rem;
+
+}
+ .profileInfo {
+    margin: 0px 40px;
+ }
+.chooseLanguage {
+    width: 5rem;
+    height: 5rem;
+    margin: auto;
+    background-color: #0DB8DE;
+}
+

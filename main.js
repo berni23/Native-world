@@ -49,7 +49,4 @@ $(document).ready(function () {
 
     }
 
-
-
-
-});
+/* ===============js for index2.html ???? ===============*/
