@@ -12,8 +12,9 @@ $(document).ready(function () {
     loginBtn.click(login);
     registerBtn.click(register);
 
-    var APITOKEN = 'a4eab7d0393784d51996fe91cc2507fa';
-    var ENDPOINT = 'https: //poeditor.com/api/';
+
+
+
 
     function login() {
 
@@ -51,6 +52,27 @@ $(document).ready(function () {
             userProfile.removeClass('hidden');
         }
     }
+
+
+
+
+    /* API*/
+
+    var ENDPOINT_LANGUAGE_CODES = ' https://gist.githubusercontent.com/piraveen/fafd0d984b2236e809d03a0e306c8a4d/raw/4258894f85de7752b78537a4aa66e027090c27ad/'
+
+    function optionLanguages() {
+
+        axios.get(ENDPOINT_LANGUAGE_CODES).then(function (data) {
+            console.log(data.data)
+        })
+
+
+    }
+
+
+    optionLanguages();
+
+
     /* UTILS*/
 
     function validateRegister(inputName, inputPassword) {
