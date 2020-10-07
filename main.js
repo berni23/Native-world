@@ -54,8 +54,6 @@ $(document).ready(function () {
     }
 
 
-
-
     /* API*/
 
     var ENDPOINT_LANGUAGE_CODES = ' https://gist.githubusercontent.com/piraveen/fafd0d984b2236e809d03a0e306c8a4d/raw/4258894f85de7752b78537a4aa66e027090c27ad/'
@@ -65,13 +63,9 @@ $(document).ready(function () {
         axios.get(ENDPOINT_LANGUAGE_CODES).then(function (data) {
             console.log(data.data)
         })
-
-
     }
 
-
     optionLanguages();
-
 
     /* UTILS*/
 

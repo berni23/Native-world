@@ -29,7 +29,7 @@
 <body>
 
     <div class="info-window"></div>
-    <div class="container login-page invisible">
+    <div class="container login-page invisible hidden">
         <div class="row">
             <div class="col-lg-3 col-md-2"></div>
             <div class="col-lg-8 col-md-8 login-box">
@@ -41,12 +41,8 @@
                 </div>
                 <div class="col-lg-12 login-form">
                     <div class="col-lg-12 login-form">
-                        <!-- <form>-->
-
                         <label>USERNAME</label>
                         <input id="user-name" type="text" class="form-control">
-
-
                         <label>PASSWORD</label>
                         <input id="password-input" type="password" class="form-control" i>
 
@@ -68,25 +64,33 @@ class="btn btn-outline-primary">LOGIN</a>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-3 col-md-2"></div>
             </div>
         </div>
     </div>
-    <div class="container userProfile col-lg-6 hidden">
-        <div class="dashboard"></div>
-        <div class="userProfile" id="user-profile">
+    <div class="userProfile">
+        <div class="profileInfo-wrapper">
             <img src="/assets/add-user.png" class="userIcon" />
+            <div class="profileInfo">
+                <h5>User name</h4>
+                    <h6>Last active: --/--/----</h3>
+                        <select data-placeholder="Choose a Language...">
+                            <option value="Catalan">Catalan</option>
+                            <option value="Dutch">Dutch</option>
+                            <option value="English">English</option>
+                        </select>
+            </div>
         </div>
-        <div class="profileInfo" id="">
-            <h5>User name</h4>
-                <h6>Last active: --/--/----</h3>
-                    <select data-placeholder="Choose a Language...">
-                        <option value="Catalan">Catalan</option>
-                        <option value="Dutch">Dutch</option>
-                        <option value="English">English</option>
-                    </select>
-        </div>
+
+        <div class="languages-wrapper container col-lg-10">
+            <div class=" container row profile-languages">
+                <img class="flag" src="https://www.countryflags.io/fr/shiny/64.png">
+                <span class="language-label">French</span>
+            </div>
+            <div class=" container row profile-languages">
+                <img class="flag" src="assets/new_language.svg">
+                <span class="language-label">Click to add a new languae</span>
+            </div>
 </body>
 
 </html>

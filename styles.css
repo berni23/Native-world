@@ -7,7 +7,6 @@ body {
     font-family: 'Montserrat', Arial !important;
     height: 100%;
     width: 100%;
-    background: rgb(26, 18, 161);
     background: linear-gradient(180deg, rgba(26, 18, 161, 1) 5%, rgba(7, 22, 66, 1) 78%);
     background-repeat: no-repeat;
 }
@@ -186,20 +185,41 @@ input:focus {
 
 .userProfile {
     display: flex;
-    background-color: white;
-    margin: 5% auto;
-
-}
-
-.userIcon {
-    width: 5rem;
-    height: 5rem;
-    margin: 2rem;
+    float: left;
+    position: relative;
+    width: 80%;
+    height: 80%;
+    margin: 10% 0 0 10%;
 
 }
 
 .profileInfo {
-    margin: 0px 40px;
+
+    height: 70%;
+}
+
+.profileInfo,
+.profile-languages {
+
+    padding: 50px;
+    background-color: white;
+    border-radius: 5%;
+}
+
+
+.flag {
+
+    position: relative;
+    bottom: 2em;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+.userIcon {
+    width: 10rem;
+    height: 10rem;
+    margin: 2rem;
 }
 
 .chooseLanguage {
@@ -209,6 +229,51 @@ input:focus {
     background-color: #0DB8DE;
 }
 
+.profile-languages {
+
+    text-align: center;
+    height: 5rem;
+    display: flex;
+    margin-left: 50px;
+    background-color: white;
+    transition: 0.3s linear all;
+}
+
+.profileInfo-wrapper {
+
+    height: 95%;
+}
+
+.languages-wrapper {
+
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    margin-top: 230px;
+    margin-left: 50px;
+}
+
+.profile-languages:hover {
+    box-shadow: 3px 3px 5px 6px white;
+    transition: 0.5s linear;
+}
+
+
+.language-label {
+
+    font-weight: bold;
+    font-size: 30px;
+    margin: auto;
+    margin-top: -25px;
+
+}
+
+
+.icon-new-language {
+
+    width: 64px;
+    height: 64px;
+}
 
 /*Utilities*/
 
