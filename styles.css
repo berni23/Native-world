@@ -2,6 +2,7 @@
 Tag styles
 ----------------------------------*/
 
+
 html {
     height: 100%;
     width: 100%;
@@ -9,10 +10,13 @@ html {
 
 body {
     font-family: 'Montserrat', Arial !important;
-    /* height: 100%;*/
+    height: 100%;
     width: 100%;
     background: linear-gradient(180deg, rgba(26, 18, 161, 1) 5%, rgba(7, 22, 66, 1) 78%);
     background-repeat: no-repeat;
+    background-size: cover !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 ul {
@@ -201,8 +205,6 @@ Class styles
 
 .buttonBack {
     position: absolute;
-    bottom: 600px;
-    top: -100px;
     border-radius: 50%;
     outline: none;
     border: none;
@@ -217,9 +219,9 @@ Class styles
 
 .userProfile {
     display: flex;
-    float: left;
     position: relative;
-    margin: 10% 0 0 10%;
+    margin: 50px 0px 0px 50px;
+    float: left;
     opacity: 1;
     transition: opacity 1s ease-in;
 }

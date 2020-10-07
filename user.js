@@ -1,5 +1,6 @@
 function getUsers() {
     var localUsers = JSON.parse(localStorage.getItem('users'));
+    console.log(localUsers);
     if (localUsers) return reviveUsersObject(localUsers);
     return new users();
 }

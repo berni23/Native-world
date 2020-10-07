@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var loginPage = $(".login-page");
     var userProfile = $(".userProfile");
-    /* loginPage.removeClass('invisible');*/
+    loginPage.removeClass('invisible');
     var inputName = $("#user-name");
     var inputPassword = $("#password-input");
     var infoWindow = $(".info-window");
@@ -9,6 +9,13 @@ $(document).ready(function () {
     var users = getUsers();
     var lanObj;
     var currentUser;
+
+
+    /* to speed up debugging  */
+
+
+    inputName.val('bernat');
+    inputPassword.val('12345AAA')
 
     $(document).click(function (event) {
         if (event.target.id == "login-btn") login();
@@ -39,9 +46,9 @@ $(document).ready(function () {
             var newUser = users.getUser(userName);
             if (newUser && newUser.checkPassword(password)) {
                 message('login successful!');
-                goToLogin();
+                currentUser = newUser;
+                goToProfile();
                 populateUserProfile();
-                userProfile.removeClass('hidden');
             } else message('login failed, please check your username and password');
         }
     }
@@ -64,18 +71,18 @@ $(document).ready(function () {
     var languagesWrapper = $('.languages-wrapper')
 
     function populateUserProfile() {
+
+        console.log(currentUser)
         $(".username-profile").text(currentUser.userName);
         $(".lastActive-profile").text(currentUser.lastActive);
         Object.keys(currentUser.languages).forEach(function (language) {
-            var lanContainer = $('<div class="container row profile-languages">' + getImageFlag(language['code']) + '<span class = "language-label">' + language['name'] + '</span></div>');
+            var lanContainer = $('<div class="container row profile-languages">' + getImageFlag(language) + '<span class = "language-label">' + language['name'] + '</span></div>');
             languagesWrapper.append(lanContainer);
         })
     }
     /* API*/
 
     var ENDPOINT_LANGUAGE_CODES = 'https://gist.githubusercontent.com/piraveen/fafd0d984b2236e809d03a0e306c8a4d/raw/4258894f85de7752b78537a4aa66e027090c27ad/'
-
-
     optionLanguages();
 
     function optionLanguages() {
@@ -90,10 +97,10 @@ $(document).ready(function () {
 
     function newLanguage() {
         var language = $(".select-language :selected");
-        currentUser.addLanguage(language.val(), language.text());
+        currentUser.addLanguage(language.text(), language.val());
+        users.save();
 
     }
-
 
     /* UTILS*/
 
@@ -131,7 +138,7 @@ $(document).ready(function () {
     }
 
     function getImageFlag(code) {
-        return '<img class = "flag"src = ' + ENDPOINT_FLAGS + code + '/shiny/64.png> ';
+        return '<img class = "flag" src =' + ENDPOINT_FLAGS + code + '/shiny/64.png> ';
     }
 
     function backToLogin() {
@@ -143,6 +150,9 @@ $(document).ready(function () {
     }
 
     function goToProfile() {
+
+        inputName.val("");
+        inputPassword.val("");
         loginPage.addClass('hidden');
         userProfile.removeClass('hidden');
         setTimeout(function () {
