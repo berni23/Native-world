@@ -20,31 +20,32 @@ function reviveUser(deadUser) {
     var newUser = new user('', '');
     deadUser.addLanguage = newUser.addLanguage;
     deadUser.checkPassword = newUser.checkPassword;
-    return deadUser;
 }
 class users {
     constructor() {
         this.userList = {};
         this.getUser = function (userName) {
-            return this.userList[userName]
+            if (this.userExist(userName)) return this.userList[userName]
+            return false;
         };
         this.setUser = function (userName, password) {
             if (this.userExist(userName)) return false; // user exists
             this.userList[userName] = new user(userName, password);
         };
         this.userExist = function (userName) {
-            return this.userList[userName] == true;
+            return userName in this.userList;
         };
         this.save = function () {
             localStorage.setItem("users", JSON.stringify(this));
         };
+
     }
 }
 
 class user {
     constructor(userName, password) {
         this.userName = userName;
-        this.password = password;
+        this.password = CryptoJS.MD5(password);
         this.languages = {};
         this.lastActive = "";
         this.addLanguage = function (language) {
@@ -53,7 +54,23 @@ class user {
             };
         }
         this.checkPassword = function (password) {
-            return this.password == password // true if equal, else false
+            var rightPassword = this.password.words;
+            CryptoJS.MD5(password).words.forEach(function (item, i) {
+                if (item != rightPassword[i]) return false;
+            })
+
+            return true
         }
-    }
+    };
+
+
 }
+
+
+
+
+/*var encryptedAES = CryptoJS.AES.encrypt("Message", "My Secret Passphrase");
+var decryptedBytes = CryptoJS.AES.decrypt(encryptedAES, "My Secret Passphrase");
+var plaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
+
+*/

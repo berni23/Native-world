@@ -1,8 +1,5 @@
 $(document).ready(function () {
-
-
     var loginPage = $(".login-page");
-
     var userProfile = $(".userProfile");
     loginPage.removeClass('invisible');
     var loginBtn = $("#login-btn");
@@ -10,34 +7,30 @@ $(document).ready(function () {
     var inputName = $("#user-name");
     var inputPassword = $("#password-input");
     var infoWindow = $(".info-window");
-
     var users = getUsers();
     var currentUser;
     loginBtn.click(login);
     registerBtn.click(register);
 
+    var APITOKEN = 'a4eab7d0393784d51996fe91cc2507fa';
+    var ENDPOINT = 'https: //poeditor.com/api/';
+
     function login() {
 
         if (validateRegister("#user-name", "#password-input")) {
-
             var userName = inputName.val();
             var password = inputPassword.val();
-            var user = users.getUser(userName);
-
-            if (user && user.checkPassword(password)) {
-
-                currentUser = user;
+            var newUser = users.getUser(userName);
+            if (newUser && newUser.checkPassword(password)) {
                 message('login successful!');
                 loginPage.addClass('hidden');
-
                 // populate user profile
                 userProfile.removeClass('hidden');
+            } else {
+                message('login failed, please check your username and password');
+                console.log('login failed');
+                // message login failed, try again or register
             }
-            //
-        } else {
-
-            message('login failed, please check your username and password');
-            // message login failed, try again or register
         }
     }
 
@@ -58,8 +51,6 @@ $(document).ready(function () {
             userProfile.removeClass('hidden');
         }
     }
-
-
     /* UTILS*/
 
     function validateRegister(inputName, inputPassword) {
