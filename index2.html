@@ -23,7 +23,63 @@
 </head>
 
 <body>
-   
+    <div class="dashboard col-lg-12">
+        <div class="navbar col-lg-12">
+            <ul class="nav-links">
+                <li><a href="#" target="_blank" id="dashboard"></a>Dashboard</li>
+                <li><a href="#" target="_blank" id="user-profile"></a>Userprofile</li>
+                <li><a href="#" target="_blank" id="test"></a>Test</li>
+                <li><a href="#" target="_blank" id="statics"></a>Statistics</li>
+            </ul>
+        </div>
+
+        <div class="search-container">
+            <form>
+                <input class="search-bar" type="text" placeholder="Search.." name="search">
+                <button id="search-word" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+
+        <div class="cards-container col-lg-12">
+            <div class="box1 col-md-3">
+                <p>Computer Science</p>
+                
+            </div>
+            <div class="box2 col-md-3">
+                <p>Serie</p>
+            </div>
+            <div class="box3 col-md-3">
+                <p>Others</p>
+            </div>
+
+        </div>
+        
+    </div>
+    <div class="add-button">
+        <a href="#" class="modal-trigger" data-modal="modal-name">add group</a>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal" id="modal-name">
+      <div class="modal-sandbox"></div>
+      <div class="modal-box">
+        <div class="modal-header">
+          <div class="close-modal">&#10006;</div> 
+         
+
+    <div class="add-group-container">
+      <p class="modal-title">Name of new group</p>
+      <input type="text" class="add-word-to-group"id="itemInput">
+    </div>
+    <div class="buttons">
+    <button id="addButton" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+    <button id="clearButton" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+    </div >
+    <ul id="addWord"></ul>
+        </div>
+        
+      </div>
+    </div>
 </body>
 
 </html>
