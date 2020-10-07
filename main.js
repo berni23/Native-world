@@ -106,11 +106,124 @@ $(document).ready(function () {
         for (div of errorInput) div.classList.remove("error-input");
     }
 
+
+
     function getImageFlag(code) {
         return '<img class = "flag"src = ' + ENDPOINT_FLAGS + code + '/shiny/64.png> ';
     }
+
+
+
+    /* ===============js for index2.html ???? ===============*/
+
+
+    /* Modals */
+    $(".modal-trigger").click(function (e) {
+        e.preventDefault();
+        dataModal = $(this).attr("data-modal");
+        $("#" + dataModal).css({
+            "display": "block"
+        });
+        // $("body").css({"overflow-y": "hidden"}); //Prevent double scrollbar.
+    });
+
+    $(".close-modal, .modal-sandbox").click(function () {
+        $(".modal").css({
+            "display": "none"
+        });
+        // $("body").css({"overflow-y": "auto"}); //Prevent double scrollbar.
+    });
+
+
+    /* Add words  */
+    var addButton = document.getElementById('addButton');
+    var addInput = document.getElementById('itemInput');
+    var listArray = [];
+
+    function listItemObj(content) {
+        this.content = '';
+    }
+    var changeToComp = function () {
+        var parent = this.parentElement;
+    }
+    var removeItem = function () {
+        var parent = this.parentElement.parentElement;
+        parent.removeChild(this.parentElement);
+        var data = this.parentElement.firstChild.innerText;
+        for (var i = 0; i < listArray.length; i++) {
+            if (listArray[i].content == data) {
+                listArray.splice(i, 1);
+                refreshLocal();
+                break;
+            }
+        }
+    }
+    //function to change the words list array
+    var changeListArray = function (data, status) {
+        for (var i = 0; i < listArray.length; i++) {
+            if (listArray[i].content == data) {
+                listArray[i].status = status;
+                refreshLocal();
+                break;
+            }
+        }
+    }
+    //function to chage the dom of the words list
+    var createItemDom = function (text, status) {
+        var listItem = document.createElement('p');
+        var itemLabel = document.createElement('label');
+        var itemCompBtn = document.createElement('p');
+        var itemIncompBtn = document.createElement('p');
+        itemLabel.innerText = text;
+        //itemIncompBtn.className = 'btn btn-danger';
+        listItem.appendChild(itemLabel);
+        listItem.appendChild(itemCompBtn);
+        listItem.appendChild(itemIncompBtn);
+        return listItem;
+    }
+    var refreshLocal = function () {
+        var words = listArray;
+        localStorage.setItem('addWord', JSON.stringify(words));
+    }
+    var addToList = function () {
+        var newItem = new listItemObj();
+        newItem.content = addInput.value;
+        listArray.push(newItem);
+        //add to the local storage
+        refreshLocal();
+        //change the dom
+        var item = createItemDom(addInput.value);
+        addWord.appendChild(item);
+        addInput.value = '';
+    }
+
+    //function to clear words list array
+    var clearList = function () {
+        listArray = [];
+        localStorage.removeItem('addWord');
+        addWord.innerHTML = '';
+
+    }
+
+    window.onload = function () {
+        var list = localStorage.getItem('addWord');
+
+        if (list != null) {
+            words = JSON.parse(list);
+            listArray = words;
+
+            for (var i = 0; i < listArray.length; i++) {
+                var data = listArray[i].content;
+
+                var item = createItemDom(data, listArray[i].status);
+                addWord.appendChild(item);
+            }
+
+        }
+
+    };
+    //add an event binder to the button
+    addButton.addEventListener('click', addToList);
+    clearButton.addEventListener('click', clearList);
+
 });
-
-
-
-/* ===============js for index2.html ???? ===============*/
