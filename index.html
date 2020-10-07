@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--Jquery-->
+    <!--Axiox-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!--encrypt password-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
@@ -71,19 +73,18 @@ class="btn btn-outline-primary">LOGIN</a>
         </div>
     </div>
     <div class="container userProfile col-lg-6 hidden">
-        <div class="dashboard"></div>
-        <div class="userProfile" id="user-profile">
-            <img src="/assets/add-user.png" class="userIcon" />
-        </div>
+        <img src="/assets/user-icon.png" class="userIcon" />
         <div class="profileInfo" id="">
-            <h5>User name</h4>
-                <h6>Last active: --/--/----</h3>
-                    <select data-placeholder="Choose a Language...">
-                        <option value="Catalan">Catalan</option>
-                        <option value="Dutch">Dutch</option>
-                        <option value="English">English</option>
-                    </select>
+            <h4>User name</h4>
+            <h6>Last active: --/--/----</h6>
+            <select data-placeholder="Choose a Language...">
+                <option value="Catalan">Catalan</option>
+                <option value="Dutch">Dutch</option>
+                <option value="English">English</option>
+            </select><br>
+            <button id="add-language" onclick="selectLanguage()">Add language</button>
         </div>
+    </div>
 </body>
 
 </html>

@@ -88,3 +88,8 @@ $(document).ready(function () {
 });
 
 /* ===============js for index2.html ???? ===============*/
+
+function selectLanguage() {
+    //API
+    //https://rapidapi.com/translated/api/mymemory-translation-memory
+  }
