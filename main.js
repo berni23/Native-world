@@ -54,16 +54,12 @@ $(document).ready(function () {
 
     /* UTILS*/
 
-
     function validateRegister(inputName, inputPassword) {
-
-
         clearErrors();
         var nameRgx = /\b.{3,}\b/
         var errName = "username should contain more than three characters";
         var passwordRgx = /(?=.*\d)(?=.*[A-Z]).{6,}/;
         var errPassword = "password must contain an uppercase, a number, and 6 characters minimum"
-
         return validate(inputName, nameRgx, errName) * validate(inputPassword, passwordRgx, errPassword)
 
 
