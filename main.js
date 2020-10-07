@@ -35,7 +35,6 @@ $(document).ready(function () {
     }
 
     function register() {
-
         var userName = inputName.val();
         var password = inputPassword.val();
         if (users.userExist(userName)) {
@@ -51,7 +50,6 @@ $(document).ready(function () {
         }
     }
 
-<<<<<<< HEAD
 
     /* UTILS*/
 
@@ -90,6 +88,5 @@ $(document).ready(function () {
         for (div of errorInput) div.classList.remove("error-input");
     }
 });
-=======
+
 /* ===============js for index2.html ???? ===============*/
->>>>>>> suki

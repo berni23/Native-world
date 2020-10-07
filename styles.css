@@ -35,13 +35,7 @@ body {
     height: 100px;
     font-size: 80px;
     line-height: 100px;
-<<<<<<< HEAD
     color: black;
-=======
-    background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
-    
-    -webkit-text-fill-color: transparent;
->>>>>>> suki
 }
 
 .login-title {
@@ -144,7 +138,6 @@ input:focus {
     color: black;
 }
 
-<<<<<<< HEAD
 
 .info-window {
     position: fixed;
@@ -192,30 +185,27 @@ input:focus {
     margin: auto;
 }
 
-/*Utilities*/
 
+/* index2.html*/
 
-.invisible {
-
-    opacity: 0;
-}
-=======
-/*============ index.html2 =============*/
 .userProfile {
     display: flex;
     background-color: white;
     margin: 5% auto;
-   
+
 }
+
 .userIcon {
     width: 5rem;
     height: 5rem;
     margin: 2rem;
 
 }
- .profileInfo {
+
+.profileInfo {
     margin: 0px 40px;
- }
+}
+
 .chooseLanguage {
     width: 5rem;
     height: 5rem;
@@ -223,4 +213,15 @@ input:focus {
     background-color: #0DB8DE;
 }
 
->>>>>>> suki
+
+/*Utilities*/
+
+
+.invisible {
+    opacity: 0;
+}
+
+
+.hidden {
+    display: none;
+}
