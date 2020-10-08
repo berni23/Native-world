@@ -6,21 +6,30 @@ function getUsers() {
 }
 
 function reviveUsersObject(oldUsers) {
-    // var newUsers = new users();
     oldUsers = reviver(oldUsers, new users())
-    var newUser = new user();
-    Object.keys(oldUsers.userList).forEach(function (user) {
-        reviver(oldUsers.userList[user], newUser);
+    oldUsers.userList.forEach(function (oldUser) {
+        reviveOneUser(oldUser);
     });
     return oldUsers;
 }
 
+function reviveOneUser(oldUser) {
+    reviver(oldUser, new user(''));
+    oldUser.languages.forEach(function (oldLanguage) {
+        reviveLanguage(oldLanguage)
+    })
+}
+
+function reviveLanguage(oldLanguage) {
+
+    reviver(oldLanguage, new language('', ''))
+}
 
 function reviver(oldObj, newObj) {
     Object.keys(newObj).forEach(function (key) {
-        if (typeof newObj[key] == 'function') {
+        if (typeof newObj[key] == 'function')
             oldObj[key] = newObj[key]
-        }
+
     })
 
     return oldObj;
@@ -69,6 +78,10 @@ class user {
             })
             return true
         }
+
+        this.deleteLanguage = function (languageName) {
+            delete this.languages[languageName];
+        }
     };
 }
 
@@ -85,6 +98,14 @@ class language {
             delete this.groups[nameGroup];
         }
 
+    }
+}
+
+
+class group {
+
+    constructor(groupName) {
+        this.name = groupName
     }
 }
 

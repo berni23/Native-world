@@ -55,7 +55,8 @@ Class styles
 
 
 .login-page,
-.userProfile {
+.userProfile,
+.dashboard {
     opacity: 1;
     transition: opacity 1s ease-in;
 }

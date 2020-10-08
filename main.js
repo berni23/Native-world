@@ -1,7 +1,9 @@
 $(document).ready(function () {
+
+    /* main sections*/
     var loginPage = $(".login-page");
     var userProfile = $(".userProfile");
-    loginPage.removeClass('invisible');
+    var dashBoard = $(".dashboard");
     var inputName = $("#user-name");
     var inputPassword = $("#password-input");
     var infoWindow = $(".info-window");
@@ -12,16 +14,21 @@ $(document).ready(function () {
 
 
     /* to speed up debugging  */
-
-
     inputName.val('bernat');
     inputPassword.val('12345AAA')
+
+
+    /* fadein effect*/
+    loginPage.removeClass('invisible');
 
     $(document).click(function (event) {
         if (event.target.id == "login-btn") login();
         else if (event.target.id == "register-btn") register();
         else if ($(event.target).hasClass('btn-add-language')) newLanguage();
-        else if ($(event.target).hasClass('profile-languages')) {}
+        else if ($(event.target).hasClass('profile-languages')) {
+            goToDashboard(event.target);
+            console.log('yo bitch')
+        }
     })
     $('.buttonBack').click(backToLogin);
     /* Modals */
@@ -86,11 +93,8 @@ $(document).ready(function () {
     function populateLanguage(language) {
         var lanContainer = $('<div class="container row profile-languages">' + getImageFlag(language['code']) + '<span class = "language-label">' + language['name'] + '</span></div>');
         languagesWrapper.append(lanContainer);
-        // var newLanguage = $('<div class="container row profile-languages new-language modal-trigger" data-modal="modal-lan"> <img class = "flag"src = "assets/new_language.svg"> <span class = "language-label"> Click to add a new languae </span> </div>');
 
     }
-
-
     /* API*/
 
     var ENDPOINT_LANGUAGE_CODES = 'https://gist.githubusercontent.com/piraveen/fafd0d984b2236e809d03a0e306c8a4d/raw/4258894f85de7752b78537a4aa66e027090c27ad/'
@@ -110,7 +114,6 @@ $(document).ready(function () {
         var language = $(".select-language :selected");
         var newLanguage = currentUser.addLanguage(language.text(), language.val());
         users.save();
-
         populateLanguage(newLanguage);
 
     }
@@ -153,24 +156,63 @@ $(document).ready(function () {
     function getImageFlag(code) {
         return '<img class = "flag" src =' + ENDPOINT_FLAGS + code + '/shiny/64.png> ';
     }
+    /* navigate */
 
-    function backToLogin() {
-        userProfile.addClass('hidden');
+    function showProfile() {
+
+        userProfile.removeClass('hidden');
+        setTimeout(function () {
+            userProfile.removeClass('invisible')
+        }, 500)
+    }
+
+    function showLogin() {
         loginPage.removeClass('hidden');
         setTimeout(function () {
             loginPage.removeClass('invisible')
-        }, 1000)
+        }, 500)
+
+    }
+
+    function showDashBoard() {
+        dashBoard.removeClass('hidden');
+        setTimeout(function () {
+            dashBoard.removeClass('invisible')
+        }, 500)
+
+    }
+
+    function hideProfile() {
+        userProfile.addClass('hidden');
+        userProfile.addClass('invisible');
+
+    }
+
+    function hideLogin() {
+        loginPage.addClass('hidden');
+        loginPage.addClass('invisible');
+    }
+
+    function hideDashBoard() {
+        dashBoard.addClass('invisible');
+        dashBoard.addClass('hidden');
+    }
+
+    function backToLogin() {
+        hideProfile();
+        showLogin();
     }
 
     function goToProfile() {
         inputName.val("");
         inputPassword.val("");
-        loginPage.addClass('hidden');
-        userProfile.removeClass('hidden');
-        setTimeout(function () {
-            userProfile.removeClass('invisible')
-        }, 1000)
+        hideLogin();
+        showProfile();
+    }
 
+    function goToDashboard(eventTarget) {
+        hideProfile();
+        showDashBoard();
     }
 
     /* ===============js for index2.html ???? ===============*/
