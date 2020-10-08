@@ -35,7 +35,6 @@ function reviver(oldObj, newObj) {
     Object.keys(newObj).forEach(function (key) {
         if (typeof newObj[key] == 'function') oldObj[key] = newObj[key];
     })
-
     return oldObj;
 }
 
@@ -88,8 +87,6 @@ class user {
         }
     };
 }
-
-
 class language {
     constructor(name, code) {
         this.name = name,
@@ -100,8 +97,8 @@ class language {
             }
 
         this.setGroup = function (nameGroup) {
-            if (!this.groupExists(groups)) {
-                this.groups[nameGroup] = new group(groupName);
+            if (!this.groupExists(nameGroup)) {
+                this.groups[nameGroup] = new group(nameGroup);
                 return this.groups[nameGroup];
             }
             return false;
@@ -129,10 +126,7 @@ class group {
             return this.wordsList[wordName] == true;
         }
     }
-
 }
-
-
 class word {
     constructor(wordName, translation) {
         this.wordName = wordName;

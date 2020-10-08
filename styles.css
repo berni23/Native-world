@@ -1,23 +1,20 @@
 /*---------------------------------
 Tag styles
 ----------------------------------*/
-
-
-html {
-    height: 100%;
-    width: 100%;
+* {
+    padding: 0;
+    margin: 0;
 }
 
 body {
     font-family: 'Montserrat', Arial !important;
-    height: 100%;
-    width: 100%;
     background: linear-gradient(180deg, rgba(26, 18, 161, 1) 5%, rgba(7, 22, 66, 1) 78%);
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100vh;
+    width: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 
 ul {
@@ -27,10 +24,6 @@ ul {
 
 li {
     height: 35px;
-}
-
-header {
-    background-color: white;
 }
 
 input {
@@ -53,16 +46,18 @@ input:focus {
 Class styles
 ----------------------------------*/
 
-
 .login-page,
 .userProfile,
 .dashboard {
     opacity: 1;
     transition: opacity 1s ease-in;
+    max-width: 980px;
+    margin: auto;
 }
 
+
 .login-box {
-    margin-top: 40%;
+    margin: 20% auto;
     background: white;
     text-align: center;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -222,7 +217,7 @@ Class styles
 .userProfile {
     display: flex;
     width: 100%;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
     position: relative;
     margin: 50px 0px 0px 100px;
     float: left;
@@ -310,7 +305,6 @@ Class styles
 .add-icon {
     width: 2rem;
     height: 2rem;
-
 }
 
 #modal-lan * {
@@ -320,9 +314,14 @@ Class styles
 /*--------------------------------------
 DASHBOARD
 -----------------------------------------*/
-.dashboard {
-    margin-top: 30px;
-    padding: 15px;
+
+
+.dashboard-title {
+
+    color: white;
+    text-align: center;
+    margin-top: 50px;
+
 }
 
 .navbar {
@@ -334,6 +333,7 @@ DASHBOARD
 .nav-links {
     padding: 0;
     margin: auto;
+    text-align: center;
 }
 
 
@@ -347,7 +347,7 @@ DASHBOARD
 .nav-links li {
     list-style-type: none;
     display: inline;
-    padding: 0 60px;
+    padding: 0 18px;
     cursor: pointer;
     font-size: 2rem;
     transition: all 0.3s linear;
@@ -368,27 +368,24 @@ DASHBOARD
 .add-item i {
 
     color: white;
-    width: 48px;
-    height: 48px;
+    font-size: 40px
 }
 
 .cards-container {
     display: flex;
     margin: 200px auto;
+    flex-wrap: wrap;
     border-radius: 5px;
-    width: 75%;
+    justify-content: space-between;
     /*box-shadow: 2px 2px 57px 5px rgb(0 0 0);*/
 }
 
 .box {
     background-color: #d6e0f0;
-    height: 5rem;
-    margin: auto;
     padding: 15px;
     text-align: center;
     color: black;
     font-size: 22px;
-    text-decoration: underline;
     border-radius: 5px;
 }
 
@@ -542,7 +539,7 @@ DASHBOARD
     text-align: center;
 }
 
-.add-word-to-group {
+/*.add-word-to-group {
     background-color: white;
     display: flex;
     margin: 25px auto;
@@ -552,6 +549,8 @@ DASHBOARD
     border: none;
     border-radius: 5px;
 }
+*/
+
 
 #addWord {
     text-align: center;

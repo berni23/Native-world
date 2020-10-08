@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     /* main sections*/
     var loginPage = $(".login-page");
     var userProfile = $(".userProfile");
@@ -8,33 +7,53 @@ $(document).ready(function () {
     var inputPassword = $("#password-input");
     var infoWindow = $(".info-window");
     var languageList = $(".select-language");
+    var cardsContainer = $(".cards-container");
+    var addGroupInput = $(".add-group-input");
     var users = getUsers();
     var lanObj;
     var currentUser;
     var currentLanguage;
-
-
     /* to speed up debugging  */
     inputName.val('bernat');
     inputPassword.val('12345AAA')
 
-
     /* fadein effect*/
     loginPage.removeClass('invisible');
-
     $(document).click(function (event) {
         if (event.target.id == "login-btn") login();
         else if (event.target.id == "register-btn") register();
         else if ($(event.target).hasClass('btn-add-language')) newLanguage();
         else if ($(event.target).hasClass('profile-languages') && !$(event.target).hasClass('modal-trigger')) {
-
             goToDashboard(event.target);
+            populateDashboard(event.target)
             var language = event.target.dataset.language;
+            console.log('data-language', language);
             currentLanguage = currentUser.languages[language]; // objecto language
+        } else if ($(event.target.hasClass('box'))) {
 
+            // populateWords(event.target.dataset.group)
+            //
         }
     })
+
+
+    // similar to populateGroup, look at such implementation for insipiration
+
+    /* populateWords(groupName) {
+
+
+         cardsContainer.empty();
+         var words = currentLanguage[groupName].words
+         populateOnwWord
+
+
+     }
+
+     */
+
     $('.buttonBack').click(backToLogin);
+
+    $('#addButton-group').click(createGroup)
     /* Modals */
     $(".modal-trigger").click(function (e) {
         e.preventDefault();
@@ -70,8 +89,8 @@ $(document).ready(function () {
         var password = inputPassword.val();
         if (users.userExist(userName)) message('user already exists, please choose another username')
         else if (validateRegister("#user-name", "#password-input")) {
-            users.setUser(userName, password);
-            currentUser = users.getUser(userName);
+
+            currentUser = users.setUser(userName, password);
             users.save();
             message('register successful!');
             goToProfile();
@@ -80,7 +99,7 @@ $(document).ready(function () {
         }
     }
     var ENDPOINT_FLAGS = "https://www.countryflags.io/";
-    var languagesWrapper = $('.languages-wrapper')
+    var languagesWrapper = $('.languages-wrapper');
 
     function populateUserProfile() {
         console.log(currentUser)
@@ -94,10 +113,43 @@ $(document).ready(function () {
     }
 
     function populateLanguage(language) {
-        var lanContainer = $('<div class="container row profile-languages data-language=' + language['name'] + '>' + getImageFlag(language['code']) + '<span class = "language-label">' + language['name'] + '</span></div>');
+        var lanContainer = $('<div class="container row profile-languages" data-language=' + language['name'] + '>' + getImageFlag(language['code']) + '<span class = "language-label">' + language['name'] + '</span></div>');
         languagesWrapper.append(lanContainer);
-
     }
+
+    function populateDashboard(eventTarget) {
+        var language = eventTarget.dataset.language;
+        console.log(currentUser);
+        currentLanguage = currentUser.languages[language]; // objecto language
+        populateGroups(currentLanguage.groups);
+    }
+
+    function populateGroups(groups) {
+        Object.keys(groups).forEach(function (item) {
+            populateOneGroup(groups[item]);
+        })
+    }
+
+    function populateOneGroup(group) {
+        var groupContainer = $('<div class="box col-md-3" data-group="' + group.name + '"><p>' + group.name + '</p></div>');
+        cardsContainer.append(groupContainer);
+    }
+
+
+    function createGroup() {
+        //else if ($(event.target).hasClass('.add-group-input')) createGroup();
+        console.log('groupCreated');
+        var groupName = addGroupInput.val();
+        if (!groupName) message("the name of the group can't be blank.")
+        else if (currentLanguage.groupExists(groupName)) message("the name of the group already exists.");
+        else {
+            var newGroup = currentLanguage.setGroup(groupName);
+            populateOneGroup(newGroup);
+            users.save();
+        }
+    }
+
+
     /* API*/
 
     var ENDPOINT_LANGUAGE_CODES = 'https://gist.githubusercontent.com/piraveen/fafd0d984b2236e809d03a0e306c8a4d/raw/4258894f85de7752b78537a4aa66e027090c27ad/'
@@ -115,10 +167,12 @@ $(document).ready(function () {
 
     function newLanguage() {
         var language = $(".select-language :selected");
+
+        console.log(language);
         var newLanguage = currentUser.addLanguage(language.text(), language.val());
+        console.log(newLanguage);
         users.save();
         populateLanguage(newLanguage);
-
     }
 
     /* UTILS*/
@@ -164,7 +218,6 @@ $(document).ready(function () {
     /* navigate */
 
     function showProfile() {
-
         userProfile.removeClass('hidden');
         setTimeout(function () {
             userProfile.removeClass('invisible')

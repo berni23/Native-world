@@ -30,8 +30,7 @@
     <div class="info-window"></div>
     <div class="container login-page invisible hidden">
         <div class="row">
-            <div class="col-lg-3 col-md-2"></div>
-            <div class="col-lg-8 col-md-8 login-box">
+            <div class="col-lg-8 col-md-8 col-sm-8 login-box">
                 <div class="col-lg-12 login-key ">
                     <span class="iconify" data-icon="clarity:world-solid" data-inline="false"></span>
                 </div>
@@ -92,8 +91,8 @@
             </div>
         </div>
     </div>
-    <div class="dashboard col-lg-12">
-        <div class="navbar col-lg-12">
+    <div class="dashboard">
+        <div class="navbar">
             <ul class="nav-links">
                 <li><a href="#" target="_blank" id="dashboard"></a>Dashboard</li>
                 <li><a href="#" target="_blank" id="user-profile"></a>Userprofile</li>
@@ -101,52 +100,56 @@
                 <li><a href="#" target="_blank" id="statics"></a>Statistics</li>
             </ul>
         </div>
-
         <div class="search-container">
             <form>
                 <input class="search-bar" type="text" placeholder="Search.." name="search">
                 <button id="search-word" type="submit"><i class="fa fa-search"></i></button>
             </form>
-
             <div class="add-button">
                 <a href="#" class="modal-trigger add-item" data-modal="modal-name"><i class="fa fa-plus"></i></a>
             </div>
         </div>
 
-
-    </div>
-    <div class="cards-container col-lg-12">
-        <div class="box col-md-3" data-group='computer Science'>
-            <p>Computer Science</p>
-        </div>
-        <div class="box col-md-3">
-            <p>Serie</p>
-        </div>
-        <div class="box col-md-3">
-            <p>Others</p>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal" id="modal-name">
-        <div class="modal-sandbox"></div>
-        <div class="modal-box">
-            <div class="modal-header">
-                <div class="close-modal">&#10006;</div>
-                <div class="add-group-container">
-                    <p class="modal-title">Name of new group</p>
-                    <input type="text" class="add-word-to-group" id="itemInput">
-                </div>
-                <div class="buttons">
-                    <button id="addButton" class="btn btn-primary"><i class="fa fa-plus"></i></button>
-                    <button id="clearButton" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                </div>
-                <ul id="addWord"></ul>
+        <h2 class="dashboard-title"> Groups of words</h2>
+        <div class="cards-container">
+            <div class="box" data-group='computer Science'>
+                <p>Computer Science</p>
             </div>
-
+            <div class="box">
+                <p>Serie</p>
+            </div>
+            <div class="box">
+                <p>Others</p>
+            </div>
+            <div class="box">
+                <p>Others</p>
+            </div>
+            <div class="box">
+                <p>Others</p>
+            </div>
+            <div class="box">
+                <p>Others</p>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal" id="modal-name">
+            <div class="modal-sandbox"></div>
+            <div class="modal-box">
+                <div class="modal-header">
+                    <div class="close-modal">&#10006;</div>
+                    <div class="add-group-container">
+                        <p class="modal-title">Name of new group</p>
+                        <input type="text" class="add-group-input" id="itemInput">
+                    </div>
+                    <div class="buttons">
+                        <button id="addButton-group" class="btn btn-primary close-modal"><i class=" fa
+                        fa-plus"></i></button>
+                        <button id="clearButton" class="btn btn-danger close-modal"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    </div>
-
 </body>
 
 </html>
