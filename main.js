@@ -40,8 +40,6 @@ $(document).ready(function () {
     // similar to populateGroup, look at such implementation for insipiration
 
     /* populateWords(groupName) {
-
-
          cardsContainer.empty();
          var words = currentLanguage[groupName].words
          populateOnwWord
