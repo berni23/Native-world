@@ -21,7 +21,6 @@ function reviveOneUser(oldUser) {
 }
 
 function reviveLanguage(oldLanguage) {
-
     reviver(oldLanguage, new language('', ''))
 }
 
@@ -121,9 +120,3 @@ function now() {
     var stringDate = month + "/" + day + "/" + date.getFullYear() + "  at " + hours + ":" + minutes;
     return stringDate;
 }
-
-/*var encryptedAES = CryptoJS.AES.encrypt("Message", "My Secret Passphrase");
-var decryptedBytes = CryptoJS.AES.decrypt(encryptedAES, "My Secret Passphrase");
-var plaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
-
-*/
