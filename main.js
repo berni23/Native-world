@@ -25,10 +25,7 @@ $(document).ready(function () {
         if (event.target.id == "login-btn") login();
         else if (event.target.id == "register-btn") register();
         else if ($(event.target).hasClass('btn-add-language')) newLanguage();
-        else if ($(event.target).hasClass('profile-languages')) {
-            goToDashboard(event.target);
-            console.log('yo bitch')
-        }
+        else if ($(event.target).hasClass('profile-languages') && !$(event.target).hasClass('modal-trigger')) goToDashboard(event.target);
     })
     $('.buttonBack').click(backToLogin);
     /* Modals */
@@ -84,7 +81,6 @@ $(document).ready(function () {
         $(".last-active").text(currentUser.lastActive);
         console.log('languages', currentUser.languages)
         var languages = currentUser.languages;
-        languagesWrapper.append(newLanguage);
         Object.keys(languages).forEach(function (name) {
             populateLanguage(languages[name]);
         })
@@ -154,8 +150,10 @@ $(document).ready(function () {
     }
 
     function getImageFlag(code) {
-        return '<img class = "flag" src =' + ENDPOINT_FLAGS + code + '/shiny/64.png> ';
+        return '<span class = "iconify" data - icon = "fxemoji:' + code + 'flag data -inline = "false"> </span>'
+        //'<img class = "flag" src =' + ENDPOINT_FLAGS + code + '/shiny/64.png> ';
     }
+
     /* navigate */
 
     function showProfile() {

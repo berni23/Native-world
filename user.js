@@ -7,29 +7,33 @@ function getUsers() {
 
 function reviveUsersObject(oldUsers) {
     oldUsers = reviver(oldUsers, new users())
-    oldUsers.userList.forEach(function (oldUser) {
-        reviveOneUser(oldUser);
+    Object.keys(oldUsers.userList).forEach(function (oldUser) {
+        reviveOneUser(oldUsers.userList[oldUser]);
     });
     return oldUsers;
 }
 
 function reviveOneUser(oldUser) {
     reviver(oldUser, new user(''));
-    oldUser.languages.forEach(function (oldLanguage) {
-        reviveLanguage(oldLanguage)
+    Object.keys(oldUser.languages).forEach(function (oldLanguage) {
+        reviveLanguage(oldUser.languages[oldLanguage]);
     })
 }
 
 function reviveLanguage(oldLanguage) {
+    reviver(oldLanguage, new language('', ''));
+    Object.keys(oldLanguage.groups).forEach(function (groupName) {
+        reviveGroups(oldLanguage.groups[groupName]);
+    })
+}
 
-    reviver(oldLanguage, new language('', ''))
+function reviveGroups(oldGroup) {
+    reviver(oldGroup, new group('', ''));
 }
 
 function reviver(oldObj, newObj) {
     Object.keys(newObj).forEach(function (key) {
-        if (typeof newObj[key] == 'function')
-            oldObj[key] = newObj[key]
-
+        if (typeof newObj[key] == 'function') oldObj[key] = newObj[key];
     })
 
     return oldObj;
@@ -94,18 +98,45 @@ class language {
             this.groupExists = function (group) {
                 return this.groups[group] == true;
             }
-        this.deleteGroup = function (nameGroup) {
-            delete this.groups[nameGroup];
-        }
 
+        this.setGroup = function (nameGroup) {
+
+            if (!this.groupExists(groups)) {
+                this.groups[nameGroup] = new group(groupName);
+                return this.groups[nameGroup];
+            }
+            return false;
+        }
     }
+}
+this.deleteGroup = function (nameGroup) {
+    delete this.groups[nameGroup];
 }
 
 
 class group {
-
     constructor(groupName) {
-        this.name = groupName
+        this.name = groupName;
+        this.wordsList = {};
+        this.addWord = function (wordName, translation) { // extras
+            if (!this.wordExists(wordName)) {
+                this.wordsList[wordName] = new word(wordName, translation);
+                return this.wordsList[wordName];
+            }
+            return false;
+        }
+        this.wordExists = function (wordName) {
+            return this.wordsList[wordName] == true;
+        }
+    }
+
+}
+
+
+class word {
+    constructor(wordName, translation) {
+        this.wordName = wordName;
+        this.translation = translation;
     }
 }
 
@@ -121,9 +152,3 @@ function now() {
     var stringDate = month + "/" + day + "/" + date.getFullYear() + "  at " + hours + ":" + minutes;
     return stringDate;
 }
-
-/*var encryptedAES = CryptoJS.AES.encrypt("Message", "My Secret Passphrase");
-var decryptedBytes = CryptoJS.AES.decrypt(encryptedAES, "My Secret Passphrase");
-var plaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
-
-*/
