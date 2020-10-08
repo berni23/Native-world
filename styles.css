@@ -221,8 +221,8 @@ Class styles
 
 .userProfile {
     display: flex;
-    height: 100%;
-    overflow: auto;
+    width: 100%;
+    overflow-y: auto;
     position: relative;
     margin: 50px 0px 0px 100px;
     float: left;
@@ -326,8 +326,7 @@ DASHBOARD
 }
 
 .navbar {
-    background-color: white;
-    border: 1px solid grey;
+    color: white;
     border-radius: 5px;
     margin: auto;
 }
@@ -337,17 +336,27 @@ DASHBOARD
     margin: auto;
 }
 
+
+.nav-links li:hover {
+
+    font-size: 2.3rem;
+    color: #0DB8DE;
+    transition: all 0.3s linear;
+}
+
 .nav-links li {
     list-style-type: none;
     display: inline;
     padding: 0 60px;
     cursor: pointer;
-    font-size: 32px;
+    font-size: 2rem;
+    transition: all 0.3s linear;
 }
 
 .search-container {
-    text-align: center;
+    justify-content: space-evenly;
     margin-top: 40px;
+    display: flex;
 }
 
 .search-bar {
@@ -356,19 +365,22 @@ DASHBOARD
     padding: 8px;
 }
 
-.cards-container {
-    display: flex;
-    background-color: white;
-    height: 15rem;
-    margin: 59px auto;
-    border-radius: 5px;
-    width: 75%;
-    box-shadow: 2px 2px 57px 5px rgb(0 0 0);
+.add-item i {
+
+    color: white;
+    width: 48px;
+    height: 48px;
 }
 
-.box1,
-.box2,
-.box3 {
+.cards-container {
+    display: flex;
+    margin: 200px auto;
+    border-radius: 5px;
+    width: 75%;
+    /*box-shadow: 2px 2px 57px 5px rgb(0 0 0);*/
+}
+
+.box {
     background-color: #d6e0f0;
     height: 5rem;
     margin: auto;

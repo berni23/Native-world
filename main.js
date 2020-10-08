@@ -11,6 +11,7 @@ $(document).ready(function () {
     var users = getUsers();
     var lanObj;
     var currentUser;
+    var currentLanguage;
 
 
     /* to speed up debugging  */
@@ -25,9 +26,12 @@ $(document).ready(function () {
         if (event.target.id == "login-btn") login();
         else if (event.target.id == "register-btn") register();
         else if ($(event.target).hasClass('btn-add-language')) newLanguage();
-        else if ($(event.target).hasClass('profile-languages')) {
+        else if ($(event.target).hasClass('profile-languages') && !$(event.target).hasClass('modal-trigger')) {
+
             goToDashboard(event.target);
-            console.log('yo bitch')
+            var language = event.target.dataset.language;
+            currentLanguage = currentUser.languages[language]; // objecto language
+
         }
     })
     $('.buttonBack').click(backToLogin);
@@ -84,14 +88,13 @@ $(document).ready(function () {
         $(".last-active").text(currentUser.lastActive);
         console.log('languages', currentUser.languages)
         var languages = currentUser.languages;
-        languagesWrapper.append(newLanguage);
         Object.keys(languages).forEach(function (name) {
             populateLanguage(languages[name]);
         })
     }
 
     function populateLanguage(language) {
-        var lanContainer = $('<div class="container row profile-languages">' + getImageFlag(language['code']) + '<span class = "language-label">' + language['name'] + '</span></div>');
+        var lanContainer = $('<div class="container row profile-languages data-language=' + language['name'] + '>' + getImageFlag(language['code']) + '<span class = "language-label">' + language['name'] + '</span></div>');
         languagesWrapper.append(lanContainer);
 
     }
@@ -154,8 +157,10 @@ $(document).ready(function () {
     }
 
     function getImageFlag(code) {
-        return '<img class = "flag" src =' + ENDPOINT_FLAGS + code + '/shiny/64.png> ';
+        return '<span class = "iconify" data - icon = "fxemoji:' + code + 'flag data -inline = "false"> </span>'
+        //'<img class = "flag" src =' + ENDPOINT_FLAGS + code + '/shiny/64.png> ';
     }
+
     /* navigate */
 
     function showProfile() {
