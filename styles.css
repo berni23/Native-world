@@ -14,9 +14,10 @@ body {
     width: 100%;
     background: linear-gradient(180deg, rgba(26, 18, 161, 1) 5%, rgba(7, 22, 66, 1) 78%);
     background-repeat: no-repeat;
-    background-size: cover !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
 ul {
@@ -219,16 +220,22 @@ Class styles
 
 .userProfile {
     display: flex;
+    height: 100%;
+    overflow: auto;
     position: relative;
-    margin: 50px 0px 0px 50px;
+    margin: 50px 0px 0px 100px;
     float: left;
     opacity: 1;
     transition: opacity 1s ease-in;
 }
 
+.languages-wrapper {
+
+    overflow: auto;
+}
+
 
 .profileInfo {
-    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -467,13 +474,6 @@ DASHBOARD
     padding: 20px 60px;
 }
 */
-
-.form-group input {
-    height: 60px;
-    width: 60%;
-    border-radius: 4px;
-    padding: 15px;
-}
 
 /*Form Area*/
 #addWord label {

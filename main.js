@@ -21,6 +21,7 @@ $(document).ready(function () {
         if (event.target.id == "login-btn") login();
         else if (event.target.id == "register-btn") register();
         else if ($(event.target).hasClass('btn-add-language')) newLanguage();
+        else if ($(event.target).hasClass('profile-languages')) {}
     })
     $('.buttonBack').click(backToLogin);
     /* Modals */
@@ -71,15 +72,25 @@ $(document).ready(function () {
     var languagesWrapper = $('.languages-wrapper')
 
     function populateUserProfile() {
-
         console.log(currentUser)
         $(".username-profile").text(currentUser.userName);
-        $(".lastActive-profile").text(currentUser.lastActive);
-        Object.keys(currentUser.languages).forEach(function (language) {
-            var lanContainer = $('<div class="container row profile-languages">' + getImageFlag(language) + '<span class = "language-label">' + language['name'] + '</span></div>');
-            languagesWrapper.append(lanContainer);
+        $(".last-active").text(currentUser.lastActive);
+        console.log('languages', currentUser.languages)
+        var languages = currentUser.languages;
+        languagesWrapper.append(newLanguage);
+        Object.keys(languages).forEach(function (name) {
+            populateLanguage(languages[name]);
         })
     }
+
+    function populateLanguage(language) {
+        var lanContainer = $('<div class="container row profile-languages">' + getImageFlag(language['code']) + '<span class = "language-label">' + language['name'] + '</span></div>');
+        languagesWrapper.append(lanContainer);
+        // var newLanguage = $('<div class="container row profile-languages new-language modal-trigger" data-modal="modal-lan"> <img class = "flag"src = "assets/new_language.svg"> <span class = "language-label"> Click to add a new languae </span> </div>');
+
+    }
+
+
     /* API*/
 
     var ENDPOINT_LANGUAGE_CODES = 'https://gist.githubusercontent.com/piraveen/fafd0d984b2236e809d03a0e306c8a4d/raw/4258894f85de7752b78537a4aa66e027090c27ad/'
@@ -97,8 +108,10 @@ $(document).ready(function () {
 
     function newLanguage() {
         var language = $(".select-language :selected");
-        currentUser.addLanguage(language.text(), language.val());
+        var newLanguage = currentUser.addLanguage(language.text(), language.val());
         users.save();
+
+        populateLanguage(newLanguage);
 
     }
 
@@ -146,11 +159,10 @@ $(document).ready(function () {
         loginPage.removeClass('hidden');
         setTimeout(function () {
             loginPage.removeClass('invisible')
-        }, 500)
+        }, 1000)
     }
 
     function goToProfile() {
-
         inputName.val("");
         inputPassword.val("");
         loginPage.addClass('hidden');

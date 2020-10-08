@@ -8,11 +8,6 @@ function getUsers() {
 function reviveUsersObject(oldUsers) {
     // var newUsers = new users();
     oldUsers = reviver(oldUsers, new users())
-    /*  oldUsers.getUser = newUsers.getUser;
-        oldUsers.setUser = newUsers.setUser;
-        oldUsers.userExist = newUsers.userExist;
-        oldUsers.save = newUsers.save;
-        */
     var newUser = new user();
     Object.keys(oldUsers.userList).forEach(function (user) {
         reviver(oldUsers.userList[user], newUser);
@@ -65,6 +60,7 @@ class user {
         this.lastActive = now();
         this.addLanguage = function (name, code) {
             this.languages[name] = new language(name, code);
+            return this.languages[name];
         };
         this.checkPassword = function (password) {
             var rightPassword = this.password.words;
