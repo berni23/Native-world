@@ -446,6 +446,20 @@ DASHBOARD
     cursor: pointer;
 }
 
+.word {
+    background-color: #d6e0f0;
+    text-align: center;
+    color: black;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    padding: 0 25px;
+    justify-content: space-between;
+}
+
 .word-label {
     width: 100%;
     display: flex;

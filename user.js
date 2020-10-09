@@ -16,6 +16,7 @@ class users {
         this.setUser = function (userName, password) {
             if (this.userExist(userName)) return false; // user exists
             this.userList[userName] = new user(userName, password);
+            return this.userList[userName];
         };
         this.userExist = function (userName) {
             return userName in this.userList;
@@ -38,6 +39,8 @@ class user {
         };
         this.checkPassword = function (password) {
             var rightPassword = this.password.words;
+
+            if (password.length != rightPassword.length) return false
             CryptoJS.MD5(password).words.forEach(function (item, i) {
                 if (item != rightPassword[i]) return false;
             })

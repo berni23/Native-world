@@ -27,6 +27,8 @@ $(document).ready(function () {
 
     /* global vars as reference to current object */
     var users = getUsers();
+
+    console.log(users);
     var currentUser = users.getUser('bernat');
     var currentLanguage = currentUser.languages['Arabic'];
     var currentGroup;
@@ -85,6 +87,8 @@ $(document).ready(function () {
             var userName = inputName.val().trim();
             var password = inputPassword.val().trim();
             var newUser = users.getUser(userName);
+
+            console.log(newUser.checkPassword(password));
             if (newUser && newUser.checkPassword(password)) {
                 message('login successful!');
                 currentUser = newUser;
@@ -189,14 +193,16 @@ $(document).ready(function () {
    ---------------------- */
 
     function populateOneWord(word) {
-        $('<p class="words-meaning" data-group="" ' + word.name + '"></p><ul><li>' + word.name + '</li></ul>');
-        wordContainer.append(word);
+
+        console.log(word);
+        var wordTranslation = $('<div class = "word" > <span class="wordName">' + word.wordName + '</span><span class="translation">' + word.translation + '</span></div > ')
+        wordContainer.append(wordTranslation);
     }
 
     function populateWords() {
         var words = currentGroup.wordsList;
         Object.keys(words).forEach(function (word) {
-            populateOneWord(word);
+            populateOneWord(words[word]);
         })
     }
 
@@ -209,8 +215,6 @@ $(document).ready(function () {
             var wordAdded = currentGroup.addWord(word, trans);
             users.save();
             message("word successfully added");
-
-            console.log('added word ', wordAdded);
             populateOneWord(wordAdded);
 
         }
