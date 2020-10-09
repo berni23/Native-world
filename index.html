@@ -28,7 +28,7 @@
 
 <body>
     <div class="info-window"></div>
-    <div class="container login-page invisible hidden">
+    <div class="container login-page invisible">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 login-box">
                 <div class="col-lg-12 login-key ">
@@ -41,7 +41,7 @@
                     <label>USERNAME</label>
                     <input id="user-name" type="text" class="form-control">
                     <label>PASSWORD</label>
-                    <input id="password-input" type="password" class="form-control" i>
+                    <input id="password-input" type="password" class="form-control">
                     <div class="col-lg-12 loginbttm">
                         <div class="col-lg-6 login-btm login-text">
                             <!-- Error Message -->
@@ -91,7 +91,7 @@
             </div>
         </div>
     </div>
-    <div class="dashboard">
+    <div class="dashboard hidden invisible">
         <div class="navbar">
             <ul class="nav-links">
                 <li><a href="#" target="_blank" id="dashboard"></a>Dashboard</li>
@@ -152,13 +152,11 @@
 
         <!--clean the current tab and display the words tab in each group-->
         <div id="wordContainer" class="hidden">
-        <p class="words-meaning" data-group="New word"></p>
-        <p class="words-meaning"></p>
-        <ul>
-            <li>word palabra</li>
-        </ul>
-        
-
+            <p class="words-meaning" data-group="New word"></p>
+            <p class="words-meaning"></p>
+            <ul>
+                <li>word palabra</li>
+            </ul>
         </div>
     </div>
 </body>
