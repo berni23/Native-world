@@ -28,7 +28,7 @@
 
 <body>
     <div class="info-window"></div>
-    <div class="container login-page invisible">
+    <div class="container login-page invisible hidden">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 login-box">
                 <div class="col-lg-12 login-key ">
@@ -91,7 +91,7 @@
             </div>
         </div>
     </div>
-    <div class="dashboard hidden invisible">
+    <div class="dashboard">
         <div class="navbar">
             <ul class="nav-links">
                 <li><a href="#" target="_blank" id="dashboard"></a>Dashboard</li>
@@ -131,6 +131,62 @@
                 <p>Others</p>
             </div>
         </div>
+
+        <!--clean the current tab and display the words tab in each group-->
+        <div id="wordContainer" class="hidden words-container">
+
+
+            <!-- <p class="words-meaning" data-group="New word"></p>
+            <p class="words-meaning"></p>
+            <ul>
+                <li>word palabra</li>
+            </ul>-->
+
+
+            <div class="word">
+                <span class="wordName"> word</span><span class="translation"> translation</span>
+            </div>
+
+            <div class="word">
+                <span class="wordName"> word</span><span class="translation"> translationoijojiojjijoijoijji</span>
+            </div>
+
+            <div class="word">
+                <span class="wordName"> word</span><span class="translation"> translation</span>
+            </div>
+            <div class="word">
+                <span class="wordName"> word</span><span class="translation"> translation</span>
+            </div>
+            <div class="word">
+                <span class="wordName"> word</span><span class="translation"> translation</span>
+            </div>
+            <div class="word">
+                <span class="wordName"> word</span><span class="translation"> translation</span>
+            </div>
+            <div class="word">
+                <span class="wordName"> word</span><span class="translation"> translation</span>
+            </div>
+            <div class="word">
+                <span class="wordName"> word</span><span class="translation"> translation</span>
+            </div>
+            <div class="word">
+                <span class="wordName"> word</span><span class="translation"> translation</span>
+            </div>
+            <div class="word">
+                <span class="wordName"> word</span><span class="translation"> translation</span>
+            </div>
+
+            <div class="word">
+                <span class="wordName"> word</span><span class="translation"> translation</span>
+            </div>
+            <div class="word">
+                <span class="wordName"> word</span><span class="translation"> translation</span>
+            </div>
+            <div class="word">
+                <span class="wordName"> word</span><span class="translation"> translation</span>
+            </div>
+
+        </div>
         <!-- Modal -->
         <div class="modal" id="modal-name">
             <div class="modal-sandbox"></div>
@@ -148,15 +204,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!--clean the current tab and display the words tab in each group-->
-        <div id="wordContainer" class="hidden">
-            <p class="words-meaning" data-group="New word"></p>
-            <p class="words-meaning"></p>
-            <ul>
-                <li>word palabra</li>
-            </ul>
         </div>
     </div>
 </body>

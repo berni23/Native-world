@@ -15,11 +15,13 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 ul {
     margin: auto;
     padding: 10px;
+    list-style-type: none;
 }
 
 li {
@@ -345,7 +347,6 @@ DASHBOARD
 }
 
 .nav-links li {
-    list-style-type: none;
     display: inline;
     padding: 0 18px;
     cursor: pointer;
@@ -371,16 +372,25 @@ DASHBOARD
     font-size: 40px
 }
 
-.cards-container {
+.cards-container,
+.words-container {
     display: flex;
-    margin: 200px auto;
+    margin: 100px auto;
     flex-wrap: wrap;
     border-radius: 5px;
     justify-content: space-between;
+    overflow: auto;
     /*box-shadow: 2px 2px 57px 5px rgb(0 0 0);*/
 }
 
-.box {
+.words-container {
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+}
+
+.box,
+.word {
     background-color: #d6e0f0;
     padding: 15px;
     text-align: center;
@@ -388,6 +398,19 @@ DASHBOARD
     font-size: 22px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.word {
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    padding: 0 25px;
+    justify-content: space-between;
+}
+
+
+.word span {
+    margin: 10px 20px;
 }
 
 .add-button {
@@ -487,7 +510,6 @@ DASHBOARD
 }
 
 #addWord li {
-    list-style-type: none;
     text-align: center;
     padding: 25px;
 }

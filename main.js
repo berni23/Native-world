@@ -32,10 +32,10 @@ $(document).ready(function () {
             var language = event.target.dataset.language;
             console.log('data-language', language);
             currentLanguage = currentUser.languages[language]; // objecto language
-        } else if ($(event.target.hasClass('box'))) {
+        } else if ($(event.target).hasClass('box')) {
             var groupName = event.target.dataset.group;
             currentGroup = currentLanguage.groups[groupName];
-             populateWords()
+            populateWords()
         }
     })
 
@@ -60,10 +60,10 @@ $(document).ready(function () {
 
     /* when user click on boxes */
 
-    $(".box").click(function() {
-       // cardsContainer.empty('');
+    $(".box").click(function () {
+        // cardsContainer.empty('');
         // $("#wordContained").append(populateOnWords)
-        
+
         cardsContainer.addClass('hidden');
         wordContainer.removeClass('hidden')
     })
@@ -150,17 +150,18 @@ $(document).ready(function () {
 
     /*Function: populateWord */
     function populateOneWord(word) {
-        $('<p class="words-meaning" data-group="" '+ word.name +'"></p><ul><li>' + word.name + '</li></ul>');
+        $('<p class="words-meaning" data-group="" ' + word.name + '"></p><ul><li>' + word.name + '</li></ul>');
         wordsContainer.append(words)
-    
+
     }
+
     function populateWords() {
         var words = currentGroup[words];
-        Objcect.keys(words).forEach(function(word) {
-            
+        Objcect.keys(words).forEach(function (word) {
+
         })
-    } 
-    
+    }
+
     /* API*/
 
     var ENDPOINT_LANGUAGE_CODES = 'https://gist.githubusercontent.com/piraveen/fafd0d984b2236e809d03a0e306c8a4d/raw/4258894f85de7752b78537a4aa66e027090c27ad/'
