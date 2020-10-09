@@ -387,6 +387,7 @@ DASHBOARD
     color: black;
     font-size: 22px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .add-button {
@@ -456,6 +457,10 @@ DASHBOARD
     cursor: pointer;
 }
 
+#wordsContainer {
+    background-color: white;
+    display: flex;
+}
 
 /* Aditional Styles */
 
@@ -467,23 +472,6 @@ DASHBOARD
     cursor: pointer;
     outline: none;
 }
-
-/*.modal-trigger {
-    position: absolute;
-    top: 70%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    transition: ease 0.2s;
-}
-
-
-.modal-trigger:hover {
-    padding: 20px 60px;
-}
-*/
 
 /*Form Area*/
 #addWord label {

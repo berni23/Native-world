@@ -8,11 +8,14 @@ $(document).ready(function () {
     var infoWindow = $(".info-window");
     var languageList = $(".select-language");
     var cardsContainer = $(".cards-container");
+    var wordContainer = $("#wordContainer");
     var addGroupInput = $(".add-group-input");
     var users = getUsers();
     var lanObj;
     var currentUser;
     var currentLanguage;
+    var currentGroup;
+
     /* to speed up debugging  */
     inputName.val('bernat');
     inputPassword.val('12345AAA')
@@ -30,24 +33,11 @@ $(document).ready(function () {
             console.log('data-language', language);
             currentLanguage = currentUser.languages[language]; // objecto language
         } else if ($(event.target.hasClass('box'))) {
-
-            // populateWords(event.target.dataset.group)
-            //
+            var groupName = event.target.dataset.group;
+            currentGroup = currentLanguage.groups[groupName];
+             populateWords()
         }
     })
-
-
-    // similar to populateGroup, look at such implementation for insipiration
-
-    /* populateWords(groupName) {
-         cardsContainer.empty();
-         var words = currentLanguage[groupName].words
-         populateOnwWord
-
-
-     }
-
-     */
 
     $('.buttonBack').click(backToLogin);
 
@@ -66,6 +56,18 @@ $(document).ready(function () {
             "display": "none"
         });
     });
+
+
+    /* when user click on boxes */
+
+    $(".box").click(function() {
+       // cardsContainer.empty('');
+        // $("#wordContained").append(populateOnWords)
+        
+        cardsContainer.addClass('hidden');
+        wordContainer.removeClass('hidden')
+    })
+
 
     /* get  languages object*/
     function login() {
@@ -133,7 +135,6 @@ $(document).ready(function () {
         cardsContainer.append(groupContainer);
     }
 
-
     function createGroup() {
         //else if ($(event.target).hasClass('.add-group-input')) createGroup();
         console.log('groupCreated');
@@ -147,7 +148,19 @@ $(document).ready(function () {
         }
     }
 
-
+    /*Function: populateWord */
+    function populateOneWord(word) {
+        $('<p class="words-meaning" data-group="" '+ word.name +'"></p><ul><li>' + word.name + '</li></ul>');
+        wordsContainer.append(words)
+    
+    }
+    function populateWords() {
+        var words = currentGroup[words];
+        Objcect.keys(words).forEach(function(word) {
+            
+        })
+    } 
+    
     /* API*/
 
     var ENDPOINT_LANGUAGE_CODES = 'https://gist.githubusercontent.com/piraveen/fafd0d984b2236e809d03a0e306c8a4d/raw/4258894f85de7752b78537a4aa66e027090c27ad/'
@@ -270,102 +283,5 @@ $(document).ready(function () {
         hideProfile();
         showDashBoard();
     }
-
-    /* ===============js for index2.html ???? ===============*/
-
-
-
-    /* Add words 
-    var addButton = document.getElementById('addButton');
-    var addInput = document.getElementById('itemInput');
-    var listArray = [];
-
-    function listItemObj(content) {
-        this.content = '';
-    }
-    var changeToComp = function () {
-        var parent = this.parentElement;
-    }
-    var removeItem = function () {
-        var parent = this.parentElement.parentElement;
-        parent.removeChild(this.parentElement);
-        var data = this.parentElement.firstChild.innerText;
-        for (var i = 0; i < listArray.length; i++) {
-            if (listArray[i].content == data) {
-                listArray.splice(i, 1);
-                refreshLocal();
-                break;
-            }
-        }
-    }
-    //function to change the words list array
-    var changeListArray = function (data, status) {
-        for (var i = 0; i < listArray.length; i++) {
-            if (listArray[i].content == data) {
-                listArray[i].status = status;
-                refreshLocal();
-                break;
-            }
-        }
-    }
-    //function to chage the dom of the words list
-    var createItemDom = function (text, status) {
-        var listItem = document.createElement('p');
-        var itemLabel = document.createElement('label');
-        var itemCompBtn = document.createElement('p');
-        var itemIncompBtn = document.createElement('p');
-        itemLabel.innerText = text;
-        //itemIncompBtn.className = 'btn btn-danger';
-        listItem.appendChild(itemLabel);
-        listItem.appendChild(itemCompBtn);
-        listItem.appendChild(itemIncompBtn);
-        return listItem;
-    }
-    var refreshLocal = function () {
-        var words = listArray;
-        localStorage.setItem('addWord', JSON.stringify(words));
-    }
-    var addToList = function () {
-        var newItem = new listItemObj();
-        newItem.content = addInput.value;
-        listArray.push(newItem);
-        //add to the local storage
-        refreshLocal();
-        //change the dom
-        var item = createItemDom(addInput.value);
-        addWord.appendChild(item);
-        addInput.value = '';
-    }
-
-    //function to clear words list array
-    var clearList = function () {
-        listArray = [];
-        localStorage.removeItem('addWord');
-        addWord.innerHTML = '';
-
-    }
-
-    window.onload = function () {
-        var list = localStorage.getItem('addWord');
-
-        if (list != null) {
-            words = JSON.parse(list);
-            listArray = words;
-
-            for (var i = 0; i < listArray.length; i++) {
-                var data = listArray[i].content;
-
-                var item = createItemDom(data, listArray[i].status);
-                addWord.appendChild(item);
-            }
-
-        }
-
-    };
-    //add an event binder to the button
-    addButton.addEventListener('click', addToList);
-    clearButton.addEventListener('click', clearList);
-
-     */
 
 });
