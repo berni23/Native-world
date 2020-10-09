@@ -1,27 +1,37 @@
 $(document).ready(function () {
+
     /* main sections*/
     var loginPage = $(".login-page");
     var userProfile = $(".userProfile");
     var dashBoard = $(".dashboard");
+
+    /* inputs*/
     var inputName = $("#user-name");
     var inputPassword = $("#password-input");
-    var infoWindow = $(".info-window");
-    var languageList = $(".select-language");
-    var cardsContainer = $(".cards-container");
-    var wordContainer = $("#wordContainer");
     var addGroupInput = $(".add-group-input");
+
+    /* user profile*/
+    var lanObj;
+    var languageList = $(".select-language");
     var ENDPOINT_FLAGS = "https://www.countryflags.io/";
     var languagesWrapper = $('.languages-wrapper');
-    var lanObj;
+
+    /* dashboard*/
+    var cardsContainer = $(".cards-container");
+    var wordContainer = $("words-container");
+
+    /* show messages to the user*/
+    var infoWindow = $(".info-window");
+
     /* global vars as reference to current object */
     var users = getUsers();
-    var currentUser;
-    var currentLanguage;
+    var currentUser = users.getUser('bernat');
+    var currentLanguage = currentUser.languages['Arabic'];
     var currentGroup;
 
     /* to speed up debugging  */
     inputName.val('bernat');
-    inputPassword.val('12345AAA')
+    inputPassword.val('12345AAA');
 
     /* fadein effect*/
     loginPage.removeClass('invisible');
@@ -32,10 +42,20 @@ $(document).ready(function () {
         else if (event.target.id == "register-btn") register();
         else if ($(event.target).hasClass('btn-add-language')) newLanguage();
         else if ($(event.target).hasClass('profile-languages') && !$(event.target).hasClass('modal-trigger')) {
-            goToDashboard(event.target);
-            populateDashboard(event.target)
             var language = event.target.dataset.language;
-            currentLanguage = currentUser.languages[language]; // objecto language
+            currentLanguage = currentUser.languages[language]; //  global reference to current language
+            goToDashboard();
+            populateGroups();
+        } else if ($(event.target).hasClass('box') || $(event.target).parent().hasClass('box')) {
+            var groupName = $(event.target).data("group") ? $(event.target).data("group") : $(event.target).parent().data("group");
+
+            console.log('event target', $(event.target))
+            console.log('groupNAme from dataset', groupName);
+            currentGroup = currentLanguage.groups[groupName]; // global reference to current group
+
+            console.log('currentGroup', currentGroup);
+            goToWords();
+            populateWords();
         } else if ($(event.target).hasClass('backToGroups')) backToGroups();
     })
 
@@ -57,16 +77,6 @@ $(document).ready(function () {
         });
     });
 
-    $(".box").click(function (event) {
-        var groupName = event.target.dataset.group;
-        currentGroup = currentLanguage.groups[groupName];
-        goToWords();
-        populateWords();
-        cardsContainer.addClass('hidden');
-        wordContainer.removeClass('hidden');
-    })
-
-
     /* get  languages object*/
     function login() {
         if (validateRegister("#user-name", "#password-input")) {
@@ -87,13 +97,11 @@ $(document).ready(function () {
         var password = inputPassword.val();
         if (users.userExist(userName)) message('user already exists, please choose another username')
         else if (validateRegister("#user-name", "#password-input")) {
-
             currentUser = users.setUser(userName, password);
             users.save();
             message('register successful!');
             goToProfile();
             populateUserProfile();
-
         }
     }
 
@@ -113,30 +121,36 @@ $(document).ready(function () {
         languagesWrapper.append(lanContainer);
     }
 
-    function populateDashboard(eventTarget) {
-        var language = eventTarget.dataset.language;
-        console.log(currentUser);
-        currentLanguage = currentUser.languages[language]; // objecto language
-        populateGroups(currentLanguage.groups);
-    }
+    function populateGroups() {
+        var keys = Object.keys(currentLanguage.groups)
 
-    function populateGroups(groups) {
-        Object.keys(groups).forEach(function (item) {
-            populateOneGroup(groups[item]);
+        if (!keys.length) emptyGroup();
+        keys.forEach(function (item) {
+            populateOneGroup(currentLanguage.groups[item]);
         })
     }
 
+    function emptyGroup() {
+        var emptyMessage = $('<div class="empty-message"> <p> Click the plus button to create your first group of words </p> <span class = "iconify empty-icon" data-icon = "fa-solid:box-open"data - inline = "false"> </span> </div>');
+        cardsContainer.append(emptyMessage)
+    }
+
     function populateOneGroup(group) {
-        var groupContainer = $('<div class="box col-md-3" data-group="' + group.name + '"><p>' + group.name + '</p></div>');
+        console.log('oneGroup', group.name);
+        var groupContainer = $('<div class="box" data-group="' + group.name + '"><p>' + group.name + '</p></div>');
         cardsContainer.append(groupContainer);
     }
 
     function createGroup() {
+
+        console.log('currentLanguage', currentLanguage);
         var groupName = addGroupInput.val();
         if (!groupName) message("the name of the group can't be blank.")
-        else if (currentLanguage.groupExists(groupName)) message("the name of the group already exists.");
+        else if (currentLanguage.groupExists(groupName)) message("group already exists.");
         else {
             var newGroup = currentLanguage.setGroup(groupName);
+
+            console.log('newGroup', newGroup);
             populateOneGroup(newGroup);
             users.save();
         }
@@ -145,16 +159,14 @@ $(document).ready(function () {
     /*Function: populateWord */
     function populateOneWord(word) {
         $('<p class="words-meaning" data-group="" ' + word.name + '"></p><ul><li>' + word.name + '</li></ul>');
-        wordsContainer.append(words)
+        wordsContainer.append(words);
 
     }
 
     function populateWords() {
-        var words = currentGroup[words];
-        Objcect.keys(words).forEach(function (word) {
-
-            populateOneWord(word)
-
+        var words = currentGroup.wordsList;
+        Object.keys(words).forEach(function (word) {
+            populateOneWord(word);
         })
     }
 
@@ -175,7 +187,6 @@ $(document).ready(function () {
 
     function newLanguage() {
         var language = $(".select-language :selected");
-
         console.log(language);
         var newLanguage = currentUser.addLanguage(language.text(), language.val());
         console.log(newLanguage);
@@ -276,21 +287,23 @@ $(document).ready(function () {
         showProfile();
     }
 
-    function goToDashboard(eventTarget) {
+    function goToDashboard() {
         hideProfile();
         showDashBoard();
     }
 
     function goToWords() {
         cardsContainer.addClass('hidden');
-        wordContaienr.removeClass('hidden');
-        $('.group-options').removeClass('hidden');
-        $('.word-options').addClass('hidden');
+        wordContainer.removeClass('hidden');
+        $('.group-options').addClass('hidden');
+        $('.dashboard-title').text(currentGroup.name);
+        $('.word-options').removeClass('hidden');
     }
 
     function backToGroups() {
         wordContainer.empty();
         wordContainer.addClass('hidden');
+        $('.dashboard-title').text('Groups of words');
         cardsContainer.removeClass('hidden');
         $('.group-options').removeClass('hidden');
         $('.word-options').addClass('hidden');

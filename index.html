@@ -105,14 +105,12 @@
                 <button id="search-word" type="submit"><i class="fa fa-search"></i></button>
             </form>
             <div class="group-options">
-
                 <div>
                     <button class="modal-trigger add-item" data-modal="modal-name"><i class="fa fa-plus"></i></button>
                     <span>create a group</span>
                 </div>
-
             </div>
-            <div class="word-options">
+            <div class="word-options hidden">
                 <div>
                     <button class="modal-trigger add-item" data-modal="modal-word"><i class="fa fa-plus"></i></button>
                     <span>add a word</span>
@@ -124,29 +122,32 @@
 
             </div>
         </div>
-        <h2 class="dashboard-title"> Groups of words</h2>
+        <h2 class="dashboard-title">Groups of words</h2>
         <div class="cards-container">
+
+
+            <!--    <div class="empty-message">
+                <p>Click the plus button to create your first group of words</p>
+                <span class="iconify empty-icon" data-icon="fa-solid:box-open" data-inline="false"></span>
+            </div>
+               <div class="box" data-group='computer Science'>
+                <p>Computer Science</p>
+            </div>
             <div class="box" data-group='computer Science'>
                 <p>Computer Science</p>
             </div>
-            <div class="box">
-                <p>Serie</p>
+            <div class="box" data-group='computer Science'>
+                <p>Computer Science</p>
             </div>
-            <div class="box">
-                <p>Others</p>
+            <div class="box" data-group='computer Science'>
+                <p>Computer Science</p>
             </div>
-            <div class="box">
-                <p>Others</p>
-            </div>
-            <div class="box">
-                <p>Others</p>
-            </div>
-            <div class="box">
-                <p>Others</p>
-            </div>
+            <div class="box" data-group='computer Science'>
+                <p>Computer Science</p>
+            </div>-->
         </div>
         <!--clean the current tab and display the words tab in each group-->
-        <div id="wordContainer" class="hidden words-container">
+        <div class="hidden words-container">
 
             <div class="word-label">
                 <span class="wordName"> word</span><span class="translation"> translation</span>
@@ -204,7 +205,7 @@
                     <div class="close-modal">&#10006;</div>
                     <div class="add-group-container">
                         <p class="modal-title">Name of new group</p>
-                        <input type="text" class="add-group-input" id="itemInput">
+                        <input type="text" class="add-group-input">
                     </div>
                     <div class="buttons">
                         <button id="addButton-group" class="btn btn-primary close-modal"><i class=" fa
@@ -221,7 +222,7 @@
                     <div class="close-modal">&#10006;</div>
                     <div class="add-group-container">
                         <p class="modal-title">Name of new group</p>
-                        <input type="text" class="add-group-input" id="itemInput">
+                        <input type="text" class="add-group-input">
                     </div>
                     <div class="buttons">
                         <button id="addButton-group" class="btn btn-primary close-modal"><i class="fa

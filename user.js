@@ -93,7 +93,7 @@ class language {
             this.code = code,
             this.groups = {},
             this.groupExists = function (group) {
-                return this.groups[group] == true;
+                return group in this.groups;
             }
 
         this.setGroup = function (nameGroup) {
