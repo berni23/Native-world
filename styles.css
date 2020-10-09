@@ -35,7 +35,7 @@ li {
 }
 
 input {
-    background-color: #0DB8DE;
+    /*background-color: #0DB8DE;*/
     border-top: 0;
     border-radius: 0;
     outline: 1px solid #0DB8DE;
@@ -135,14 +135,12 @@ Class styles
 }
 
 .login-button {
-
     padding: 0 50px;
     text-align: center;
     margin-bottom: 25px;
 }
 
 .login-button {
-
     margin-right: 20px;
 }
 
@@ -235,7 +233,6 @@ Class styles
 }
 
 .languages-wrapper {
-
     overflow: auto;
 }
 
@@ -251,7 +248,6 @@ Class styles
     background-color: white;
     border-radius: 5%;
 }
-
 
 .flag {
     position: relative;
@@ -303,7 +299,6 @@ Class styles
     font-size: 30px;
     margin: auto;
     margin-top: -25px;
-
 }
 
 .icon-new-language {
@@ -326,7 +321,6 @@ DASHBOARD
 
 
 .empty-message {
-
     color: white;
     display: flex;
     flex-direction: column;
@@ -450,7 +444,6 @@ DASHBOARD
     font-size: 1.5rem;
     border-radius: 5px;
     cursor: pointer;
-
 }
 
 .word-label {
@@ -468,8 +461,6 @@ DASHBOARD
     background: transparent;
     color: white;
 }
-
-
 
 .word span {
     margin: 10px 20px;
@@ -490,6 +481,12 @@ DASHBOARD
 .modal,
 .modal-box {
     z-index: 900;
+}
+
+.modal h2 {
+
+    text-align: center;
+    margin-bottom: 50px;
 }
 
 .modal-sandbox {
@@ -582,7 +579,6 @@ DASHBOARD
 
 }
 
-
 #addWord .btn {
     margin-left: 20px;
     display: table-row-group;
@@ -624,12 +620,28 @@ DASHBOARD
 */
 
 
-#addWord {
+.add-group-container {
     text-align: center;
 }
 
-.add-group-container {
-    text-align: center;
+.add-word {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+}
+
+.add-word>p {
+
+    margin-left: 30px;
+    width: 5rem;
+}
+
+.modalInfo-wrapper {
+
+    display: flex;
+    width: 80%;
+    flex-direction: column;
 }
 
 /*---------------------------

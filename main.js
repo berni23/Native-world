@@ -8,7 +8,9 @@ $(document).ready(function () {
     /* inputs*/
     var inputName = $("#user-name");
     var inputPassword = $("#password-input");
-    var addGroupInput = $(".add-group-input");
+    var addGroupInput = $("#add-group-input");
+    var addWordInput = $("#add-word-input");
+    var addTransInput = $("#add-trans-input");
 
     /* user profile*/
     var lanObj;
@@ -18,7 +20,7 @@ $(document).ready(function () {
 
     /* dashboard*/
     var cardsContainer = $(".cards-container");
-    var wordContainer = $("words-container");
+    var wordContainer = $(".words-container");
 
     /* show messages to the user*/
     var infoWindow = $(".info-window");
@@ -48,12 +50,7 @@ $(document).ready(function () {
             populateGroups();
         } else if ($(event.target).hasClass('box') || $(event.target).parent().hasClass('box')) {
             var groupName = $(event.target).data("group") ? $(event.target).data("group") : $(event.target).parent().data("group");
-
-            console.log('event target', $(event.target))
-            console.log('groupNAme from dataset', groupName);
             currentGroup = currentLanguage.groups[groupName]; // global reference to current group
-
-            console.log('currentGroup', currentGroup);
             goToWords();
             populateWords();
         } else if ($(event.target).hasClass('backToGroups')) backToGroups();
@@ -61,8 +58,10 @@ $(document).ready(function () {
 
     $('.buttonBack').click(backToLogin);
     $('#addButton-group').click(createGroup);
+    $('#addButton-word').click(createWord);
 
     /* Modal logic */
+
     $(".modal-trigger").click(function (e) {
         e.preventDefault();
         dataModal = $(this).attr("data-modal");
@@ -77,11 +76,14 @@ $(document).ready(function () {
         });
     });
 
-    /* get  languages object*/
+    /*--------------------
+    Login
+    --------------------*/
+
     function login() {
         if (validateRegister("#user-name", "#password-input")) {
-            var userName = inputName.val();
-            var password = inputPassword.val();
+            var userName = inputName.val().trim();
+            var password = inputPassword.val().trim();
             var newUser = users.getUser(userName);
             if (newUser && newUser.checkPassword(password)) {
                 message('login successful!');
@@ -93,8 +95,8 @@ $(document).ready(function () {
     }
 
     function register() {
-        var userName = inputName.val();
-        var password = inputPassword.val();
+        var userName = inputName.val().trim();
+        var password = inputPassword.val().trim();
         if (users.userExist(userName)) message('user already exists, please choose another username')
         else if (validateRegister("#user-name", "#password-input")) {
             currentUser = users.setUser(userName, password);
@@ -104,6 +106,10 @@ $(document).ready(function () {
             populateUserProfile();
         }
     }
+
+    /*----------------------------
+    User profile
+    ----------------------------*/
 
     function populateUserProfile() {
         console.log(currentUser)
@@ -121,56 +127,16 @@ $(document).ready(function () {
         languagesWrapper.append(lanContainer);
     }
 
-    function populateGroups() {
-        var keys = Object.keys(currentLanguage.groups)
-
-        if (!keys.length) emptyGroup();
-        keys.forEach(function (item) {
-            populateOneGroup(currentLanguage.groups[item]);
-        })
+    function newLanguage() {
+        var language = $(".select-language :selected");
+        console.log(language);
+        var newLanguage = currentUser.addLanguage(language.text(), language.val());
+        console.log(newLanguage);
+        users.save();
+        populateLanguage(newLanguage);
     }
 
-    function emptyGroup() {
-        var emptyMessage = $('<div class="empty-message"> <p> Click the plus button to create your first group of words </p> <span class = "iconify empty-icon" data-icon = "fa-solid:box-open"data - inline = "false"> </span> </div>');
-        cardsContainer.append(emptyMessage)
-    }
-
-    function populateOneGroup(group) {
-        console.log('oneGroup', group.name);
-        var groupContainer = $('<div class="box" data-group="' + group.name + '"><p>' + group.name + '</p></div>');
-        cardsContainer.append(groupContainer);
-    }
-
-    function createGroup() {
-
-        console.log('currentLanguage', currentLanguage);
-        var groupName = addGroupInput.val();
-        if (!groupName) message("the name of the group can't be blank.")
-        else if (currentLanguage.groupExists(groupName)) message("group already exists.");
-        else {
-            var newGroup = currentLanguage.setGroup(groupName);
-
-            console.log('newGroup', newGroup);
-            populateOneGroup(newGroup);
-            users.save();
-        }
-    }
-
-    /*Function: populateWord */
-    function populateOneWord(word) {
-        $('<p class="words-meaning" data-group="" ' + word.name + '"></p><ul><li>' + word.name + '</li></ul>');
-        wordsContainer.append(words);
-
-    }
-
-    function populateWords() {
-        var words = currentGroup.wordsList;
-        Object.keys(words).forEach(function (word) {
-            populateOneWord(word);
-        })
-    }
-
-    /* API*/
+    /* API choose language*/
 
     var ENDPOINT_LANGUAGE_CODES = 'https://gist.githubusercontent.com/piraveen/fafd0d984b2236e809d03a0e306c8a4d/raw/4258894f85de7752b78537a4aa66e027090c27ad/'
     optionLanguages();
@@ -185,32 +151,79 @@ $(document).ready(function () {
         })
     }
 
-    function newLanguage() {
-        var language = $(".select-language :selected");
-        console.log(language);
-        var newLanguage = currentUser.addLanguage(language.text(), language.val());
-        console.log(newLanguage);
-        users.save();
-        populateLanguage(newLanguage);
+    /*--------------------
+    Groups of words
+   ---------------------- */
+
+    function populateGroups() {
+        var keys = Object.keys(currentLanguage.groups);
+        if (!keys.length) emptyGroup();
+        keys.forEach(function (item) {
+            populateOneGroup(currentLanguage.groups[item]);
+        })
     }
 
-    /* UTILS*/
-
-    function validateRegister(inputName, inputPassword) {
-        clearErrors();
-        var nameRgx = /\b.{3,}\b/
-        var errName = "username should contain more than three characters";
-        var passwordRgx = /(?=.*\d)(?=.*[A-Z]).{6,}/;
-        var errPassword = "password must contain an uppercase, a number, and 6 characters minimum"
-        return validate(inputName, nameRgx, errName) && validate(inputPassword, passwordRgx, errPassword);
+    function emptyGroup() {
+        var emptyMessage = $('<div class="empty-message"> <p> Click the plus button to create your first group of words </p> <span class = "iconify empty-icon" data-icon = "fa-solid:box-open"data - inline = "false"> </span> </div>');
+        cardsContainer.append(emptyMessage);
     }
 
-    function message(msg) {
-        infoWindow.text(msg);
-        infoWindow.addClass("show-info");
-        setTimeout(() => infoWindow.removeClass("show-info"), 1500);
+    function populateOneGroup(group) {
+        var groupContainer = $('<div class="box" data-group="' + group.name + '"><p>' + group.name + '</p></div>');
+        cardsContainer.append(groupContainer);
     }
 
+    function createGroup() {
+        var groupName = addGroupInput.val().trim();
+        if (!groupName) message("the name of the group can't be blank.")
+        else if (currentLanguage.groupExists(groupName)) message("group already exists.");
+        else {
+            var newGroup = currentLanguage.setGroup(groupName);
+            populateOneGroup(newGroup);
+            users.save();
+        }
+    }
+
+    /*--------------------
+    words
+   ---------------------- */
+
+    function populateOneWord(word) {
+        $('<p class="words-meaning" data-group="" ' + word.name + '"></p><ul><li>' + word.name + '</li></ul>');
+        wordContainer.append(word);
+    }
+
+    function populateWords() {
+        var words = currentGroup.wordsList;
+        Object.keys(words).forEach(function (word) {
+            populateOneWord(word);
+        })
+    }
+
+    function createWord() {
+        var word = addWordInput.val();
+        var trans = addTransInput.val();
+        if (word == "" || trans == "") message("Please provide a word and a translation");
+        else if (currentGroup.wordExists(word)) message(word + "  already introduced");
+        else {
+            var wordAdded = currentGroup.addWord(word, trans);
+            users.save();
+            message("word successfully added");
+
+            console.log('added word ', wordAdded);
+            populateOneWord(wordAdded);
+
+        }
+        addWordInput.val("");
+        addTransInput.val("");
+    }
+
+    /* ---------------------
+    UTILS
+    ----------------------*/
+
+
+    /* validation */
     function validate(input, condition, errorMsg) {
         let validation = true;
         if (!condition.test($(input).val())) {
@@ -221,6 +234,15 @@ $(document).ready(function () {
         return validation; // true if validation passed, else false
     }
 
+    function validateRegister(inputName, inputPassword) {
+        clearErrors();
+        var nameRgx = /\b.{3,}\b/
+        var errName = "username should contain more than three characters";
+        var passwordRgx = /(?=.*\d)(?=.*[A-Z]).{6,}/;
+        var errPassword = "password must contain an uppercase, a number, and 6 characters minimum"
+        return validate(inputName, nameRgx, errName) && validate(inputPassword, passwordRgx, errPassword);
+    }
+
     // clear form errors
     function clearErrors() {
         var errorMsg = $(".error-msg");
@@ -229,8 +251,15 @@ $(document).ready(function () {
         for (div of errorInput) div.classList.remove("error-input");
     }
 
+    // display a message
+    function message(msg) {
+        infoWindow.text(msg);
+        infoWindow.addClass("show-info");
+        setTimeout(() => infoWindow.removeClass("show-info"), 1500);
+    }
+
     function getImageFlag(code) {
-        return '<span class = "iconify" data - icon = "fxemoji:' + code + 'flag data -inline = "false"> </span>'
+        return '<span class = "iconify" data-icon = "fxemoji:' + code + 'flag data-inline = "false"> </span>'
         //'<img class = "flag" src =' + ENDPOINT_FLAGS + code + '/shiny/64.png> ';
     }
 

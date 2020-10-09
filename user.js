@@ -5,45 +5,7 @@ function getUsers() {
     return new users();
 }
 
-function reviveUsersObject(oldUsers) {
-    oldUsers = reviver(oldUsers, new users())
-    Object.keys(oldUsers.userList).forEach(function (oldUser) {
-        reviveOneUser(oldUsers.userList[oldUser]);
-    });
-    return oldUsers;
-}
 
-function reviveOneUser(oldUser) {
-    reviver(oldUser, new user(''));
-    Object.keys(oldUser.languages).forEach(function (oldLanguage) {
-        reviveLanguage(oldUser.languages[oldLanguage]);
-    })
-}
-
-function reviveLanguage(oldLanguage) {
-    reviver(oldLanguage, new language('', ''));
-    Object.keys(oldLanguage.groups).forEach(function (groupName) {
-        reviveGroups(oldLanguage.groups[groupName]);
-    })
-}
-
-function reviveGroups(oldGroup) {
-    reviver(oldGroup, new group('', ''));
-}
-
-function reviver(oldObj, newObj) {
-    Object.keys(newObj).forEach(function (key) {
-        if (typeof newObj[key] == 'function') oldObj[key] = newObj[key];
-    })
-    return oldObj;
-}
-
-
-function reviveUser(deadUser) {
-    var newUser = new user('', '');
-    deadUser.addLanguage = newUser.addLanguage;
-    deadUser.checkPassword = newUser.checkPassword;
-}
 class users {
     constructor() {
         this.userList = {};
@@ -115,7 +77,7 @@ class group {
     constructor(groupName) {
         this.name = groupName;
         this.wordsList = {};
-        this.addWord = function (wordName, translation) { // extras
+        this.addWord = function (wordName, translation) { //  + extras
             if (!this.wordExists(wordName)) {
                 this.wordsList[wordName] = new word(wordName, translation);
                 return this.wordsList[wordName];
@@ -123,7 +85,7 @@ class group {
             return false;
         }
         this.wordExists = function (wordName) {
-            return this.wordsList[wordName] == true;
+            return wordName in this.wordsList;
         }
     }
 }
@@ -134,6 +96,50 @@ class word {
     }
 }
 
+
+/* revive functions*/
+function reviveUsersObject(oldUsers) {
+    oldUsers = reviver(oldUsers, new users())
+    Object.keys(oldUsers.userList).forEach(function (oldUser) {
+        reviveOneUser(oldUsers.userList[oldUser]);
+    });
+    return oldUsers;
+}
+
+function reviveOneUser(oldUser) {
+    reviver(oldUser, new user(''));
+    Object.keys(oldUser.languages).forEach(function (oldLanguage) {
+        reviveLanguage(oldUser.languages[oldLanguage]);
+    })
+}
+
+function reviveLanguage(oldLanguage) {
+    reviver(oldLanguage, new language('', ''));
+    Object.keys(oldLanguage.groups).forEach(function (groupName) {
+        reviveGroups(oldLanguage.groups[groupName]);
+    })
+}
+
+function reviveGroups(oldGroup) {
+    reviver(oldGroup, new group('', ''));
+}
+
+function reviver(oldObj, newObj) {
+    Object.keys(newObj).forEach(function (key) {
+        if (typeof newObj[key] == 'function') oldObj[key] = newObj[key];
+    })
+    return oldObj;
+}
+
+function reviveUser(deadUser) {
+    var newUser = new user('', '');
+    deadUser.addLanguage = newUser.addLanguage;
+    deadUser.checkPassword = newUser.checkPassword;
+}
+
+
+
+/* utils not dependent on the HTML*/
 function now() {
     var date = new Date();
     var hours = date.getHours();
