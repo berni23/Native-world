@@ -18,6 +18,12 @@ body {
     overflow: hidden;
 }
 
+button {
+    outline: none !important;
+    border: none !important;
+    background: transparent;
+}
+
 ul {
     margin: auto;
     padding: 10px;
@@ -135,7 +141,7 @@ Class styles
     margin-bottom: 25px;
 }
 
-.login-button button {
+.login-button {
 
     margin-right: 20px;
 }
@@ -210,6 +216,7 @@ Class styles
     background-color: transparent;
 }
 
+
 .buttonBack .iconify {
     width: 48px;
     height: 48px;
@@ -277,7 +284,7 @@ Class styles
 }
 
 .languages-wrapper {
-    display: flex;
+    dfisplay: flex;
     flex-wrap: wrap;
     height: 100%;
     margin-top: 230px;
@@ -319,7 +326,6 @@ DASHBOARD
 
 
 .dashboard-title {
-
     color: white;
     text-align: center;
     margin-top: 50px;
@@ -329,18 +335,17 @@ DASHBOARD
 .navbar {
     color: white;
     border-radius: 5px;
+    max-height: 100px;
     margin: auto;
 }
 
 .nav-links {
-    padding: 0;
     margin: auto;
     text-align: center;
 }
 
 
 .nav-links li:hover {
-
     font-size: 2.3rem;
     color: #0DB8DE;
     transition: all 0.3s linear;
@@ -358,6 +363,31 @@ DASHBOARD
     justify-content: space-evenly;
     margin-top: 40px;
     display: flex;
+    color: white;
+}
+
+.search-container>div {
+    display: flex;
+
+}
+
+.search-container>div>div {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-container>div>* {
+    margin-left: 30px;
+}
+
+.search-container span {
+
+    margin-top: 20px;
+}
+
+.search-container i:hover {
+
+    color: #0DB8DE;
 }
 
 .search-bar {
@@ -366,10 +396,17 @@ DASHBOARD
     padding: 8px;
 }
 
-.add-item i {
+
+#search-word {
+    background: transparent;
+}
+
+.add-item i,
+.search-container i {
 
     color: white;
-    font-size: 40px
+    font-size: 40px;
+    background: transparent;
 }
 
 .cards-container,
@@ -390,7 +427,8 @@ DASHBOARD
 }
 
 .box,
-.word {
+.word,
+.word-label {
     background-color: #d6e0f0;
     padding: 15px;
     text-align: center;
@@ -400,7 +438,8 @@ DASHBOARD
     cursor: pointer;
 }
 
-.word {
+.word,
+.word-label {
     width: 100%;
     display: flex;
     margin-top: 20px;
@@ -408,6 +447,12 @@ DASHBOARD
     justify-content: space-between;
 }
 
+
+.word-label {
+
+    background: transparent;
+    color: white;
+}
 
 .word span {
     margin: 10px 20px;
@@ -570,8 +615,6 @@ DASHBOARD
     text-align: center;
 }
 
-
-
 /*---------------------------
 Utilities
 ---------------------------*/
@@ -585,7 +628,6 @@ Utilities
 
 .hidden {
     display: none;
-
 }
 
 

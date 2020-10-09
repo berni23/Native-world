@@ -56,7 +56,6 @@
             </div>
         </div>
     </div>
-    </div>
     <div class="userProfile invisible hidden">
         <button class="buttonBack"><span class="iconify" data-icon="dashicons:arrow-left-alt"
                 data-inline="false"></span></button>
@@ -85,7 +84,7 @@
                     </div>
                     <div class="buttons">
                         <button class="btn btn-primary btn-add-language close-modal"> Add language</button>
-                        <button class="btn btn-danger  close-modal">Cancel</button>
+                        <button class="btn btn-danger close-modal">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -105,11 +104,26 @@
                 <input class="search-bar" type="text" placeholder="Search.." name="search">
                 <button id="search-word" type="submit"><i class="fa fa-search"></i></button>
             </form>
-            <div class="add-button">
-                <a href="#" class="modal-trigger add-item" data-modal="modal-name"><i class="fa fa-plus"></i></a>
+            <div class="group-options">
+
+                <div>
+                    <button class="modal-trigger add-item" data-modal="modal-name"><i class="fa fa-plus"></i></button>
+                    <span>create a group</span>
+                </div>
+
+            </div>
+            <div class="word-options">
+                <div>
+                    <button class="modal-trigger add-item" data-modal="modal-word"><i class="fa fa-plus"></i></button>
+                    <span>add a word</span>
+                </div>
+                <div> <button class="backToGroups"><i class="fa fa-chevron-left"></i>
+                    </button>
+                    <span>back to groups</span>
+                </div>
+
             </div>
         </div>
-
         <h2 class="dashboard-title"> Groups of words</h2>
         <div class="cards-container">
             <div class="box" data-group='computer Science'>
@@ -131,17 +145,12 @@
                 <p>Others</p>
             </div>
         </div>
-
         <!--clean the current tab and display the words tab in each group-->
         <div id="wordContainer" class="hidden words-container">
 
-
-            <!-- <p class="words-meaning" data-group="New word"></p>
-            <p class="words-meaning"></p>
-            <ul>
-                <li>word palabra</li>
-            </ul>-->
-
+            <div class="word-label">
+                <span class="wordName"> word</span><span class="translation"> translation</span>
+            </div>
 
             <div class="word">
                 <span class="wordName"> word</span><span class="translation"> translation</span>
@@ -199,6 +208,23 @@
                     </div>
                     <div class="buttons">
                         <button id="addButton-group" class="btn btn-primary close-modal"><i class=" fa
+                        fa-plus"></i></button>
+                        <button id="clearButton" class="btn btn-danger close-modal"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="modal-word">
+            <div class="modal-sandbox"></div>
+            <div class="modal-box">
+                <div class="modal-header">
+                    <div class="close-modal">&#10006;</div>
+                    <div class="add-group-container">
+                        <p class="modal-title">Name of new group</p>
+                        <input type="text" class="add-group-input" id="itemInput">
+                    </div>
+                    <div class="buttons">
+                        <button id="addButton-group" class="btn btn-primary close-modal"><i class="fa
                         fa-plus"></i></button>
                         <button id="clearButton" class="btn btn-danger close-modal"><i class="fa fa-trash"></i></button>
                     </div>

@@ -10,8 +10,11 @@ $(document).ready(function () {
     var cardsContainer = $(".cards-container");
     var wordContainer = $("#wordContainer");
     var addGroupInput = $(".add-group-input");
-    var users = getUsers();
+    var ENDPOINT_FLAGS = "https://www.countryflags.io/";
+    var languagesWrapper = $('.languages-wrapper');
     var lanObj;
+    /* global vars as reference to current object */
+    var users = getUsers();
     var currentUser;
     var currentLanguage;
     var currentGroup;
@@ -22,6 +25,8 @@ $(document).ready(function () {
 
     /* fadein effect*/
     loginPage.removeClass('invisible');
+
+    /* document listener*/
     $(document).click(function (event) {
         if (event.target.id == "login-btn") login();
         else if (event.target.id == "register-btn") register();
@@ -30,19 +35,14 @@ $(document).ready(function () {
             goToDashboard(event.target);
             populateDashboard(event.target)
             var language = event.target.dataset.language;
-            console.log('data-language', language);
             currentLanguage = currentUser.languages[language]; // objecto language
-        } else if ($(event.target).hasClass('box')) {
-            var groupName = event.target.dataset.group;
-            currentGroup = currentLanguage.groups[groupName];
-            populateWords()
-        }
+        } else if ($(event.target).hasClass('backToGroups')) backToGroups();
     })
 
     $('.buttonBack').click(backToLogin);
+    $('#addButton-group').click(createGroup);
 
-    $('#addButton-group').click(createGroup)
-    /* Modals */
+    /* Modal logic */
     $(".modal-trigger").click(function (e) {
         e.preventDefault();
         dataModal = $(this).attr("data-modal");
@@ -57,15 +57,13 @@ $(document).ready(function () {
         });
     });
 
-
-    /* when user click on boxes */
-
-    $(".box").click(function () {
-        // cardsContainer.empty('');
-        // $("#wordContained").append(populateOnWords)
-
+    $(".box").click(function (event) {
+        var groupName = event.target.dataset.group;
+        currentGroup = currentLanguage.groups[groupName];
+        goToWords();
+        populateWords();
         cardsContainer.addClass('hidden');
-        wordContainer.removeClass('hidden')
+        wordContainer.removeClass('hidden');
     })
 
 
@@ -98,8 +96,6 @@ $(document).ready(function () {
 
         }
     }
-    var ENDPOINT_FLAGS = "https://www.countryflags.io/";
-    var languagesWrapper = $('.languages-wrapper');
 
     function populateUserProfile() {
         console.log(currentUser)
@@ -136,8 +132,6 @@ $(document).ready(function () {
     }
 
     function createGroup() {
-        //else if ($(event.target).hasClass('.add-group-input')) createGroup();
-        console.log('groupCreated');
         var groupName = addGroupInput.val();
         if (!groupName) message("the name of the group can't be blank.")
         else if (currentLanguage.groupExists(groupName)) message("the name of the group already exists.");
@@ -158,6 +152,8 @@ $(document).ready(function () {
     function populateWords() {
         var words = currentGroup[words];
         Objcect.keys(words).forEach(function (word) {
+
+            populateOneWord(word)
 
         })
     }
@@ -283,6 +279,21 @@ $(document).ready(function () {
     function goToDashboard(eventTarget) {
         hideProfile();
         showDashBoard();
+    }
+
+    function goToWords() {
+        cardsContainer.addClass('hidden');
+        wordContaienr.removeClass('hidden');
+        $('.group-options').removeClass('hidden');
+        $('.word-options').addClass('hidden');
+    }
+
+    function backToGroups() {
+        wordContainer.empty();
+        wordContainer.addClass('hidden');
+        cardsContainer.removeClass('hidden');
+        $('.group-options').removeClass('hidden');
+        $('.word-options').addClass('hidden');
     }
 
 });
