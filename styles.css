@@ -430,7 +430,7 @@ DASHBOARD
 .words-container {
     flex-direction: column;
     justify-content: center;
-    width: 50%;
+    width: 80%;
 }
 
 .box {
@@ -446,26 +446,68 @@ DASHBOARD
     cursor: pointer;
 }
 
-.word {
-    background-color: #d6e0f0;
-    text-align: center;
-    color: black;
-    font-size: 1.5rem;
-    border-radius: 5px;
-    cursor: pointer;
+
+.wordWrapper,
+.wordLabel-wrapper {
+
     width: 100%;
     display: flex;
-    margin-top: 20px;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.wordLabel-wrapper {
+
+    color: white;
+}
+
+
+.wordWrapper {
+
+    background-color: #d6e0f0;
+}
+
+.editWord,
+.deleteWord,
+.editLabel,
+.deleteLabel {
+    width: 48px;
+    height: 48px;
+    margin: auto;
+    margin-right: 10px;
+    float: left;
+}
+
+.editWord,
+.editLabel {
+
+    margin-left: 50px;
+}
+
+.deleteWord,
+.deleteLabel {
+
+    margin-right: 10px;
+}
+
+.word,
+.word-label {
+    text-align: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 100%;
+    margin: 10px 0;
+    display: flex;
     padding: 0 25px;
     justify-content: space-between;
 }
 
-.word-label {
+/*word-label {
     width: 100%;
     display: flex;
     margin-top: 20px;
     justify-content: space-between;
-    background-color: #d6e0f0;
     padding: 15px;
     text-align: center;
     color: black;
@@ -475,8 +517,10 @@ DASHBOARD
     background: transparent;
     color: white;
 }
+*/
 
-.word span {
+.word span,
+.word-label span {
     margin: 10px 20px;
 }
 

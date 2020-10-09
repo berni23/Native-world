@@ -28,7 +28,7 @@
 
 <body>
     <div class="info-window"></div>
-    <div class="container login-page invisible">
+    <div class="container login-page  hidden invisible">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 login-box">
                 <div class="col-lg-12 login-key ">
@@ -90,7 +90,7 @@
             </div>
         </div>
     </div>
-    <div class="dashboard invisible hidden">
+    <div class="dashboard">
         <div class="navbar">
             <ul class="nav-links">
                 <li><a href="#" target="_blank" id="dashboard"></a>Dashboard</li>
@@ -110,7 +110,8 @@
                     <span>create a group</span>
                 </div>
             </div>
-            <div class="word-options hidden">
+            <div class="word-options">
+                <!-- set to hidden-->
                 <div>
                     <button class="modal-trigger add-item" data-modal="modal-word"><i class="fa fa-plus"></i></button>
                     <span>add a word</span>
@@ -119,40 +120,32 @@
                     </button>
                     <span>back to groups</span>
                 </div>
-
             </div>
         </div>
         <h2 class="dashboard-title">Groups of words</h2>
-        <div class="cards-container">
-
+        <div class="cards-container hidden">
             <!--    <div class="empty-message">
                 <p>Click the plus button to create your first group of words</p>
                 <span class="iconify empty-icon" data-icon="fa-solid:box-open" data-inline="false"></span>
             </div>
                <div class="box" data-group='computer Science'>
                 <p>Computer Science</p>
-            </div>
-            <div class="box" data-group='computer Science'>
-                <p>Computer Science</p>
-            </div>
-            <div class="box" data-group='computer Science'>
-                <p>Computer Science</p>
-            </div>
-            <div class="box" data-group='computer Science'>
-                <p>Computer Science</p>
-            </div>
-            <div class="box" data-group='computer Science'>
-                <p>Computer Science</p>
             </div>-->
         </div>
-        <!--clean the current tab and display the words tab in each group-->
-        <div class="hidden words-container">
-            <div class="word-label">
-                <span class="wordName"> word</span><span class="translation"> translation</span>
+        <div class="words-container">
+            <div class="wordLabel-wrapper" data-id="wordName">
+                <div class="word-label">
+                    <span class="wordName"> word</span><span class="translation"> translation</span>
+                </div>
+                <span class="iconify editLabel" data-icon="typcn-edit" data-inline="false"></span>
+                <span class="iconify deleteLabel" data-icon="entypo:trash" data-inline="false"></span>
             </div>
-
-            <div class="word">
-                <span class="wordName"> word</span><span class="translation"> translation</span>
+            <div class="wordWrapper" data-id="wordName">
+                <div class="word">
+                    <span class="wordName"> word</span><span class="translation"> translation</span>
+                </div>
+                <span class="iconify editWord" data-icon="typcn-edit" data-inline="false"></span>
+                <span class="iconify deleteWord" data-icon="entypo:trash" data-inline="false"></span>
             </div>
         </div>
         <!-- Modal -->

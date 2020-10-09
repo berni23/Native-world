@@ -44,7 +44,7 @@ class user {
             CryptoJS.MD5(password).words.forEach(function (item, i) {
                 if (item != rightPassword[i]) return false;
             })
-            return true
+            return true;
         }
 
         this.deleteLanguage = function (languageName) {

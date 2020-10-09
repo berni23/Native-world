@@ -31,7 +31,7 @@ $(document).ready(function () {
     console.log(users);
     var currentUser = users.getUser('bernat');
     var currentLanguage = currentUser.languages['Arabic'];
-    var currentGroup;
+    var currentGroup = currentLanguage.groups['bla'];
 
     /* to speed up debugging  */
     inputName.val('bernat');
@@ -182,6 +182,8 @@ $(document).ready(function () {
         if (!groupName) message("the name of the group can't be blank.")
         else if (currentLanguage.groupExists(groupName)) message("group already exists.");
         else {
+
+            $('.empty-message').remove();
             var newGroup = currentLanguage.setGroup(groupName);
             populateOneGroup(newGroup);
             users.save();
@@ -193,11 +195,11 @@ $(document).ready(function () {
    ---------------------- */
 
     function populateOneWord(word) {
-
         console.log(word);
-        var wordTranslation = $('<div class = "word" > <span class="wordName">' + word.wordName + '</span><span class="translation">' + word.translation + '</span></div > ')
+        var wordTranslation = $('<div class="wordWrapper" data-id="' + word.wordName + '"> <div class="word"><span>' + word.wordName + '</span><span class="translation">' + word.translation + '</span></div><span class="iconify editWord" data-icon ="typcn-edit" data-inline = "false"></span><span class="iconify deleteWord" data-icon="entypo:trash" data-inline="false"></span></div>');
         wordContainer.append(wordTranslation);
     }
+
 
     function populateWords() {
         var words = currentGroup.wordsList;
