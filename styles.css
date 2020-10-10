@@ -446,10 +446,8 @@ DASHBOARD
     cursor: pointer;
 }
 
-
 .wordWrapper,
 .wordLabel-wrapper {
-
     width: 100%;
     display: flex;
     border-radius: 5px;
@@ -458,13 +456,10 @@ DASHBOARD
 }
 
 .wordLabel-wrapper {
-
     color: white;
 }
 
-
 .wordWrapper {
-
     background-color: #d6e0f0;
 }
 

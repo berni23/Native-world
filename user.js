@@ -39,14 +39,12 @@ class user {
         };
         this.checkPassword = function (password) {
             var rightPassword = this.password.words;
-
-            if (password.length != rightPassword.length) return false
+            //if (password.length != rightPassword.length) return false
             CryptoJS.MD5(password).words.forEach(function (item, i) {
                 if (item != rightPassword[i]) return false;
             })
             return true;
         }
-
         this.deleteLanguage = function (languageName) {
             delete this.languages[languageName];
         }
@@ -60,19 +58,14 @@ class language {
             this.groupExists = function (group) {
                 return group in this.groups;
             }
-
         this.setGroup = function (nameGroup) {
-            if (!this.groupExists(nameGroup)) {
-                this.groups[nameGroup] = new group(nameGroup);
-                return this.groups[nameGroup];
-            }
-            return false;
+            this.groups[nameGroup] = new group(nameGroup);
+            return this.groups[nameGroup];
         }
         this.deleteGroup = function (nameGroup) {
             delete this.groups[nameGroup];
         }
     }
-
 }
 
 
@@ -81,14 +74,17 @@ class group {
         this.name = groupName;
         this.wordsList = {};
         this.addWord = function (wordName, translation) { //  + extras
-            if (!this.wordExists(wordName)) {
-                this.wordsList[wordName] = new word(wordName, translation);
-                return this.wordsList[wordName];
-            }
-            return false;
+            this.wordsList[wordName] = new word(wordName, translation);
+            return this.wordsList[wordName];
         }
         this.wordExists = function (wordName) {
             return wordName in this.wordsList;
+        }
+
+        this.deleteWord = function (wordName) {
+            var deletedWord = this.wordsList[wordName];
+            delete this.wordsList[wordName];
+            return deletedWord;
         }
     }
 }
@@ -100,7 +96,18 @@ class word {
 }
 
 
-/* revive functions*/
+/*-----------------------------
+revive functions
+-------------------------------*/
+
+// generalReviver
+function reviver(oldObj, newObj) {
+    Object.keys(newObj).forEach(function (key) {
+        if (typeof newObj[key] == 'function') oldObj[key] = newObj[key];
+    })
+    return oldObj;
+}
+
 function reviveUsersObject(oldUsers) {
     oldUsers = reviver(oldUsers, new users())
     Object.keys(oldUsers.userList).forEach(function (oldUser) {
@@ -126,20 +133,6 @@ function reviveLanguage(oldLanguage) {
 function reviveGroups(oldGroup) {
     reviver(oldGroup, new group('', ''));
 }
-
-function reviver(oldObj, newObj) {
-    Object.keys(newObj).forEach(function (key) {
-        if (typeof newObj[key] == 'function') oldObj[key] = newObj[key];
-    })
-    return oldObj;
-}
-
-function reviveUser(deadUser) {
-    var newUser = new user('', '');
-    deadUser.addLanguage = newUser.addLanguage;
-    deadUser.checkPassword = newUser.checkPassword;
-}
-
 
 
 /* utils not dependent on the HTML*/

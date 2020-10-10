@@ -28,7 +28,7 @@
 
 <body>
     <div class="info-window"></div>
-    <div class="container login-page  hidden invisible">
+    <div class="container login-page invisible">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 login-box">
                 <div class="col-lg-12 login-key ">
@@ -90,7 +90,7 @@
             </div>
         </div>
     </div>
-    <div class="dashboard">
+    <div class="dashboard invisible hidden">
         <div class="navbar">
             <ul class="nav-links">
                 <li><a href="#" target="_blank" id="dashboard"></a>Dashboard</li>
@@ -110,7 +110,7 @@
                     <span>create a group</span>
                 </div>
             </div>
-            <div class="word-options">
+            <div class="word-options hidden">
                 <!-- set to hidden-->
                 <div>
                     <button class="modal-trigger add-item" data-modal="modal-word"><i class="fa fa-plus"></i></button>
@@ -123,7 +123,7 @@
             </div>
         </div>
         <h2 class="dashboard-title">Groups of words</h2>
-        <div class="cards-container hidden">
+        <div class="cards-container">
             <!--    <div class="empty-message">
                 <p>Click the plus button to create your first group of words</p>
                 <span class="iconify empty-icon" data-icon="fa-solid:box-open" data-inline="false"></span>
@@ -132,7 +132,7 @@
                 <p>Computer Science</p>
             </div>-->
         </div>
-        <div class="words-container">
+        <div class="words-container hidden">
             <div class="wordLabel-wrapper" data-id="wordName">
                 <div class="word-label">
                     <span class="wordName"> word</span><span class="translation"> translation</span>
@@ -144,7 +144,7 @@
                 <div class="word">
                     <span class="wordName"> word</span><span class="translation"> translation</span>
                 </div>
-                <span class="iconify editWord" data-icon="typcn-edit" data-inline="false"></span>
+                <span class="iconify editWord modal-trigger" data-icon="typcn-edit" data-inline="false"></span>
                 <span class="iconify deleteWord" data-icon="entypo:trash" data-inline="false"></span>
             </div>
         </div>
@@ -171,7 +171,7 @@
             <div class="modal-box">
                 <div class="modal-header">
                     <div class="close-modal">&#10006;</div>
-                    <h2 class="center">Add a word</h2>
+                    <h2 class="center"> Add a WORLD</h2>
                     <div class="modalInfo-wrapper">
                         <div class="add-word">
                             <p>word:</p>
@@ -183,6 +183,28 @@
                     </div>
                     <div class="buttons">
                         <button id="addButton-word" class="btn btn-primary close-modal">create</button>
+                        <button class="btn btn-danger close-modal">cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="modal-editWord">
+            <div class="modal-sandbox"></div>
+            <div class="modal-box">
+                <div class="modal-header">
+                    <div class="close-modal">&#10006;</div>
+                    <h2 class="center">Edit the word</h2>
+                    <div class="modalInfo-wrapper">
+                        <div class="add-word">
+                            <p>word:</p>
+                            <input type="text" id="edit-word-input">
+                        </div>
+                        <div class="add-word">
+                            <p>translation</p> <input type="text" id="edit-trans-input">
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button id="editWordButton" class="btn btn-primary close-modal">create</button>
                         <button class="btn btn-danger close-modal">cancel</button>
                     </div>
                 </div>
