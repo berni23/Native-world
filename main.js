@@ -58,6 +58,7 @@ $(document).ready(function () {
             goToWords();
             populateWords();
         } else if ($(event.target).hasClass('editWord') || $(event.target).parent().hasClass('editWord')) modalEditWord($(event.target))
+        else if ($(event.target).hasClass('deleteWord') || $(event.target).parent().hasClass('deleteWord')) deleteWord($(event.target));
     })
 
     editWordBtn.click(editWord);
@@ -255,6 +256,12 @@ $(document).ready(function () {
         addWordInput.val("");
         addTransInput.val("");
     }
+
+    function deleteWord(item) {
+        var wordContainer = item.closest(".wordWrapper");
+        currentGroup.deleteWord(wordContainer.data("id"));
+        wordContainer.remove();
+    }
     /* ---------------------
     UTILS
     ----------------------*/
@@ -365,7 +372,7 @@ $(document).ready(function () {
     }
 
     function backToGroups() {
-        wordContainer.empty();
+        wordContainer.children().not(':first-child').remove(); // empty word container except for the label ( first child)
         wordContainer.addClass('hidden');
         $('.dashboard-title').text('Groups of words');
         cardsContainer.removeClass('hidden');
