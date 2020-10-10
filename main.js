@@ -24,7 +24,6 @@ $(document).ready(function () {
     var editWordInput = $('#edit-word-input');
     var editTransInput = $('#edit-trans-input');
 
-
     /* show messages to the user*/
     var infoWindow = $(".info-window");
 
@@ -57,25 +56,16 @@ $(document).ready(function () {
             goToWords();
             populateWords();
         } else if ($(event.target).hasClass('backToGroups')) backToGroups();
-        else if ($(event.target).hasClass('editWord') || $(event.target).parent().hasClass('editWord')) {
-            var wordName = $(event.target).closest(".wordWrapper").data("id");
-            console.log('wordName', wordName);
-            editWordBtn.data("wordName", wordName);
-            editWordInput.val(wordName);
-            editTransInput.val(currentGroup.wordsList[wordName]['translation']);
-        }
+        else if ($(event.target).hasClass('editWord') || $(event.target).parent().hasClass('editWord')) modalEditWord($(event.target))
     })
 
-
+    editWordBtn.click(editWord);
     $('.buttonBack').click(backToLogin);
     $('#addButton-group').click(createGroup);
-    $('#addButton-word').click(function () {
-        if ($(this).data("status") == "create") createWord();
-        else editWord();
-    });
+    $('#addButton-word').click(createWord);
+
 
     /* Modal logic */
-
     $(".modal-trigger").click(function (e) {
         e.preventDefault();
         dataModal = $(this).attr("data-modal");
@@ -151,7 +141,6 @@ $(document).ready(function () {
     }
 
     /* API choose language*/
-
     var ENDPOINT_LANGUAGE_CODES = 'https://gist.githubusercontent.com/piraveen/fafd0d984b2236e809d03a0e306c8a4d/raw/4258894f85de7752b78537a4aa66e027090c27ad/'
     optionLanguages();
 
@@ -165,9 +154,9 @@ $(document).ready(function () {
         })
     }
 
-    /*--------------------
+    /*-----------------------
         Groups of words
-       ---------------------- */
+    -------------------------*/
 
     function populateGroups() {
         var keys = Object.keys(currentLanguage.groups);
@@ -192,7 +181,6 @@ $(document).ready(function () {
         if (!groupName) message("the name of the group can't be blank.")
         else if (currentLanguage.groupExists(groupName)) message("group already exists.");
         else {
-
             $('.empty-message').remove();
             var newGroup = currentLanguage.setGroup(groupName);
             populateOneGroup(newGroup);
@@ -206,8 +194,10 @@ $(document).ready(function () {
 
     function populateOneWord(word) {
         console.log('word object', word);
-        var wordTranslation = $('<div class="wordWrapper" data-id="' + word.wordName + '"> <div class="word"><span>' + word.wordName + '</span><span class="translation">' + word.translation + '</span></div><span class="iconify editWord" data-icon ="typcn-edit" data-inline = "false"></span><span class="iconify deleteWord" data-icon="entypo:trash" data-inline="false"></span></div>');
+        var wordTranslation = $('<div class="wordWrapper" data-id="' + word.wordName + '"> <div class="word"><span class = "wordName">' + word.wordName + '</span><span class="translation">' + word.translation + '</span></div><span class="iconify editWord" data-icon ="typcn-edit" data-inline = "false"></span><span class="iconify deleteWord" data-icon="entypo:trash" data-inline="false"></span></div>');
         wordContainer.append(wordTranslation);
+
+
     }
 
     function populateWords() {
@@ -227,28 +217,44 @@ $(document).ready(function () {
             users.save();
             message("word successfully added");
             populateOneWord(wordAdded);
-
         }
         addWordInput.val("");
         addTransInput.val("");
     }
 
 
+    function modalEditWord(item) {
+        var wordName = item.closest(".wordWrapper").data("id");
+        editWordBtn.data("wordName", wordName);
+        editWordInput.val(wordName);
+        editTransInput.val(currentGroup.wordsList[wordName]['translation']);
+        $("#modal-editWord").css({
+            "display": "block"
+        })
+    }
+
+
     function editWord() {
-        var word = addWordInput.val();
-        var trans = addTransInput.val();
+        var oldName = editWordBtn.data("wordName");
+        var word = editWordInput.val();
+        var trans = editTransInput.val();
         if (word == "" || trans == "") {
             message("Please provide a word and a translation");
             return
         }
 
-        var wordObject = currentGroup.deleteWord(word);
+        currentGroup.deleteWord(oldName);
         if (currentGroup.wordExists(word)) message(word + "  already introduced");
         else {
-            var wordAdded = currentGroup.addWord(word, trans);
-            users.save();
+            //var wordAdded = currentGroup.addWord(word, trans);
             message("word successfully edited");
-            populateOneWord(wordAdded);
+            $('*[data-id="' + oldName + '"]').data("id", word);
+            $('*[data-id="' + oldName + '"] .wordName').text(word);
+            $('*[data-id="' + oldName + '"] .translation').text(trans);
+            $("#modal-editWord").css({
+                "display": "none"
+            })
+            users.save();
 
         }
         addWordInput.val("");
@@ -299,7 +305,6 @@ $(document).ready(function () {
         return '<span class = "iconify" data-icon = "fxemoji:' + code + 'flag data-inline = "false"> </span>'
         //'<img class = "flag" src =' + ENDPOINT_FLAGS + code + '/shiny/64.png> ';
     }
-
     /* navigate */
 
     function showProfile() {
@@ -374,5 +379,4 @@ $(document).ready(function () {
         $('.group-options').removeClass('hidden');
         $('.word-options').addClass('hidden');
     }
-
 });
