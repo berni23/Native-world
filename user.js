@@ -68,14 +68,15 @@ class language {
     }
 }
 
-
 class group {
     constructor(groupName) {
         this.name = groupName;
         this.wordsList = {};
         this.addWord = function (wordName, translation) { //  + extras
-            this.wordsList[wordName] = new word(wordName, translation);
+            if (typeof wordName == 'object') this.wordsList[wordName.wordName] == wordName;
+            else this.wordsList[wordName] = new word(wordName, translation);
             return this.wordsList[wordName];
+
         }
         this.wordExists = function (wordName) {
             return wordName in this.wordsList;

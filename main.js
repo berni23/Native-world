@@ -4,12 +4,9 @@ $(document).ready(function () {
     var userProfile = $(".userProfile");
     var dashBoard = $(".dashboard");
 
-    /* inputs*/
+    /* login*/
     var inputName = $("#user-name");
     var inputPassword = $("#password-input");
-    var addGroupInput = $("#add-group-input");
-    var addWordInput = $("#add-word-input");
-    var addTransInput = $("#add-trans-input");
 
     /* user profile*/
     var lanObj;
@@ -18,6 +15,11 @@ $(document).ready(function () {
     var languagesWrapper = $('.languages-wrapper');
 
     /* dashboard*/
+
+    var addGroupInput = $("#add-group-input");
+    var addWordInput = $("#add-word-input");
+    var addTransInput = $("#add-trans-input");
+
     var cardsContainer = $(".cards-container");
     var wordContainer = $(".words-container");
     var editWordBtn = $("#editWordButton");
@@ -55,15 +57,14 @@ $(document).ready(function () {
             currentGroup = currentLanguage.groups[groupName]; // global reference to current group
             goToWords();
             populateWords();
-        } else if ($(event.target).hasClass('backToGroups')) backToGroups();
-        else if ($(event.target).hasClass('editWord') || $(event.target).parent().hasClass('editWord')) modalEditWord($(event.target))
+        } else if ($(event.target).hasClass('editWord') || $(event.target).parent().hasClass('editWord')) modalEditWord($(event.target))
     })
 
     editWordBtn.click(editWord);
     $('.buttonBack').click(backToLogin);
     $('#addButton-group').click(createGroup);
     $('#addButton-word').click(createWord);
-
+    $('.backToGroups').click(backToGroups);
 
     /* Modal logic */
     $(".modal-trigger").click(function (e) {
@@ -153,11 +154,9 @@ $(document).ready(function () {
             })
         })
     }
-
     /*-----------------------
         Groups of words
     -------------------------*/
-
     function populateGroups() {
         var keys = Object.keys(currentLanguage.groups);
         if (!keys.length) emptyGroup();
@@ -196,8 +195,6 @@ $(document).ready(function () {
         console.log('word object', word);
         var wordTranslation = $('<div class="wordWrapper" data-id="' + word.wordName + '"> <div class="word"><span class = "wordName">' + word.wordName + '</span><span class="translation">' + word.translation + '</span></div><span class="iconify editWord" data-icon ="typcn-edit" data-inline = "false"></span><span class="iconify deleteWord" data-icon="entypo:trash" data-inline="false"></span></div>');
         wordContainer.append(wordTranslation);
-
-
     }
 
     function populateWords() {
@@ -222,7 +219,6 @@ $(document).ready(function () {
         addTransInput.val("");
     }
 
-
     function modalEditWord(item) {
         var wordName = item.closest(".wordWrapper").data("id");
         editWordBtn.data("wordName", wordName);
@@ -233,20 +229,20 @@ $(document).ready(function () {
         })
     }
 
-
     function editWord() {
         var oldName = editWordBtn.data("wordName");
         var word = editWordInput.val();
         var trans = editTransInput.val();
         if (word == "" || trans == "") {
             message("Please provide a word and a translation");
-            return
+            return;
         }
-
-        currentGroup.deleteWord(oldName);
-        if (currentGroup.wordExists(word)) message(word + "  already introduced");
-        else {
-            //var wordAdded = currentGroup.addWord(word, trans);
+        var oldWord = currentGroup.deleteWord(oldName);
+        if (currentGroup.wordExists(word)) {
+            message("'" + word + "' already introduced");
+            currentGroup.addWord(oldWord) // if the first parameter is an object, the whole object is added instead of creating one
+        } else {
+            currentGroup.addWord(word, trans);
             message("word successfully edited");
             $('*[data-id="' + oldName + '"]').data("id", word);
             $('*[data-id="' + oldName + '"] .wordName').text(word);
@@ -255,16 +251,13 @@ $(document).ready(function () {
                 "display": "none"
             })
             users.save();
-
         }
         addWordInput.val("");
         addTransInput.val("");
-
     }
     /* ---------------------
     UTILS
     ----------------------*/
-
 
     /* validation */
     function validate(input, condition, errorMsg) {
