@@ -66,6 +66,7 @@ $(document).ready(function () {
     $('#addButton-group').click(createGroup);
     $('#addButton-word').click(createWord);
     $('.backToGroups').click(backToGroups);
+    $('#link-userProfile').click(backToProfile);
 
     /* Modal logic */
     $(".modal-trigger").click(function (e) {
@@ -188,7 +189,7 @@ $(document).ready(function () {
         }
     }
 
-    /*----------------------
+    /*------------------------
         words
     -------------------------- */
 
@@ -355,6 +356,13 @@ $(document).ready(function () {
         inputName.val("");
         inputPassword.val("");
         hideLogin();
+        showProfile();
+    }
+
+
+    function backToProfile() {
+        groupContainer.empty();
+        hideDashBoard();
         showProfile();
     }
 
