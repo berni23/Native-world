@@ -19,12 +19,14 @@ $(document).ready(function () {
     var addGroupInput = $("#add-group-input");
     var addWordInput = $("#add-word-input");
     var addTransInput = $("#add-trans-input");
-
     var cardsContainer = $(".cards-container");
     var wordContainer = $(".words-container");
     var editWordBtn = $("#editWordButton");
     var editWordInput = $('#edit-word-input');
     var editTransInput = $('#edit-trans-input');
+    var editGroupBtn = $("#editGroupButton");
+    var deleteGroupBtn = $("#deleteGroupButton");
+    var editGroupInput = $("#edit-group-input");
 
     /* show messages to the user*/
     var infoWindow = $(".info-window");
@@ -47,7 +49,7 @@ $(document).ready(function () {
         if (event.target.id == "login-btn") login();
         else if (event.target.id == "register-btn") register();
         else if ($(event.target).hasClass('btn-add-language')) newLanguage();
-        else if ($(event.target).hasClass('profile-languages') && !$(event.target).hasClass('modal-trigger')) {
+        else if (($(event.target).hasClass('profile-languages') || $(event.target).parent().hasClass('profile-languages')) && !$(event.target).hasClass('modal-trigger')) {
             var language = event.target.dataset.language;
             currentLanguage = currentUser.languages[language]; //  global reference to current language
             goToDashboard();
@@ -59,14 +61,21 @@ $(document).ready(function () {
             populateWords();
         } else if ($(event.target).hasClass('editWord') || $(event.target).parent().hasClass('editWord')) modalEditWord($(event.target))
         else if ($(event.target).hasClass('deleteWord') || $(event.target).parent().hasClass('deleteWord')) deleteWord($(event.target));
+        else if ($(event.target).hasClass('editGroup')) modalEditGroup($(event.target));
+        else if ($(event.target).hasClass('deleteGroup')) modalDeleteGroup($(event.target));
     })
 
     editWordBtn.click(editWord);
+    editGroupBtn.click(editGroup);
+    deleteGroupBtn.click(function () {
+        deleteGroup($(this).data('id'))
+    });
     $('.buttonBack').click(backToLogin);
     $('#addButton-group').click(createGroup);
     $('#addButton-word').click(createWord);
     $('.backToGroups').click(backToGroups);
     $('#link-userProfile').click(backToProfile);
+    $('')
 
     /* Modal logic */
     $(".modal-trigger").click(function (e) {
@@ -173,9 +182,65 @@ $(document).ready(function () {
     }
 
     function populateOneGroup(group) {
-        var groupContainer = $('<div class="box" data-group="' + group.name + '"><p>' + group.name + '</p></div>');
+        var groupContainer = $('<div class="box dropbtn" data-group="' + group.name + '"><p>' + group.name + '</p></div>');
+        var dropDown = $('<div class = "dropdown-content"> <a href = "#" class = "editGroup"> edit name </a> <a href="#" class="deleteGroup">delete group</a></div>');
+        groupContainer.append(dropDown);
         cardsContainer.append(groupContainer);
     }
+
+
+    function modalEditGroup(item) {
+
+        var groupName = item.parent().parent().data("group");
+        editGroupInput.val(groupName);
+        $('#editGroupButton').data("id", groupName);
+        $('#modal-editGroup').css({
+            "display": "block"
+        })
+    }
+
+    function editGroup() {
+        var oldName = editGroupBtn.data("id");
+        var newName = editGroupInput.val();
+        if (newName == "") {
+            message("please provide a group name");
+            return;
+        }
+        var oldGroup = currentLanguage.deleteGroup(oldName);
+        if (currentLanguage.groupExists(newName)) {
+            message("'" + newName + "' already introduced");
+            currentLanguage.setGroup(oldGroup);
+        } else {
+            oldGroup.name = newName;
+            currentLanguage.setGroup(oldGroup); // if the argument type is an object, object added instead of making a new one
+            $("#modal-editGroup").css({
+                "display": "none"
+            })
+            users.save();
+            $('*[data-group="' + oldName + '"]').data("group", newName);
+            $('*[data-group="' + oldName + '"] >p').text(newName);
+        }
+    }
+
+    function modalDeleteGroup(item) {
+        var groupName = item.parent().parent().data("group");
+        deleteGroupBtn.data("id", groupName);
+        $('#modal-deleteGroup').css({
+            "display": "block"
+        })
+    }
+
+    function deleteGroup(groupName) {
+        currentLanguage.deleteGroup(groupName);
+        $('*[data-group="' + groupName + '"]').remove();
+
+        $("#modal-deleteGroup").css({
+            "display": "none"
+        })
+        users.save();
+    }
+
+
 
     function createGroup() {
         var groupName = addGroupInput.val().trim();
@@ -188,11 +253,9 @@ $(document).ready(function () {
             users.save();
         }
     }
-
     /*------------------------
         words
     -------------------------- */
-
     function populateOneWord(word) {
         console.log('word object', word);
         var wordTranslation = $('<div class="wordWrapper" data-id="' + word.wordName + '"> <div class="word"><span class = "wordName">' + word.wordName + '</span><span class="translation">' + word.translation + '</span></div><span class="iconify editWord" data-icon ="typcn-edit" data-inline = "false"></span><span class="iconify deleteWord" data-icon="entypo:trash" data-inline="false"></span></div>');
@@ -242,7 +305,7 @@ $(document).ready(function () {
         var oldWord = currentGroup.deleteWord(oldName);
         if (currentGroup.wordExists(word)) {
             message("'" + word + "' already introduced");
-            currentGroup.addWord(oldWord) // if the first parameter is an object, the whole object is added instead of creating one
+            currentGroup.addWord(oldWord); // if the first argument is an object, the whole object is added instead of creating one
         } else {
             currentGroup.addWord(word, trans);
             message("word successfully edited");
@@ -359,9 +422,8 @@ $(document).ready(function () {
         showProfile();
     }
 
-
     function backToProfile() {
-        groupContainer.empty();
+        cardsContainer.empty();
         hideDashBoard();
         showProfile();
     }

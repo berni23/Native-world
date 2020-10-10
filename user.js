@@ -59,11 +59,17 @@ class language {
                 return group in this.groups;
             }
         this.setGroup = function (nameGroup) {
+            if (typeof nameGroup == "object") {
+                this.groups[nameGroup.name] = nameGroup;
+                return this.groups[nameGroup.name];
+            }
             this.groups[nameGroup] = new group(nameGroup);
             return this.groups[nameGroup];
         }
         this.deleteGroup = function (nameGroup) {
+            var groupDeleted = this.groups[nameGroup];
             delete this.groups[nameGroup];
+            return groupDeleted;
         }
     }
 }
@@ -76,12 +82,10 @@ class group {
             if (typeof wordName == 'object') this.wordsList[wordName.wordName] == wordName;
             else this.wordsList[wordName] = new word(wordName, translation);
             return this.wordsList[wordName];
-
         }
         this.wordExists = function (wordName) {
             return wordName in this.wordsList;
         }
-
         this.deleteWord = function (wordName) {
             var deletedWord = this.wordsList[wordName];
             delete this.wordsList[wordName];
@@ -95,7 +99,6 @@ class word {
         this.translation = translation;
     }
 }
-
 
 /*-----------------------------
 revive functions
@@ -134,7 +137,6 @@ function reviveLanguage(oldLanguage) {
 function reviveGroups(oldGroup) {
     reviver(oldGroup, new group('', ''));
 }
-
 
 /* utils not dependent on the HTML*/
 function now() {

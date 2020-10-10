@@ -133,13 +133,6 @@
                 <span class="iconify editLabel" data-icon="typcn-edit" data-inline="false"></span>
                 <span class="iconify deleteLabel" data-icon="entypo:trash" data-inline="false"></span>
             </div>
-            <!--<div class="wordWrapper" data-id="wordName">
-                <div class="word">
-                    <span class="wordName"> word</span><span class="translation"> translation</span>
-                </div>
-                <span class="iconify editWord modal-trigger" data-icon="typcn-edit" data-inline="false"></span>
-                <span class="iconify deleteWord" data-icon="entypo:trash" data-inline="false"></span>
-            </div>-->
         </div>
         <!-- Modal -->
         <div class="modal" id="modal-name">
@@ -198,6 +191,38 @@
                     </div>
                     <div class="buttons">
                         <button id="editWordButton" class="btn btn-primary">edit</button>
+                        <button class="btn btn-danger close-modal">cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="modal-editGroup">
+            <div class="modal-sandbox"></div>
+            <div class="modal-box">
+                <div class="modal-header">
+                    <div class="close-modal">&#10006;</div>
+                    <h2 class="center">edit group name</h2>
+                    <div class="modalInfo-wrapper">
+                        <div class="add-word">
+                            <input type="text" id="edit-group-input">
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button id="editGroupButton" class="btn btn-primary">edit</button>
+                        <button class="btn btn-danger close-modal">cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="modal-deleteGroup">
+            <div class="modal-sandbox"></div>
+            <div class="modal-box">
+                <div class="modal-header">
+                    <div class="close-modal">&#10006;</div>
+                    <h2 class="center">Are you sure you want to continue? this action can't be undone</h2>
+                    <div class="buttons">
+                        <button id="deleteGroupButton" class="btn btn-primary">delete</button>
                         <button class="btn btn-danger close-modal">cancel</button>
                     </div>
                 </div>
