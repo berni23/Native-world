@@ -48,13 +48,8 @@ $(document).ready(function () {
         if (event.target.id == "login-btn") login();
         else if (event.target.id == "register-btn") register();
         else if ($(event.target).hasClass('btn-add-language')) newLanguage();
-        else if (($(event.target).hasClass('profile-languages') || $(event.target).parent().hasClass('profile-languages')) && !$(event.target).hasClass('modal-trigger')) {
-            var language = event.target.dataset.language;
-            console.log('data language', language);
-            currentLanguage = currentUser.languages[language]; //  global reference to current language
-            goToDashboard();
-            populateGroups();
-        } else if ($(event.target).hasClass('box') || $(event.target).parent().hasClass('box')) {
+        //else if (($(event.target).hasClass('profile-languages') || $(event.target).parent().hasClass('profile-languages')) && !$(event.target).hasClass('modal-trigger')) {
+        else if ($(event.target).hasClass('box') || $(event.target).parent().hasClass('box')) {
             var groupName = $(event.target).data("group") ? $(event.target).data("group") : $(event.target).parent().data("group");
             currentGroup = currentLanguage.groups[groupName]; // global reference to current group
             goToWords();
@@ -146,7 +141,12 @@ $(document).ready(function () {
     }
 
     function populateLanguage(language) {
-        var lanContainer = $('<div class="container row profile-languages" data-language=' + language['name'] + '>' + getImageFlag(language['code']) + '<span class = "language-label">' + language['name'] + '</span></div>');
+        var lanContainer = $('<div class="container row profile-languages"><span class = "language-label">' + language['name'] + '</span></div>');
+        lanContainer.click(function () {
+            currentLanguage = currentUser.languages[language['name']]; //  global reference to current language
+            goToDashboard();
+            populateGroups();
+        })
         languagesWrapper.append(lanContainer);
     }
 
@@ -176,19 +176,36 @@ $(document).ready(function () {
 
     /* API english definition, YANDEX */
     var API_KEY = 'dict.1.1.20201011T152238Z.41523fec98a614e5.13f027bbbb05f475b2af097e5e9fd0b0e8197347';
-    var ENDPOINT_TRANSLATE = 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?/en-';
+
+    // example : https://dictionary.yandex.net/api/v1/dicservice.json/lookup?lang=en-es&text=time&key=dict.1.1.20201011T152238Z.41523fec98a614e5.13f027bbbb05f475b2af097e5e9fd0b0e8197347
+    var ENDPOINT_TRANSLATE = 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?lang=';
     //lang = en-es & text=time & key=dict.1.1.20201011T152238Z.41523fec98a614e5.13f027bbbb05f475b2af097e5e9fd0b0e8197347'
 
+    getavaliableLan();
+    var transOptions;
+
+    function getavaliableLan() {
+        var query = 'https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key=' + API_KEY;
+        axios.get(query).then(function (data) {
+            transOptions = data.data;
+            console.log(transOptions);
+        }).catch(function () {
+            message("language not avaliable  or word not found")
+        })
+    }
 
     function translate() {
         var word = addWordInput.val();
-        var lanCode = currentLanguage.code;
-        var query = ENDPOINT_TRANSLATE + lanCode + '&text=' + word + '&key=' + API_KEY;
-        return axios.get(query).then(function (data) {
-            console.log(data);
-        }).catch(function () {
-            message("language not avaliable for automatfffic translation")
-        })
+        var lanCode = 'en-' + currentLanguage.code;
+        if (!transOptions.includes(lanCode)) message("Sorry, your language is not avaliable");
+        else {
+            var query = ENDPOINT_TRANSLATE + lanCode + '&text=' + word + '&key=' + API_KEY;
+            axios.get(query).then(function (data) {
+                addTransInput.val(data.data.def[0].tr[0].text);
+            }).catch(function () {
+                message("Word not found")
+            })
+        }
     }
 
     /*-----------------------
@@ -203,7 +220,7 @@ $(document).ready(function () {
     }
 
     function emptyGroup() {
-        var emptyMessage = $('<div class="empty-message"> <p> Click the plus button to create your first group of words </p> <span class = "iconify empty-icon" data-icon = "fa-solid:box-open"data - inline = "false"> </span> </div>');
+        var emptyMessage = $('<div class="empty-message"> <p> Click the plus button to create your first group of words </p> <span class = "iconify empty-icon" data-icon = "fa-solid:box-open"data-inline = "false"> </span></div>');
         cardsContainer.append(emptyMessage);
     }
 
@@ -384,11 +401,6 @@ $(document).ready(function () {
         infoWindow.text(msg);
         infoWindow.addClass("show-info");
         setTimeout(() => infoWindow.removeClass("show-info"), 1500);
-    }
-
-    function getImageFlag(code) {
-        return '<span class = "iconify" data-icon = "fxemoji:' + code + 'flag data-inline = "false"> </span>'
-        //'<img class = "flag" src =' + ENDPOINT_FLAGS + code + '/shiny/64.png> ';
     }
     /* navigate */
 
