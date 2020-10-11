@@ -34,6 +34,10 @@ class user {
         this.color = getRandomColor();
         this.languages = {}; // language objects
         this.lastActive = now();
+        // update user. for the moment only updating the 'last active' property, but could be used for further upadtes
+        this.update = function () {
+            this.lastActive = now();
+        }
         this.addLanguage = function (name, code) {
             this.languages[name] = new language(name, code);
             return this.languages[name];

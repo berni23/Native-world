@@ -24,7 +24,7 @@ $(document).ready(function () {
     var editWordInput = $('#edit-word-input');
     var editTransInput = $('#edit-trans-input');
     var editGroupBtn = $("#editGroupButton");
-    var deleteGroupBtn = $("#deleteGroupButton");
+    var deleteGroupBtn = $("#deleteGroupButton")
     var editGroupInput = $("#edit-group-input");
 
     /* show messages to the user*/
@@ -50,6 +50,7 @@ $(document).ready(function () {
         else if ($(event.target).hasClass('btn-add-language')) newLanguage();
         else if (($(event.target).hasClass('profile-languages') || $(event.target).parent().hasClass('profile-languages')) && !$(event.target).hasClass('modal-trigger')) {
             var language = event.target.dataset.language;
+            console.log('data language', language);
             currentLanguage = currentUser.languages[language]; //  global reference to current language
             goToDashboard();
             populateGroups();
@@ -71,6 +72,7 @@ $(document).ready(function () {
         deleteGroup($(this).data('id'))
     });
 
+    $('#btn-apiTranslate').click(translate);
     $('#link-userProfile').click(backToProfile);
     $('#link-dashboard').click(goToDashboard);
     $('.buttonBack').click(backToLogin);
@@ -107,6 +109,8 @@ $(document).ready(function () {
                 currentUser = newUser;
                 goToProfile();
                 populateUserProfile();
+                currentUser.update();
+                users.save();
             } else message('login failed, please check your username and password');
         }
     }
@@ -117,10 +121,11 @@ $(document).ready(function () {
         if (users.userExist(userName)) message('user already exists, please choose another username')
         else if (validateRegister("#user-name", "#password-input")) {
             currentUser = users.setUser(userName, password);
-            users.save();
+            currentUser.update();
             message('register successful!');
             goToProfile();
             populateUserProfile();
+            users.save();
         }
     }
 
@@ -147,7 +152,7 @@ $(document).ready(function () {
 
     function newLanguage() {
         var language = $(".select-language :selected");
-        console.log(language);
+        console.log('selected language:', language);
         var newLanguage = currentUser.addLanguage(language.text(), language.val());
         console.log(newLanguage);
         users.save();
@@ -162,11 +167,30 @@ $(document).ready(function () {
         return axios.get(ENDPOINT_LANGUAGE_CODES).then(function (data) {
             lanObj = data.data;
             Object.keys(lanObj).forEach(function (code) {
-                var lanOption = $('<option value = "' + code + '">' + lanObj[code]['name'] + '</option>')
+                var lanName = lanObj[code]['name'].replace(/;/g, ',');
+                var lanOption = $('<option value = "' + code + '">' + lanName + '</option>')
                 languageList.append(lanOption);
             })
         })
     }
+
+    /* API english definition, YANDEX */
+    var API_KEY = 'dict.1.1.20201011T152238Z.41523fec98a614e5.13f027bbbb05f475b2af097e5e9fd0b0e8197347';
+    var ENDPOINT_TRANSLATE = 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?/en-';
+    //lang = en-es & text=time & key=dict.1.1.20201011T152238Z.41523fec98a614e5.13f027bbbb05f475b2af097e5e9fd0b0e8197347'
+
+
+    function translate() {
+        var word = addWordInput.val();
+        var lanCode = currentLanguage.code;
+        var query = ENDPOINT_TRANSLATE + lanCode + '&text=' + word + '&key=' + API_KEY;
+        return axios.get(query).then(function (data) {
+            console.log(data);
+        }).catch(function () {
+            message("language not avaliable for automatfffic translation")
+        })
+    }
+
     /*-----------------------
         Groups of words
     -------------------------*/
@@ -190,9 +214,7 @@ $(document).ready(function () {
         cardsContainer.append(groupContainer);
     }
 
-
     function modalEditGroup(item) {
-
         var groupName = item.parent().parent().data("group");
         editGroupInput.val(groupName);
         $('#editGroupButton').data("id", groupName);
@@ -235,14 +257,11 @@ $(document).ready(function () {
     function deleteGroup(groupName) {
         currentLanguage.deleteGroup(groupName);
         $('*[data-group="' + groupName + '"]').remove();
-
         $("#modal-deleteGroup").css({
             "display": "none"
         })
         users.save();
     }
-
-
 
     function createGroup() {
         var groupName = addGroupInput.val().trim();
@@ -385,7 +404,6 @@ $(document).ready(function () {
         setTimeout(function () {
             loginPage.removeClass('invisible')
         }, 500)
-
     }
 
     function showDashBoard() {
@@ -393,13 +411,11 @@ $(document).ready(function () {
         setTimeout(function () {
             dashBoard.removeClass('invisible')
         }, 500)
-
     }
 
     function hideProfile() {
         userProfile.addClass('hidden');
         userProfile.addClass('invisible');
-
     }
 
     function hideLogin() {
@@ -433,6 +449,8 @@ $(document).ready(function () {
     function goToDashboard() {
         $(".user-icon2").css("color", currentUser.color);
         $(".lan-dashboard").text(currentLanguage.name);
+        $(".name-dashboard").text(currentUser.userName);
+        console.log(currentUser);
         hideProfile();
         showDashBoard();
         backToGroups();

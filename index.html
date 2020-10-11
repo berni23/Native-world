@@ -28,7 +28,7 @@
 
 <body>
     <div class="info-window"></div>
-    <div class="container login-page invisible hidden">
+    <div class="container login-page invisible">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 login-box">
                 <div class="col-lg-12 login-key ">
@@ -60,7 +60,6 @@
         <button class="buttonBack"><span class="iconify" data-icon="dashicons:arrow-left-alt"
                 data-inline="false"></span></button>
         <div class="profileInfo-wrapper">
-
             <span class="iconify user-icon" data-icon="bx:bxs-user" data-inline="false"></span>
             <!-- <img src="/assets/add-user.png" class="userIcon" />-->
             <div class="profileInfo">
@@ -92,13 +91,14 @@
             </div>
         </div>
     </div>
-    <div class="dashboard">
+    <div class="dashboard invisible hidden">
         <div class="navbar">
-            <span class="lang-dashboard">Language</span>
+            <div class="info-dashboard">
+                <span class="name-dashboard">name</span>
+                <span class="lan-dashboard">Language</span>
+            </div>
             <span class="iconify user-icon2" data-icon="bx:bxs-user" data-inline="false"></span>
             <ul class="nav-links">
-
-
                 </li>
                 <li id="link-dashboard">Dashboard</li>
                 <li id="link-userProfile">User profile</li>
@@ -171,12 +171,14 @@
                             <input type="text" id="add-word-input">
                         </div>
                         <div class="add-word">
-                            <p>translation</p> <input type="text" id="add-trans-input">
+                            <p>translation:</p> <input type="text" id="add-trans-input">
                         </div>
                     </div>
                     <div class="buttons">
+                        <button id="btn-apiTranslate" class=" btn btn-success">translate</button>
                         <button id="addButton-word" class="btn btn-primary close-modal">create</button>
                         <button class="btn btn-danger close-modal">cancel</button>
+
                     </div>
                 </div>
             </div>
@@ -221,7 +223,6 @@
                 </div>
             </div>
         </div>
-
         <div class="modal" id="modal-deleteGroup">
             <div class="modal-sandbox"></div>
             <div class="modal-box">
