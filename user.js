@@ -31,6 +31,7 @@ class user {
     constructor(userName, password) {
         this.userName = userName;
         this.password = CryptoJS.MD5(password);
+        this.color = getRandomColor();
         this.languages = {}; // language objects
         this.lastActive = now();
         this.addLanguage = function (name, code) {
@@ -150,4 +151,14 @@ function now() {
     if (minutes < 10) minutes = "0" + minutes;
     var stringDate = month + "/" + day + "/" + date.getFullYear() + "  at " + hours + ":" + minutes;
     return stringDate;
+}
+
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }

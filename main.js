@@ -15,7 +15,6 @@ $(document).ready(function () {
     var languagesWrapper = $('.languages-wrapper');
 
     /* dashboard*/
-
     var addGroupInput = $("#add-group-input");
     var addWordInput = $("#add-word-input");
     var addTransInput = $("#add-trans-input");
@@ -63,6 +62,7 @@ $(document).ready(function () {
         else if ($(event.target).hasClass('deleteWord') || $(event.target).parent().hasClass('deleteWord')) deleteWord($(event.target));
         else if ($(event.target).hasClass('editGroup')) modalEditGroup($(event.target));
         else if ($(event.target).hasClass('deleteGroup')) modalDeleteGroup($(event.target));
+        else if ($(event.target).id == "link-userProfile") backToProfile();
     })
 
     editWordBtn.click(editWord);
@@ -70,12 +70,13 @@ $(document).ready(function () {
     deleteGroupBtn.click(function () {
         deleteGroup($(this).data('id'))
     });
+
+    $('#link-userProfile').click(backToProfile);
+    $('#link-dashboard').click(goToDashboard);
     $('.buttonBack').click(backToLogin);
     $('#addButton-group').click(createGroup);
     $('#addButton-word').click(createWord);
     $('.backToGroups').click(backToGroups);
-    $('#link-userProfile').click(backToProfile);
-    $('')
 
     /* Modal logic */
     $(".modal-trigger").click(function (e) {
@@ -131,6 +132,7 @@ $(document).ready(function () {
         console.log(currentUser)
         $(".username-profile").text(currentUser.userName);
         $(".last-active").text(currentUser.lastActive);
+        $(".user-icon").css("color", currentUser.color);
         console.log('languages', currentUser.languages)
         var languages = currentUser.languages;
         Object.keys(languages).forEach(function (name) {
@@ -429,8 +431,11 @@ $(document).ready(function () {
     }
 
     function goToDashboard() {
+        $(".user-icon2").css("color", currentUser.color);
+        $(".lan-dashboard").text(currentLanguage.name);
         hideProfile();
         showDashBoard();
+        backToGroups();
     }
 
     function goToWords() {

@@ -58,7 +58,7 @@ Class styles
 .dashboard {
     opacity: 1;
     transition: opacity 1s ease-in;
-    max-width: 980px;
+    max-width: 1200px;
     margin: auto;
 }
 
@@ -209,6 +209,7 @@ Class styles
     position: absolute;
     border-radius: 50%;
     outline: none;
+    top: -30px;
     border: none;
     background-color: transparent;
 }
@@ -229,6 +230,24 @@ Class styles
     float: left;
     opacity: 1;
     transition: opacity 1s ease-in;
+}
+
+.dashboard-profile {
+
+    display: flex;
+    flex-direction: column;
+    font-size: .5rem !important;
+}
+
+.user-icon {
+    width: 200px !important;
+    height: 200px !important;
+}
+
+.user-icon2 {
+
+    width: 50px !important;
+    height: 50px !important;
 }
 
 .languages-wrapper {
@@ -343,7 +362,6 @@ DASHBOARD
 .navbar {
     color: white;
     border-radius: 5px;
-    max-height: 100px;
     margin: auto;
 }
 
@@ -359,6 +377,7 @@ DASHBOARD
     transition: all 0.3s linear;
 }
 
+
 .nav-links li {
     display: inline;
     padding: 0 18px;
@@ -373,6 +392,7 @@ DASHBOARD
     display: flex;
     color: white;
 }
+
 
 .search-container>div {
     display: flex;

@@ -28,7 +28,7 @@
 
 <body>
     <div class="info-window"></div>
-    <div class="container login-page invisible">
+    <div class="container login-page invisible hidden">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 login-box">
                 <div class="col-lg-12 login-key ">
@@ -60,7 +60,9 @@
         <button class="buttonBack"><span class="iconify" data-icon="dashicons:arrow-left-alt"
                 data-inline="false"></span></button>
         <div class="profileInfo-wrapper">
-            <img src="/assets/add-user.png" class="userIcon" />
+
+            <span class="iconify user-icon" data-icon="bx:bxs-user" data-inline="false"></span>
+            <!-- <img src="/assets/add-user.png" class="userIcon" />-->
             <div class="profileInfo">
                 <h5 class="username-profile"> User name</h5>
                 <h6>Last active: <span class="last-active"></span></h6>
@@ -90,20 +92,25 @@
             </div>
         </div>
     </div>
-    <div class="dashboard invisible hidden">
+    <div class="dashboard">
         <div class="navbar">
+            <span class="lang-dashboard">Language</span>
+            <span class="iconify user-icon2" data-icon="bx:bxs-user" data-inline="false"></span>
             <ul class="nav-links">
-                <li id="dashboard">Dashboard</li>
+
+
+                </li>
+                <li id="link-dashboard">Dashboard</li>
                 <li id="link-userProfile">User profile</li>
-                <li id="test"> Test</li>
-                <li id="statics"> Statistics</li>
+                <li id="link-test"> Test</li>
+                <li id="link-statics"> Statistics</li>
             </ul>
         </div>
         <div class="search-container">
-            <form>
+            <div>
                 <input class="search-bar" type="text" placeholder="Search.." name="search">
                 <button id="search-word" type="submit"><i class="fa fa-search"></i></button>
-            </form>
+            </div>
             <div class="group-options">
                 <div>
                     <button class="modal-trigger add-item" data-modal="modal-name"><i class="fa fa-plus"></i></button>
