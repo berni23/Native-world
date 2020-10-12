@@ -3,6 +3,7 @@ $(document).ready(function () {
     var loginPage = $(".login-page");
     var userProfile = $(".userProfile");
     var dashBoard = $(".dashboard");
+    var testBoard = $(".test");
 
     /* login*/
     var inputName = $("#user-name");
@@ -27,14 +28,17 @@ $(document).ready(function () {
     var deleteGroupBtn = $("#deleteGroupButton")
     var editGroupInput = $("#edit-group-input");
 
+    /*test*/
+    var newTest = $("start-new-test");
     /* show messages to the user*/
     var infoWindow = $(".info-window");
 
     /* global vars as reference to current object */
     var users = getUsers();
-    var currentUser // users.getUser('bernat');
-    var currentLanguage //currentUser.languages['Arabic'];
-    var currentGroup // currentLanguage.groups['bla'];
+    var currentUser = users.getUser('bernat');
+    var currentLanguage = currentUser.languages['Spanish, Castilian'];
+    var currentGroup;
+    // currentLanguage.groups['bla'];
 
     /* to speed up debugging  */
     inputName.val('bernat');
@@ -58,7 +62,24 @@ $(document).ready(function () {
         else if ($(event.target).hasClass('deleteWord') || $(event.target).parent().hasClass('deleteWord')) deleteWord($(event.target));
         else if ($(event.target).hasClass('editGroup')) modalEditGroup($(event.target));
         else if ($(event.target).hasClass('deleteGroup')) modalDeleteGroup($(event.target));
-        else if ($(event.target).id == "link-userProfile") backToProfile();
+        else if (event.target.id == "link-userProfile") backToProfile();
+        else if (event.target.id == "link-test") {
+            if (getAllWords().length < 2) message("Please add more words in order to make a test");
+            else goToTest();
+        } else if (event.target.id == "start-test") startTest();
+        else if (event.target.id == "exitTestBtn") {
+
+            resetTest();
+            testBoard.addClass("hidden");
+            goToDashboard();
+        }
+
+    });
+
+    $(document).keydown(function () {
+        var code = event.keyCode ? event.keyCode : event.which;
+        if (!newTest.hasClass('hidden') && code == '8') removeChar();
+        else if (code == '13' && testObject.started) nextWord();
     })
 
     editWordBtn.click(editWord);
@@ -67,7 +88,30 @@ $(document).ready(function () {
         deleteGroup($(this).data('id'))
     });
 
+    var inputTestTranslate = $(".word-translated");
+    var wordToTranslate = $(".word-to-translate");
+    $('.inputTest').on('input', function () {
+        var char = $('.inputTest').val();
+        inputTestTranslate.append(char);
+        $(this).val("");
+    })
+
+    function removeChar() {
+        inputTestTranslate.text(inputTestTranslate.text().slice(0, -1));
+    }
+
+    $('#wordOk').click(function () {
+
+        if (testObject.started) nextWord(false);
+    });
+
+    $('.restart-test').click(function () {
+
+        setTimeout(testObject.started = true, 100)
+
+    })
     $('#btn-apiTranslate').click(translate);
+    $('#link-test').click(goToTest);
     $('#link-userProfile').click(backToProfile);
     $('#link-dashboard').click(goToDashboard);
     $('.buttonBack').click(backToLogin);
@@ -129,11 +173,9 @@ $(document).ready(function () {
     ----------------------------*/
 
     function populateUserProfile() {
-        console.log(currentUser)
         $(".username-profile").text(currentUser.userName);
         $(".last-active").text(currentUser.lastActive);
         $(".user-icon").css("color", currentUser.color);
-        console.log('languages', currentUser.languages)
         var languages = currentUser.languages;
         Object.keys(languages).forEach(function (name) {
             populateLanguage(languages[name]);
@@ -152,9 +194,7 @@ $(document).ready(function () {
 
     function newLanguage() {
         var language = $(".select-language :selected");
-        console.log('selected language:', language);
         var newLanguage = currentUser.addLanguage(language.text(), language.val());
-        console.log(newLanguage);
         users.save();
         populateLanguage(newLanguage);
     }
@@ -176,11 +216,7 @@ $(document).ready(function () {
 
     /* API english definition, YANDEX */
     var API_KEY = 'dict.1.1.20201011T152238Z.41523fec98a614e5.13f027bbbb05f475b2af097e5e9fd0b0e8197347';
-
-    // example : https://dictionary.yandex.net/api/v1/dicservice.json/lookup?lang=en-es&text=time&key=dict.1.1.20201011T152238Z.41523fec98a614e5.13f027bbbb05f475b2af097e5e9fd0b0e8197347
     var ENDPOINT_TRANSLATE = 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup?lang=';
-    //lang = en-es & text=time & key=dict.1.1.20201011T152238Z.41523fec98a614e5.13f027bbbb05f475b2af097e5e9fd0b0e8197347'
-
     getavaliableLan();
     var transOptions;
 
@@ -188,7 +224,6 @@ $(document).ready(function () {
         var query = 'https://dictionary.yandex.net/api/v1/dicservice.json/getLangs?key=' + API_KEY;
         axios.get(query).then(function (data) {
             transOptions = data.data;
-            console.log(transOptions);
         }).catch(function () {
             message("language not avaliable  or word not found")
         })
@@ -203,7 +238,7 @@ $(document).ready(function () {
             axios.get(query).then(function (data) {
                 addTransInput.val(data.data.def[0].tr[0].text);
             }).catch(function () {
-                message("Word not found")
+                message("Word not found");
             })
         }
     }
@@ -295,7 +330,6 @@ $(document).ready(function () {
         words
     -------------------------- */
     function populateOneWord(word) {
-        console.log('word object', word);
         var wordTranslation = $('<div class="wordWrapper" data-id="' + word.wordName + '"> <div class="word"><span class = "wordName">' + word.wordName + '</span><span class="translation">' + word.translation + '</span></div><span class="iconify editWord" data-icon ="typcn-edit" data-inline = "false"></span><span class="iconify deleteWord" data-icon="entypo:trash" data-inline="false"></span></div>');
         wordContainer.append(wordTranslation);
     }
@@ -364,6 +398,75 @@ $(document).ready(function () {
         currentGroup.deleteWord(wordContainer.data("id"));
         wordContainer.remove();
     }
+
+    /*TEST*/
+
+    /* Test object*/
+    var testObject = {
+        wordNum: -1,
+        score: 0,
+        started: false,
+        wordsTest: []
+    }
+
+    function resetTest() {
+        testObject.started = false;
+        testObject.wordNum = -1;
+        testObject.score = 0;
+        testObject.wordsTest = [];
+    }
+
+    function startTest() {
+        $('#inputTest').focus();
+        var arrayWords = getAllWords();
+        testObject.started = true;
+        $('.start-new-test').removeClass('hidden');
+        $('.test-info').addClass('hidden');
+        if (arrayWords.length < 11) testObject.wordsTest = arrayWords;
+        else {
+            for (var i = 0; i < 10; i++) {
+                var pos = Math.floor(Math.random() * arrayWords.length);
+                testObject.wordsTest.push(arrayWords.splice(pos, 1));
+            }
+        }
+        nextWord(true);
+    }
+
+    function getAllWords() {
+        var arrayWords = [];
+        Object.keys(currentLanguage.groups).forEach(function (group) {
+            Object.keys(currentLanguage.groups[group].wordsList).forEach(function (word) {
+                arrayWords.push(currentLanguage.groups[group].wordsList[word])
+            })
+        })
+        return arrayWords;
+    }
+
+    function nextWord(first = false) {
+        if (!first) {
+            var translation = inputTestTranslate.text();
+            if (translation == "") {
+                message("translation can't be blank.");
+                return;
+            };
+            var word = testObject.wordsTest[testObject.wordNum].wordName;
+            // we check if the word introduced corresponds to the right translation
+            if (translation.trim().toUpperCase() === word.trim().toUpperCase()) {
+                testObject.score++;
+                message("correct!!");
+            } else message("Not correct!:(")
+
+        }
+        testObject.wordNum++;
+        if (testObject.wordNum < testObject.wordsTest.length) {
+            wordToTranslate.text(testObject.wordsTest[testObject.wordNum].wordName);
+            inputTestTranslate.text("");
+        } else {
+            message('test finished, you guessed ' + testObject.score + ' words correctly');
+            resetTest();
+        };
+    }
+
     /* ---------------------
     UTILS
     ----------------------*/
@@ -402,7 +505,9 @@ $(document).ready(function () {
         infoWindow.addClass("show-info");
         setTimeout(() => infoWindow.removeClass("show-info"), 1500);
     }
-    /* navigate */
+    /*---------------------------------
+    Navigate trough the site
+    ----------------------------------*/
 
     function showProfile() {
         userProfile.removeClass('hidden');
@@ -462,7 +567,8 @@ $(document).ready(function () {
         $(".user-icon2").css("color", currentUser.color);
         $(".lan-dashboard").text(currentLanguage.name);
         $(".name-dashboard").text(currentUser.userName);
-        console.log(currentUser);
+        $(".main-dashboard").removeClass('hidden');
+        $(".navbar").removeClass('hidden');
         hideProfile();
         showDashBoard();
         backToGroups();
@@ -476,8 +582,14 @@ $(document).ready(function () {
         $('.word-options').removeClass('hidden');
     }
 
+    function goToTest() {
+        $(".main-dashboard").addClass('hidden');
+        $(".navbar").addClass('hidden');
+        testBoard.removeClass('hidden');
+    }
+
     function backToGroups() {
-        wordContainer.children().not(':first-child').remove(); // empty word container except for the label ( first child)
+        wordContainer.children().not(':first-child').remove(); // empty word container except for the label (first child)
         wordContainer.addClass('hidden');
         $('.dashboard-title').text('Groups of words');
         cardsContainer.removeClass('hidden');
