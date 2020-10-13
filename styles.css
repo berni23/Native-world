@@ -148,20 +148,19 @@ Class styles
     margin-bottom: 25px;
 }
 
-.login-button {
-    margin-right: 20px;
-}
-
 .login-text {
     text-align: center;
     color: #A2A4A4;
 }
 
-.loginbttm {
+.login-btm {
     padding: 0px;
     margin-top: 20px;
 }
 
+#login-btn {
+    margin-right: 10px;
+}
 
 .fa-globe {
     color: black;

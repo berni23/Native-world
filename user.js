@@ -30,7 +30,7 @@ class users {
 class user {
     constructor(userName, password) {
         this.userName = userName;
-        this.password = CryptoJS.MD5(password);
+        this.password = CryptoJS.SHA1(password);
         this.color = getRandomColor();
         this.languages = {}; // language objects
         this.lastActive = now();
@@ -44,7 +44,6 @@ class user {
         };
         this.checkPassword = function (password) {
             var rightPassword = this.password.words;
-            //if (password.length != rightPassword.length) return false
             CryptoJS.MD5(password).words.forEach(function (item, i) {
                 if (item != rightPassword[i]) return false;
             })
@@ -83,7 +82,7 @@ class group {
     constructor(groupName) {
         this.name = groupName;
         this.wordsList = {};
-        this.addWord = function (wordName, translation) { //  + extras
+        this.addWord = function (wordName, translation) {
             if (typeof wordName == 'object') this.wordsList[wordName.wordName] == wordName;
             else this.wordsList[wordName] = new word(wordName, translation);
             return this.wordsList[wordName];

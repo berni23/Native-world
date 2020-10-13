@@ -68,7 +68,6 @@ $(document).ready(function () {
             else goToTest();
         } else if (event.target.id == "start-test") startTest();
         else if (event.target.id == "exitTestBtn") {
-
             resetTest();
             testBoard.addClass("hidden");
             goToDashboard();
@@ -100,16 +99,9 @@ $(document).ready(function () {
         inputTestTranslate.text(inputTestTranslate.text().slice(0, -1));
     }
 
-    $('#wordOk').click(function () {
+    $('#wordOk').click(nextWord);
 
-        if (testObject.started) nextWord(false);
-    });
-
-    $('.restart-test').click(function () {
-
-        setTimeout(testObject.started = true, 100)
-
-    })
+    $('#exit-test').click(modalexitTest);
     $('#btn-apiTranslate').click(translate);
     $('#link-test').click(goToTest);
     $('#link-userProfile').click(backToProfile);
@@ -126,12 +118,16 @@ $(document).ready(function () {
         $("#" + dataModal).css({
             "display": "block"
         });
+
     });
 
     $(".close-modal, .modal-sandbox").click(function () {
         $(".modal").css({
             "display": "none"
         });
+
+
+
     });
 
     /*--------------------
@@ -405,6 +401,7 @@ $(document).ready(function () {
     var testObject = {
         wordNum: -1,
         score: 0,
+        nextWord: false,
         started: false,
         wordsTest: []
     }
@@ -414,6 +411,7 @@ $(document).ready(function () {
         testObject.wordNum = -1;
         testObject.score = 0;
         testObject.wordsTest = [];
+        testObject.nexWord = false
     }
 
     function startTest() {
@@ -465,6 +463,19 @@ $(document).ready(function () {
             message('test finished, you guessed ' + testObject.score + ' words correctly');
             resetTest();
         };
+    }
+
+
+    function modalexitTest() {
+        $('#modal-exitTest').css({
+            "display": "block"
+        });
+    }
+
+    function closeModalExit() {
+        $('#modal-exitTest').css({
+            "display": "block"
+        });
     }
 
     /* ---------------------
