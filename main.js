@@ -12,7 +12,6 @@ $(document).ready(function () {
     /* user profile*/
     var lanObj;
     var languageList = $(".select-language");
-    var ENDPOINT_FLAGS = "https://www.countryflags.io/";
     var languagesWrapper = $('.languages-wrapper');
 
     /* dashboard*/
@@ -28,8 +27,13 @@ $(document).ready(function () {
     var deleteGroupBtn = $("#deleteGroupButton")
     var editGroupInput = $("#edit-group-input");
 
+
     /*test*/
     var newTest = $("start-new-test");
+    var inputTestTranslate = $(".word-translated");
+    var wordToTranslate = $(".word-to-translate");
+
+
     /* show messages to the user*/
     var infoWindow = $(".info-window");
 
@@ -87,8 +91,16 @@ $(document).ready(function () {
         deleteGroup($(this).data('id'))
     });
 
-    var inputTestTranslate = $(".word-translated");
-    var wordToTranslate = $(".word-to-translate");
+    $('#wordOk').click(nextWord);
+    $('#exit-test').click(modalexitTest);
+    $('#btn-apiTranslate').click(translate);
+    $('#link-test').click(goToTest);
+    $('#link-userProfile').click(backToProfile);
+    $('#link-dashboard').click(goToDashboard);
+    $('.buttonBack').click(backToLogin);
+    $('#addButton-group').click(createGroup);
+    $('#addButton-word').click(createWord);
+    $('.backToGroups').click(backToGroups);
     $('.inputTest').on('input', function () {
         var char = $('.inputTest').val();
         inputTestTranslate.append(char);
@@ -99,17 +111,6 @@ $(document).ready(function () {
         inputTestTranslate.text(inputTestTranslate.text().slice(0, -1));
     }
 
-    $('#wordOk').click(nextWord);
-
-    $('#exit-test').click(modalexitTest);
-    $('#btn-apiTranslate').click(translate);
-    $('#link-test').click(goToTest);
-    $('#link-userProfile').click(backToProfile);
-    $('#link-dashboard').click(goToDashboard);
-    $('.buttonBack').click(backToLogin);
-    $('#addButton-group').click(createGroup);
-    $('#addButton-word').click(createWord);
-    $('.backToGroups').click(backToGroups);
 
     /* Modal logic */
     $(".modal-trigger").click(function (e) {
@@ -125,8 +126,6 @@ $(document).ready(function () {
         $(".modal").css({
             "display": "none"
         });
-
-
 
     });
 
@@ -204,7 +203,7 @@ $(document).ready(function () {
             lanObj = data.data;
             Object.keys(lanObj).forEach(function (code) {
                 var lanName = lanObj[code]['name'].replace(/;/g, ',');
-                var lanOption = $('<option value = "' + code + '">' + lanName + '</option>')
+                var lanOption = $('<option value = "' + code + '">' + lanName + '</option>');
                 languageList.append(lanOption);
             })
         })
@@ -221,7 +220,7 @@ $(document).ready(function () {
         axios.get(query).then(function (data) {
             transOptions = data.data;
         }).catch(function () {
-            message("language not avaliable  or word not found")
+            message("language not avaliable or word not found")
         })
     }
 
@@ -452,7 +451,7 @@ $(document).ready(function () {
             if (translation.trim().toUpperCase() === word.trim().toUpperCase()) {
                 testObject.score++;
                 message("correct!!");
-            } else message("Not correct!:(")
+            } else message("Not correct!:(");
 
         }
         testObject.wordNum++;
@@ -465,14 +464,7 @@ $(document).ready(function () {
         };
     }
 
-
     function modalexitTest() {
-        $('#modal-exitTest').css({
-            "display": "block"
-        });
-    }
-
-    function closeModalExit() {
         $('#modal-exitTest').css({
             "display": "block"
         });
@@ -514,7 +506,11 @@ $(document).ready(function () {
     function message(msg) {
         infoWindow.text(msg);
         infoWindow.addClass("show-info");
-        setTimeout(() => infoWindow.removeClass("show-info"), 1500);
+        infoWindow.removeClass("hidden");
+        setTimeout(function () {
+            infoWindow.removeClass("show-info");
+            setTimeout(() => infoWindow.addClass("hidden"), 1000);
+        }, 1500);
     }
     /*---------------------------------
     Navigate trough the site
